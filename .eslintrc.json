@@ -13,6 +13,6 @@
     "rules": {
     },
     "ignorePatterns":[
-        "src/*.html", "src/css"
+        "src/*.html", "src/css/*"
     ]
 }

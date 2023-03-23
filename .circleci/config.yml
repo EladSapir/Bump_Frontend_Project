@@ -23,7 +23,7 @@ jobs:
           command: npm run lint
       - run: 
           name: CD - Deploy the service 
-          command: curl "https://frontend-project-o9bu.onrender.com"
+          command: curl "https://api.render.com/deploy/srv-cge4ik02qv2bbhmvoi1g?key=B2AX2K9P8rg"
 
 workflows: 
   example-workflow: 

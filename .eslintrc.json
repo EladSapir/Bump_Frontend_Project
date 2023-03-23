@@ -11,8 +11,5 @@
         "sourceType": "module"
     },
     "rules": {
-    },
-    "ignorePatterns":[
-        "src/*.html", "src/css/*"
-    ]
+    }
 }

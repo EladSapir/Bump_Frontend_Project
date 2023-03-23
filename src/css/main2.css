@@ -317,19 +317,6 @@ label {
    cursor: text;
 }
 
-input(:placeholder-shown) + label {
-  cursor: text;
-  max-width: 66.66%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /*transform-origin: left bottom;*/
-  transform: translate(0, 1rem) scale(1);
-    pointer-events: none;
-	 border:none !important;
-  outline: none !important;
-}
-
 
 input:not(:placeholder-shown) + label,
 input:focus + label {

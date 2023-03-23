@@ -1,91 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Home Page</title>
-</head>
-<body>
-    <main>
-    <nav class="navbar">
-            <img src="images/logo.svg" alt="">
-        <ul>
-            <li><a href="#index">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#new">new</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <div class="content">
-        <div class="column">
-            <img src="images/image-web-3-desktop.jpg" alt="">
-            <div class="row">
-                <div class="title">
-                    <h1>The Bright Future Of Web 3.0</h1>
-                </div>
-                <div class="text">
-                    <p>We dive into the next evolution of web that claims to put the power of the platforms back into  the hands of the people. But is it really fulfilling its promise? </p>
-                    <button>Read More</button>
-                </div>
-            </div>
-        </div>
-        
-            <div class="energy">
-                <div class="first class">
-                    <h2>New</h2>
-                    <p class="title hover">Hydrogen Vs Electric Cars</p>
-                    <p  class="desc">Will Hydrogen-fueled cars ever catch up to EVs?</p>
-                </div>
-                <hr>
-                <div class="second class">
-                    <p  class="title hover">The Downsides of AI Artistry </p>
-                    <p class="desc">What are the possible adverse effects of on-demand AI image generation?</p>
-                </div>     
-                <hr>    
-                <div class="third class">
-                    <p class="title hover">IS VC Funding Drying Up?</p>
-                    <p class="desc">Private funding by VC firms is down 50% YOY. We take a look at what that means.</p>
-                </div>
-                </div>
-      
-    
-    </div>
-    <section id="new">
-        <div class="news">
-            <div class="article first-item">
-                <img src="images/image-retro-pcs.jpg" alt="">
-                <div class="description">
-                 <h1>01</h1>
-                 <h3 class="hover">Reviving Retro PCs</h3>
-                 <p>What happens when old PCs are given modern upgrades?</p>
-                 <p></p>
-                </div>
-            </div>
-            <div class="article second-item">
-                <img src="images/image-gaming-growth.jpg" alt="">
-                <div class="description">
-                 <h1>02</h1>
-                 <h3 class="hover">Reviving Retro PCs</h3>
-                 <p>What happens when old PCs are given modern upgrades?</p>
-                 <p></p>
-                </div>
-            </div>
-            <div class="article third-item">
-                <img src="images/image-top-laptops.jpg" alt="">
-                <div class="description">
-                 <h1>03</h1>
-                 <h3 class="hover">Reviving Retro PCs</h3>
-                 <p>What happens when old PCs are given modern upgrades?</p>
-                 <p></p>
-                </div>
-            </div>
-        </div>
-    </section>
- 
-</main>
-   
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/main2.css">
+  <link href="fonts/css/all.css" rel="stylesheet">
+	<link rel="icon" href="images/icons/favicon.ico" type="image/ico">
 
-</body>
+</head>
+    <body onload="clearForm()">
+
+	<div class="container">
+
+				<div class="wrap-login" id="login-box">
+
+				<form action="" class="login-form" id="main-form" autocomplete="off" formnovalidate >
+								<h1>Sign In</h1>
+  <div class="field" id="field-wrap">
+    <input type="email" name="email" id="email" placeholder="Enter your email" oninput="typeEmail(this.value)" required>
+    <label for="email">Email</label>
+	<span class="underline" id="under-email"></span>
+  </div>
+  	  <div class="emailErr" id="email-error"></div>
+
+
+  <div class="field">
+    <input class="inpt-pass" type="password" name="password" id="pass" placeholder="Enter your password" oninput="typePass(this.value)" required>
+    <label for="pass">Password</label>
+	<span class="show-pass" onclick="shoPass()">
+							<i class="fas fa-eye" id="eye-icon" style="visibility: hidden"></i>
+						</span>
+	<span class="underline" id="under-pass"></span>
+  </div>
+  	      <div class="passErr" id="pass-error"></div>
+
+							<div class="btns">
+							  <a href="#" class="login-btn" id="login">Login</a>
+							  <a href="#" class="forget-btn" id="forget" onclick="showHint()">Forget Password?</a>
+							  <div class="slide-btn" id="slide"></div>
+							</div>
+
+  </form>
+				</div>
+
+<script src="js/main3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+   <script>
+   function endLogin() {
+     anime ({
+	  targets: '#login-box',
+	  duration: 1000,
+	  translateY: -300,
+	  opacity: 0,
+	  easing: 'easeInOutSine',
+	 });
+
+	 //var tnxBox = document.getElementById("tnx-box");
+	 //tnxBox.style.opacity = ("1");
+
+
+	 anime ({
+	  targets: '#tnx-box',
+	  duration: 1500,
+	  translateY: -300,
+	  opacity: 1,
+	  easing: 'easeInOutSine',
+	 });
+
+	 }
+
+	 function showHint() {
+	 anime ({
+	  targets: '#hint-pass',
+	  duration: 600,
+	 translateY: -188,
+	  opacity: (0, 1),
+	  easing: 'easeInOutSine',
+	 });
+	 }
+
+	 function hideHint() {
+	 anime ({
+	  targets: '#hint-pass',
+	  duration: 300,
+	  opacity: 0,
+	  easing: 'easeInOutSine',
+	 });
+	 }
+</script>
+<footer>Hello From YOSSI</footer>
+    </body>
 </html>

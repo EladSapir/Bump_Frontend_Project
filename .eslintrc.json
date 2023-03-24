@@ -12,5 +12,5 @@
     },
     "rules": {
     },
-    "ignorePatterns":["src/*.html"]
+    "ignorePatterns":["*.html"]
 }

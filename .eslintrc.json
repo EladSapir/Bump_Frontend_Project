@@ -11,6 +11,6 @@
         "sourceType": "module"
     },
     "rules": {
-    },
+    }
     // "ignorePatterns":["./*.html"]
 }

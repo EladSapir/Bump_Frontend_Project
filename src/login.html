@@ -1,94 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/main2.css">
-  <link href="fonts/css/all.css" rel="stylesheet">
+	<link href="fonts/css/all.css" rel="stylesheet">
 	<link rel="icon" href="images/icons/favicon.ico" type="image/ico">
 
 </head>
-    <body onload="clearForm()">
+
+<body onload="clearForm()">
 
 	<div class="container">
 
-				<div class="wrap-login" id="login-box">
+		<div class="wrap-login" id="login-box">
 
-				<form action="" class="login-form" id="main-form" autocomplete="off" formnovalidate >
-								<h1>Sign In</h1>
-  <div class="field" id="field-wrap">
-    <input type="email" name="email" id="email" placeholder="Enter your email" oninput="typeEmail(this.value)" required>
-    <label for="email">Email</label>
-	<span class="underline" id="under-email"></span>
-  </div>
-  	  <div class="emailErr" id="email-error"></div>
+			<form action="" class="login-form" id="main-form" autocomplete="off" formnovalidate>
+				<h1>Sign In</h1>
+				<div class="field" id="field-wrap">
+					<input type="email" name="email" id="email" placeholder="Enter your email"
+						oninput="typeEmail(this.value)" required>
+					<label for="email">Email</label>
+					<span class="underline" id="under-email"></span>
+				</div>
+				<div class="emailErr" id="email-error"></div>
 
 
-  <div class="field">
-    <input class="inpt-pass" type="password" name="password" id="pass" placeholder="Enter your password" oninput="typePass(this.value)" required>
-    <label for="pass">Password</label>
-	<span class="show-pass" onclick="shoPass()">
-							<i class="fas fa-eye" id="eye-icon" style="visibility: hidden"></i>
-						</span>
-	<span class="underline" id="under-pass"></span>
-  </div>
-  	      <div class="passErr" id="pass-error"></div>
+				<div class="field">
+					<input class="inpt-pass" type="password" name="password" id="pass" placeholder="Enter your password"
+						oninput="typePass(this.value)" required>
+					<label for="pass">Password</label>
+					<span class="show-pass" onclick="shoPass()">
+						<i class="fas fa-eye" id="eye-icon" style="visibility: hidden"></i>
+					</span>
+					<span class="underline" id="under-pass"></span>
+				</div>
+				<div class="passErr" id="pass-error"></div>
 
-							<div class="btns">
-							  <a href="#" class="login-btn" id="login">Login</a>
-							  <a href="#" class="forget-btn" id="forget" onclick="showHint()">Forget Password?</a>
-							  <div class="slide-btn" id="slide"></div>
-							</div>
-
-  </form>
+				<div class="btns">
+					<a href="#" class="login-btn" id="login">Login</a>
+					<a href="#" class="forget-btn" id="forget" onclick="showHint()">Forget Password?</a>
+					<div class="slide-btn" id="slide"></div>
 				</div>
 
-<script src="js/main3.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
-   <script>
-   function endLogin() {
-     anime ({
-	  targets: '#login-box',
-	  duration: 1000,
-	  translateY: -300,
-	  opacity: 0,
-	  easing: 'easeInOutSine',
-	 });
+			</form>
+		</div>
 
-	 //var tnxBox = document.getElementById("tnx-box");
-	 //tnxBox.style.opacity = ("1");
+		<script src="js/main3.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+		<script>
+			function endLogin() {
+				anime({
+					targets: '#login-box',
+					duration: 1000,
+					translateY: -300,
+					opacity: 0,
+					easing: 'easeInOutSine',
+				});
+
+				//var tnxBox = document.getElementById("tnx-box");
+				//tnxBox.style.opacity = ("1");
 
 
-	 anime ({
-	  targets: '#tnx-box',
-	  duration: 1500,
-	  translateY: -300,
-	  opacity: 1,
-	  easing: 'easeInOutSine',
-	 });
+				anime({
+					targets: '#tnx-box',
+					duration: 1500,
+					translateY: -300,
+					opacity: 1,
+					easing: 'easeInOutSine',
+				});
 
-	 }
+			}
 
-	 function showHint() {
-	 anime ({
-	  targets: '#hint-pass',
-	  duration: 600,
-	 translateY: -188,
-	  opacity: (0, 1),
-	  easing: 'easeInOutSine',
-	 });
-	 }
+			function showHint() {
+				anime({
+					targets: '#hint-pass',
+					duration: 600,
+					translateY: -188,
+					opacity: (0, 1),
+					easing: 'easeInOutSine',
+				});
+			}
 
-	 function hideHint() {
-	 anime ({
-	  targets: '#hint-pass',
-	  duration: 300,
-	  opacity: 0,
-	  easing: 'easeInOutSine',
-	 });
-	 }
-</script>
-<footer>Hello From YOSSI</footer>
-    </body>
+			function hideHint() {
+				anime({
+					targets: '#hint-pass',
+					duration: 300,
+					opacity: 0,
+					easing: 'easeInOutSine',
+				});
+			}
+		</script>
+		<footer>Hello From YOSSI</footer>
+</body>
+
 </html>

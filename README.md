@@ -8,6 +8,8 @@ The frontend of A Site About Nothing is built using the following technologies:
 - CSS3
 - JavaScript
 - Vue.js 
+- Mocha
+- Chai
 
 # Getting Started
 To get started with the frontend of A Site About Nothing, you'll need to follow these steps:

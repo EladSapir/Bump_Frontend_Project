@@ -1,7 +1,7 @@
-#A Site About Nothing - Frontend</br>
+# A Site About Nothing - Frontend</br>
 Welcome to the frontend repository of the "Site About Nothing" project! This repository contains all the code for the frontend portion of the site, which is responsible for rendering the user interface and interacting with the backend to display content to the user.
 
-#Technologies Used
+# Technologies Used
 The frontend of A Site About Nothing is built using the following technologies:
 
 - HTML5

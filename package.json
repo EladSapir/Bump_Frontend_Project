@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx mocha tests/*.spec.js --color",
     "dev": "nodemon main.js",
-    "lint": "eslint src/*.js --color",
+    "lint": "eslint src/router/*.js --color",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },

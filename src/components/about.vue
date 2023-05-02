@@ -1,0 +1,86 @@
+<template>
+    <div class="backdrop" @click="closeAbout">
+            <div class="container">
+                <img id="close" src="../assets/CloseOverlay.svg">
+                <img src="../assets/contact_support.svg">
+                <h1>About</h1>
+                <p>BUMP was founded by a group of six passionate software engineering students from SCE in Israel. As avid
+                    gamers ourselves, we understand the importance of having a supportive community of like-minded
+                    individuals
+                    who share our interests and love for gaming. Our goal is to provide a platform where gamers can connect,
+                    engage, and interact with each other in a fun and safe environment. At BUMP, we believe that gaming is
+                    more
+                    than just a hobby – it's a lifestyle. We aim to create a vibrant and inclusive community.</p>
+                <p>Our team is dedicated to providing the best user experience possible, with features that enable users to
+                    easily find and connect with other gamers, share their experiences, and discover new games and gaming
+                    partners.
+                    We are committed to continuously improving BUMP and listening to our users' feedback to ensure that our
+                    platform remains relevant and enjoyable for everyone. Thank you for joining us on this exciting journey,
+                    and
+                    we look forward to connecting with you in the gaming world!</p>
+            </div>
+        </div>
+</template>
+  
+<script>
+export default {
+    props:
+        ['showAbout'],
+    methods: {
+        closeAbout() {
+            this.$emit('close')
+        }
+    }
+}
+
+</script>
+
+<style scoped>
+.container {
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 150px;
+    height: 60%;
+    width: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2C394B;
+    border: 1px solid #323244;
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+}
+
+.container #close {
+    position: fixed;
+    right: 5px;
+    top: 5px;
+    width: 3%;
+}
+
+.container img {
+    width: 5%;
+}
+
+.backdrop {
+    top: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.692);
+    width: 100%;
+    height: 100%;
+}
+
+.container h1 {
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 65px;
+}
+
+.container p {
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 45px;
+}</style>

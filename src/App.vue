@@ -1,31 +1,46 @@
 <template>
-  <router-view/>
+  <router-view />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
 </template>
 
 <style>
-html {
+html,body {
   font-family: 'Poppins', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  background-image: url(./assets/bgr.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
   margin: 0;
-  padding:0;
-  background-color:#0A0A11;
 }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  text-decoration: none;
+.btn {
+  padding: 30px 60px;
+  background: #E64425;
+  border-radius: 10px;
+  border: none;
+  font-size: 50px;
+  text-align: center;
+  color: #FFFFFF;
   font-weight: bold;
-  color: #FF5810;
+  cursor: pointer;
 }
 
-nav a.router-link-exact-active {
-  color: #FFFDFD;
+.btn:hover {
+  background: #FFFFFF;
+  border: 1.5px solid #E64425;
+  color: #E64425;
+}
+
+.link {
+  text-decoration: none;
+  color: #FFFFFF;
+  height: 100%;
+}
+
+.link:hover {
+  color: #E64425;
 }
 </style>

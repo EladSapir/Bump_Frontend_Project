@@ -50,14 +50,13 @@ export default {
     padding: 10px 50px;
     box-sizing: border-box;
     margin-top: auto;
-    /* push the footer to the bottom of the container */
     flex-shrink: 0;
 }
 
 .left {
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    gap: 30px;
     justify-content: flex-start;
 }
 .addunderline:hover{
@@ -75,7 +74,7 @@ export default {
 }
 
 p {
-    font-size: 35px;
+    font-size: 12px;
     color: #FFFFFF;
-    margin: 10px 0;
+    margin: 0 0;
 }</style>

@@ -1,7 +1,7 @@
 <template>
-    <div class="backdrop" @click="closeAbout">
+    <div class="backdrop" @click.self="closeAbout">
             <div class="container">
-                <img id="close" src="../assets/CloseOverlay.svg">
+                <img @click="closeAbout" id="close" src="../assets/CloseOverlay.svg">
                 <img src="../assets/contact_support.svg">
                 <h1>About</h1>
                 <p>BUMP was founded by a group of six passionate software engineering students from SCE in Israel. As avid
@@ -10,7 +10,7 @@
                     who share our interests and love for gaming. Our goal is to provide a platform where gamers can connect,
                     engage, and interact with each other in a fun and safe environment. At BUMP, we believe that gaming is
                     more
-                    than just a hobby – it's a lifestyle. We aim to create a vibrant and inclusive community.</p>
+                    than just a hobby - it's a lifestyle. We aim to create a vibrant and inclusive community.</p>
                 <p>Our team is dedicated to providing the best user experience possible, with features that enable users to
                     easily find and connect with other gamers, share their experiences, and discover new games and gaming
                     partners.
@@ -42,7 +42,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 150px;
+    padding: 30px;
     height: 60%;
     width: 70%;
     top: 50%;
@@ -56,9 +56,10 @@ export default {
 
 .container #close {
     position: fixed;
-    right: 5px;
-    top: 5px;
+    right: 8px;
+    top: 10px;
     width: 3%;
+    cursor: pointer;
 }
 
 .container img {
@@ -76,11 +77,11 @@ export default {
 .container h1 {
     color: #FFFFFF;
     text-align: left;
-    font-size: 65px;
+    font-size: 25px;
 }
 
 .container p {
     color: #FFFFFF;
     text-align: left;
-    font-size: 45px;
+    font-size: 13px;
 }</style>

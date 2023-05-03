@@ -17,11 +17,11 @@ html,body {
 }
 
 .btn {
-  padding: 30px 60px;
+  padding: 20px 40px;
   background: #E64425;
   border-radius: 10px;
   border: none;
-  font-size: 50px;
+  font-size: 15px;
   text-align: center;
   color: #FFFFFF;
   font-weight: bold;

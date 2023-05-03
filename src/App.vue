@@ -36,6 +36,7 @@ h2 {
   color: #FFFFFF;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .btn:hover {

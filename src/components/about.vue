@@ -3,7 +3,7 @@
         <div class="container">
             <img @click="closeAbout" id="close" src="../assets/closeoverlay.svg">
             <img src="../assets/contact_support.svg">
-            <h1>About yossi</h1>
+            <h1>About</h1>
             <p>BUMP was founded by a group of six passionate software engineering students from SCE in Israel. As avid
                 gamers ourselves, we understand the importance of having a supportive community of like-minded
                 individuals
@@ -28,7 +28,7 @@ export default {
         ['showAbout'],
     methods: {
         closeAbout() {
-            this.$emit('close')
+            this.$emit('closeA')
         }
     }
 }
@@ -41,7 +41,6 @@ export default {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     padding: 30px;
     height: 60%;
     width: 70%;
@@ -75,9 +74,7 @@ export default {
 }
 
 .container h1 {
-    color: #FFFFFF;
     text-align: left;
-    font-size: 25px;
 }
 
 .container p {

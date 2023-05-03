@@ -5,7 +5,7 @@
         <div class="footer">
             <div class="left">
                 <p class="addunderline" @click="openAbout">About</p>
-                <p class="addunderline">Terms and Conditions</p>
+                <p class="addunderline" @click="openTerms">Terms and Conditions</p>
                 <p class="addunderlinewithoutpointer">Contact us: BUMP@gmail.com</p>
             </div>
 
@@ -21,7 +21,10 @@ export default {
     name: 'footer',
     methods: {
         openAbout() {
-            this.$emit('open')
+            this.$emit('openA')
+        },
+        openTerms() {
+            this.$emit('openT')
         }
     }
 }

@@ -16,6 +16,16 @@ html,body {
   margin: 0;
 }
 
+h1 {
+  color: #FFFFFF;
+  font-size: 25px;
+}
+
+h2 {
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
 .btn {
   padding: 20px 40px;
   background: #E64425;
@@ -43,4 +53,9 @@ html,body {
 .link:hover {
   color: #E64425;
 }
+
+.h1 {
+
+}
+
 </style>

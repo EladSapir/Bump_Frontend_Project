@@ -29,14 +29,15 @@
         </div>
       </div>
     </div>
-
+  </div>
+  <div v-if="showAbout">
+    <about @closeA="toggleAbout" />
+  </div>
+  <div v-if="showTerms">
+    <terms @closeT="toggleTerms" />
   </div>
   <div class="land">
-    <landingfooter @open="toggleAbout" />
-  </div>
-
-  <div v-if="showAbout">
-    <about @close="toggleAbout" />
+    <landingfooter @openA="toggleAbout" @openT="toggleTerms" />
   </div>
 </template>
 
@@ -44,26 +45,34 @@
 // @ is an alias to /src
 import landingfooter from '../components/landingfooter.vue'
 import about from '../components/about.vue'
+import terms from '../components/terms.vue'
 
 export default {
   name: 'homeView',
   components: {
     landingfooter,
-    about
+    about,
+    terms
   },
   data() {
     return {
-      showAbout: false
+      showAbout: false,
+      showTerms: false
     }
   },
   methods: {
     toggleAbout() {
       this.showAbout = !this.showAbout
+      this.showTerms = false;
+
+    },
+    toggleTerms() {
+      this.showTerms = !this.showTerms
+      this.showAbout = false;
     }
   }
 }
 </script>
-
 <style scoped>
 .box {
   display: flex;
@@ -81,8 +90,6 @@ export default {
   box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
   width: 90%;
 }
 

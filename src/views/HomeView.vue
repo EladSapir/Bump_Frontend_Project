@@ -42,8 +42,8 @@
 
 <script>
 // @ is an alias to /src
-import landingfooter from '@/components/landingfooter.vue'
-import about from '@/components/about.vue'
+import landingfooter from '../components/landingfooter.vue'
+import about from '../components/about.vue'
 
 export default {
   name: 'homeView',

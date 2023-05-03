@@ -3,7 +3,7 @@
         <div class="container">
             <img @click="closeAbout" id="close" src="../assets/closeoverlay.svg">
             <img src="../assets/contact_support.svg">
-            <h1>About</h1>
+            <h1>About yossi</h1>
             <p>BUMP was founded by a group of six passionate software engineering students from SCE in Israel. As avid
                 gamers ourselves, we understand the importance of having a supportive community of like-minded
                 individuals

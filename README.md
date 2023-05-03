@@ -1,21 +1,85 @@
-# A Site About Nothing - Frontend</br>
-Welcome to the frontend repository of the "Site About Nothing" project! This repository contains all the code for the frontend portion of the site, which is responsible for rendering the user interface and interacting with the backend to display content to the user.
+Certainly! Here's an example of a README file for your front-end repository on GitHub:
 
-# Technologies Used
-The frontend of A Site About Nothing is built using the following technologies:
+# Bump - Front-end
 
-- HTML5
-- CSS3
-- JavaScript
-- Vue.js 
-- Mocha
-- Chai
+Welcome to the front-end repository of Bump, a social media gaming site where gamers can connect, follow each other, and find partners for multiplayer games. This repository contains the codebase and resources related to the front-end development of Bump.
 
-# Getting Started
-To get started with the frontend of A Site About Nothing, you'll need to follow these steps:
+## Getting Started
 
-- Clone the repository to your local machine.
-- Run npm install to install all the necessary dependencies.
-- Run index.html file.
+To get started with the development or deployment of the front-end, please follow the instructions below.
 
-Once you have the development server up and running, you can start making changes to the code and seeing them reflected in the browser.
+### Prerequisites
+
+- Node.js (v12 or higher)
+- npm (Node Package Manager)
+
+### Installation
+
+1. Clone the repository to your local machine:
+
+   ```bash
+   git clone https://github.com/EladSapir/Frontend_Project.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd bump-frontend
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+### Development
+
+To run the front-end in development mode, use the following command:
+
+```bash
+npm run serve
+```
+
+This will start the development server and the application can be accessed at `http://localhost:8080` in your browser.
+
+### Building for Production
+
+To build the front-end for production, use the following command:
+
+```bash
+npm run build
+```
+
+This will create a production-ready build of the front-end in the `dist` directory.
+
+### Testing
+
+To run the tests for the front-end, use the following command:
+
+```bash
+npm run test
+```
+
+This will execute the test suites and provide feedback on the test results.
+
+### Linting
+
+To lint the front-end code for code quality and consistency, use the following command:
+
+```bash
+npm run lint
+```
+
+This will analyze the code using ESLint and provide suggestions for improvements.
+
+## Deployment
+
+The front-end of Bump can be deployed using the deployment process specified in the project documentation. Please refer to the documentation for detailed instructions on deploying the front-end to your preferred hosting platform.
+
+
+## Acknowledgements
+
+We would like to express our gratitude to the open-source community for providing valuable tools and resources that have been utilized in the development of Bump.
+
+We hope you enjoy using Bump as much as we enjoyed developing it!

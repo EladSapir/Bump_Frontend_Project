@@ -24,17 +24,18 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import landingfooter from '../components/landingfooter.vue'
 import login from '../components/login.vue'
 import signup from '../components/signup.vue'
-
+import about from '../components/about.vue'
+import terms from '../components/terms.vue'
 export default {
   name: 'homeView',
   components: {
     landingfooter,
     signup,
-    login
+    login,
+    about,terms
   },
   data() {
     return {
@@ -47,11 +48,12 @@ export default {
     toggleAbout() {
       this.showAbout = !this.showAbout
       this.showTerms = false;
-
+      console.log(this.showAbout)
     },
     toggleTerms() {
       this.showTerms = !this.showTerms
       this.showAbout = false;
+      console.log(this.showTerms)
     },
     toggleLogin() {
       this.isLogin = !this.isLogin

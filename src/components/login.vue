@@ -71,10 +71,9 @@ p {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 42%;
-  width: 22%;
+  height: 40%;
+  width: 20%;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   padding: 50px;
   background: #2c394bd7;

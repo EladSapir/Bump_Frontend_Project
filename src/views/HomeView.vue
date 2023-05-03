@@ -2,7 +2,7 @@
   <div class="box" >
     <div class="home" >
       <div>
-        <img id="logo" src="@/assets/Logo.png" alt="logo">
+        <img id="logo" src="../assets/logo.png" alt="logo">
         <p id="find">Find your next</p>
         <p id="gaming">Gaming Partner</p>
         <router-link class="link" to="/login_signup"><button class="btn" id="let">Let's Bump </button></router-link>

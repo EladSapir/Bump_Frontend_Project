@@ -75,14 +75,15 @@ export default {
 
 .home {
   box-sizing: border-box;
-  padding: 50px;
+  padding: 20px;
   background: #2c394bd7;
   border: 1px solid #323244;
   box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 90%;
-
 }
 
 .Features {

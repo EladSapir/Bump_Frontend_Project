@@ -5,26 +5,22 @@
         <div class="footer">
             <div class="left">
                 <p class="addunderline" @click="openAbout">About</p>
-                <p class="addunderline" >Terms and Conditions</p>
+                <p class="addunderline">Terms and Conditions</p>
+                <p class="addunderlinewithoutpointer">Contact us: BUMP@gmail.com</p>
             </div>
-            <div class="center">
-                <p>Contact us: BUMP@gmail.com</p>
-            </div>
+
             <div class="right">
-                <p>Copyright © 2023 BUMP. All rights
-                    reserved.</p>
+                <p class="addunderlinewithoutpointer">Copyright © 2023 BUMP. All rights reserved.</p>
             </div>
         </div>
     </div>
-
-
 </template>
   
 <script>
 export default {
-    name: 'homeView',
+    name: 'footer',
     methods: {
-        openAbout(){
+        openAbout() {
             this.$emit('open')
         }
     }
@@ -32,7 +28,6 @@ export default {
 </script>
 
 <style scoped>
-
 .main-container {
     display: flex;
     flex-direction: column;
@@ -59,13 +54,14 @@ export default {
     gap: 30px;
     justify-content: flex-start;
 }
-.addunderline:hover{
+
+.addunderline:hover {
     text-decoration: underline;
     cursor: pointer;
 }
-.center {
-    display: flex;
-    justify-content: center;
+
+.addunderlinewithoutpointer:hover {
+    text-decoration: underline;
 }
 
 .right {
@@ -77,4 +73,5 @@ p {
     font-size: 12px;
     color: #FFFFFF;
     margin: 0 0;
-}</style>
+}
+</style>

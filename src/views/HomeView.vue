@@ -1,6 +1,6 @@
 <template>
-  <div class="box" >
-    <div class="home" >
+  <div class="box">
+    <div class="home">
       <div>
         <img id="logo" src="../assets/logo.png" alt="logo">
         <p id="find">Find your next</p>
@@ -32,13 +32,12 @@
 
   </div>
   <div class="land">
-    <landingfooter @open="toggleAbout"/>
+    <landingfooter @open="toggleAbout" />
   </div>
 
   <div v-if="showAbout">
-      <about @close="toggleAbout"/>
+    <about @close="toggleAbout" />
   </div>
-  
 </template>
 
 <script>
@@ -57,12 +56,11 @@ export default {
       showAbout: false
     }
   },
-    methods:{
-        toggleAbout() {
-            this.showAbout = !this.showAbout
-            console.log('showAbout = ',this.showAbout)
-        }
+  methods: {
+    toggleAbout() {
+      this.showAbout = !this.showAbout
     }
+  }
 }
 </script>
 
@@ -117,7 +115,7 @@ h2 {
 }
 
 #find {
-  font-size:55px;
+  font-size: 55px;
   color: #FFFFFF;
   margin: 0;
 }
@@ -142,5 +140,4 @@ h2 {
   bottom: 0;
   width: 100%;
 }
-
 </style>

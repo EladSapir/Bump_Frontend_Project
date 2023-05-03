@@ -1,5 +1,3 @@
-Certainly! Here's an example of a README file for your front-end repository on GitHub:
-
 # Bump - Front-end
 
 Welcome to the front-end repository of Bump, a social media gaming site where gamers can connect, follow each other, and find partners for multiplayer games. This repository contains the codebase and resources related to the front-end development of Bump.

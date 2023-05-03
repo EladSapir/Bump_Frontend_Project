@@ -2,12 +2,12 @@
   <div class="box">
     <div class="sign-up" v-show="isLogin">
       <div>
-        <signup />
+        <signup @openlogin="toggleLogin" />
       </div>
     </div>
     <div class="sign-up" v-show="!isLogin">
       <div>
-        <login @openSingUp="toggleLogin"/>
+        <login @openSingUp="toggleLogin" />
       </div>
     </div>
   </div>

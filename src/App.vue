@@ -41,6 +41,11 @@ h2 {
   font-size: 17px;
 }
 
+h3{
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 200;
+}
 .btn {
   padding: 20px 40px;
   background: var(--main);
@@ -67,6 +72,11 @@ h2 {
 
 .link:hover {
   color: var(--main);
+}
+::placeholder {
+  font-family: poppins;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 </style>

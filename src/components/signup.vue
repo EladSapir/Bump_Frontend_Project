@@ -1,27 +1,73 @@
 <template>
-    <div class="signupcontainer"></div>
-    <form>
-        <img id="logo" src="../assets/logo.png">
-        <h1>login</h1>
-        <div id="app"></div>
-        <h1 class="title">Gamer Tag</h1>
+    <div class="signupcontainer">
+        <div class="signheading">
+            <img id="logo" src="../assets/logo.png">
+            <h1>Let’s Sign Up</h1>
+        </div>
+        <form>
+            <div class="form-group">
+                <h3 class="title">Email</h3>
+                <input type="email" class="form-control" v-model="email" placeholder="Yourmailhere@something.com" required>
+                <span v-if="!validEmail" class="required">Invalid email format</span>
+            </div>
+
+            <div class="form-group">
+                <h3 class="title">Gamer Tag</h3>
+                <input type="text" class="form-control" v-model="gamerTag" placeholder="Enter your gamer tag" required>
+            </div>
+
+            <div class="form-group password-container">
+                <h3 class="title">Password</h3>
+                <input :type="passwordFieldType" class="form-control" v-model="password" placeholder="Notyourtypical123"
+                    required>
+                <img src="../assets/eye-slash-solid.svg" @click="switchVisibility" class="eye"  v-if="show" id="eyeslash">
+                <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
+                <span v-if="validPassword" class="required">Password must have at least 8 characters, one uppercase letter,
+                    one lowercase letter, and one number</span>
+            </div>
+
+            <div class="form-group password-container">
+                <h3 class="title">Confirm Password</h3>
+                <input :type="passwordFieldTypec" class="form-control" v-model="confirmPassword"
+                    placeholder="Notyourtypical123" required>
+                <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibilityConfirm" v-if="showc" id="eyeslash">
+                <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibilityConfirm" v-else>
+                <span v-if="matchPassword" class="required">Passwords do not match</span>
+            </div>
+
+            <div class="form-group">
+                <h3 class="title">Discord Account</h3>
+                <input type="text" class="form-control" v-model="discordAccount" placeholder="Enter your Discord account"
+                    required>
+            </div>
+
+           
+
+            
+
+
+
+        </form>
+        <button type="submit" class="btn" @click.prevent="submitForm">Submit</button>
+        <!-- <div id="app"></div>
+        <h3 class="title">Gamer Tag</h3>
         <div class="form-group">
             <input type="text" class="form-control" v-model="gamerTag" placeholder="Enter your gamer tag" required>
             <span v-if="!gamerTag" class="required">*</span>
         </div>
-        <h1 class="title">Discord Account</h1>
+        <h3 class="title">Discord Account</h3>
         <div class="form-group">
             <input type="text" class="form-control" v-model="discordAccount" placeholder="Enter your Discord account"
                 required>
             <span v-if="!discordAccount" class="required">*</span>
         </div>
-        <h1 class="title">Email</h1>
+        <h3 class="title">Email</h3>
         <div class="form-group">
             <input type="email" class="form-control" v-model="email" placeholder="Enter your email" required>
             <span v-if="!email" class="required">*</span>
             <span v-if="!validEmail" class="required">Invalid email format</span>
         </div>
-        <h1 class="title">Password</h1>
+        <h3 class="title">Password</h3>
         <div class="form-group password-container">
             <input :type="passwordFieldType" class="form-control" v-model="password" placeholder="Enter your password"
                 required>
@@ -31,7 +77,7 @@
             <span v-if="!validPassword" class="required">Password must have at least 8 characters, one uppercase letter, one
                 lowercase letter, and one number</span>
         </div>
-        <h1 class="title">Confirm Password</h1>
+        <h3 class="title">Confirm Password</h3>
         <div class="form-group password-container">
             <input :type="passwordFieldType" class="form-control" v-model="confirmPassword"
                 placeholder="Confirm your password" required>
@@ -40,7 +86,7 @@
             <span v-if="!confirmPassword" class="required">*</span>
             <span v-if="!matchPassword" class="required">Passwords do not match</span>
         </div>
-        <h1 class="title">Gender</h1>
+        <h3 class="title">Gender</h3>
         <div class="form-group">
             <select class="form-control" v-model="gender" required>
                 <option value="">Select your gender</option>
@@ -50,13 +96,13 @@
             </select>
             <span v-if="!gender" class="required">*</span>
         </div>
-        <h1 class="title">Age</h1>
+        <h3 class="title">Age</h3>
         <div class="form-group">
             <input type="number" class="form-control" v-model="age" placeholder="Enter your age" required>
             <span v-if="!age" class="required">*</span>
             <span v-if="!validAge" class="required">You must be at least 16 years old</span>
         </div>
-        <h1 class="title">Favorite Game</h1>
+        <h3 class="title">Favorite Game</h3>
         <div class="form-group">
             <select class="form-control" v-model="favoriteGame" required>
                 <option value="">Select your favorite game</option>
@@ -68,14 +114,14 @@
         </div>
 
         <div class="form-group">
-    <h1 class="title">Username in the Game</h1>
+    <h3 class="title">Username in the Game</h3>
     <input type="text" class="form-control" v-model="gamerTag" placeholder="Enter your gamer tag" required>
     <span v-if="!gamerTag" class="required">*</span>
   </div>
 
-  <!-- Rank Dropdown -->
+
   <div class="form-group">
-    <h1 class="title">Rank</h1>
+    <h3 class="title">Rank</h3>
     <select class="form-control" v-model="rank" required>
       <option value="">Select your rank</option>
       <optgroup label="League of Legends">
@@ -111,34 +157,35 @@
     </select>
   </div>
 
-  <!-- State Input -->
+
   <div class="form-group">
-    <h1 class="title">State</h1>
+    <h3 class="title">State</h3>
     <input type="text" class="form-control" v-model="state">
   </div>
 
-  <!-- Language Input -->
+ 
   <div class="form-group">
-    <h1 class="title">Language</h1>
+    <h3 class="title">Language</h3>
     <input type="text" class="form-control" v-model="language" placeholder="Enter your preferred language" required>
     <span v-if="!language" class="required">*</span>
   </div>
 
-  <!-- Profile Photo Upload -->
+
   <div class="form-group">
-    <h1 class="title">Profile Photo</h1>
+    <h3 class="title">Profile Photo</h3>
     <input type="file" accept="image/*" @change="onFileSelected">
   </div>
 
-  <!-- Submit Button -->
-  <button type="submit" class="submit-btn" @click.prevent="submitForm">Submit</button>
 
-  <!-- Error Message -->
+  
+
+
   <p class="error-msg" v-if="error">{{ error }}</p>
 
 
-    </form>
-    <p>already registered? <a class="loginink" @click="moveToLogin">Login here.</a></p>
+    </form> -->
+        <p>already registered? <a class="loginink" @click="moveToLogin">Login here.</a></p>
+    </div>
 </template>
     
     
@@ -174,11 +221,23 @@ export default {
             isGameUsernameValid: true,
             isRankValid: true,
             show: true,
-            passwordFieldType: "password"
+            passwordFieldType: "password",
+            showc: true,
+            passwordFieldTypec: "password"
 
         }
     },
     methods: {
+        switchVisibility() {
+        this.show = !this.show
+        this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";
+    },switchVisibilityConfirm() {
+        this.showc = !this.showc
+        this.passwordFieldTypec = this.passwordFieldTypec === "password" ? "text" : "password";
+    },
+    moveToLogin() {
+        this.$emit('openlogin')
+    },
         validateEmail() {
             // Email validation regex pattern
             const emailPattern = /^\S+@\S+\.\S+$/;
@@ -217,14 +276,8 @@ export default {
                 alert('Input is invalid.');
             }
         },
-    },
-    moveToLogin() {
-        this.$emit('openlogin')
-    },
-    switchVisibility() {
-        this.show = !this.show
-        this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";
     }
+    
 }
 
 
@@ -232,7 +285,7 @@ export default {
     
 <style scoped>
 form {
-    display: flex;
+    display: grid;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -254,6 +307,13 @@ input {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+.signheading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .password-container {
     position: relative;
     width: 315px;
@@ -263,17 +323,20 @@ input {
     position: absolute;
     width: 20px;
     height: 20px;
-    top: 28%;
+    top: 53%;
     right: 4%;
     cursor: pointer;
     opacity: 0.8;
 }
+
+
 
 button[type="submit"] {
     margin-top: 5px;
     margin-bottom: 2px;
     padding: 9px 137px;
     border-radius: 5px;
+    width: max-content;
     transition: background-color 0.5s ease;
 }
 
@@ -286,8 +349,7 @@ p {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    height: 1000px;
-    width: 1500px;
+    width: 1100px;
     top: 50%;
     transform: translate(-50%, -50%);
     padding: 60px 30px 30px 30px;
@@ -295,8 +357,7 @@ p {
     border: 1px solid #323244;
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
-    align-items: center;
-    justify-content: center;
+
 }
 
 
@@ -319,33 +380,30 @@ p {
     margin-bottom: -10px;
 }
 
-h1 {
-    font-size: 32px;
-    margin-bottom: 15px;
+
+.title {
+    margin: 0;
 }
-
-
-
-
 
 .form-group {
     position: relative;
+    margin: 45px 15px;
+
 }
 
 .form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 15px 0 17px 10px;
+    border: 1px solid #F8F8F8;
     border-radius: 5px;
     font-size: 16px;
-    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
-.required {
+.optional {
     position: absolute;
-    right: 5px;
-    top: 10px;
-    color: red;
+    right:8px;
+    top: 0;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .error {
@@ -356,5 +414,4 @@ h1 {
     color: red;
     font-size: 14px;
     margin-top: 5px;
-}
-</style>
+}</style>

@@ -3,7 +3,7 @@
 
     <form action="/login" method="POST">
       <img id="logo" src="../assets/logo.png">
-      <h1>login</h1>
+      <h1>Login</h1>
       <input type="email" placeholder="Email" id="email" name="email" required>
       <div class="password-container">
       <input :type="passwordFieldType" placeholder="Password" v-model="password" id="password" required>

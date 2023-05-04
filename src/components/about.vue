@@ -1,7 +1,8 @@
 <template>
     <div class="backdrop" @click.self="closeAbout">
         <div class="container">
-            <img @click="closeAbout" id="close" src="../assets/closeoverlay.svg">
+            <img v-if="closehover" @click="closeAbout" id="close" src="../assets/closeoverlay.svg" @mouseover="closehover=!closehover" >
+            <img v-else @click="closeAbout" id="close" src="../assets/closehover.svg" @mouseout="closehover=!closehover" >
             <img src="../assets/contact_support.svg">
             <h1>About</h1>
             <p>BUMP was founded by a group of six passionate software engineering students from SCE in Israel. As avid
@@ -24,6 +25,11 @@
   
 <script>
 export default {
+    data() {
+        return {
+            closehover: true
+        }
+    },
     props:
         ['showAbout'],
     methods: {
@@ -57,7 +63,7 @@ export default {
     position: fixed;
     right: 8px;
     top: 10px;
-    width: 3%;
+    width:20px;
     cursor: pointer;
 }
 
@@ -78,7 +84,7 @@ export default {
 }
 
 .container p {
-    color: #FFFFFF;
+    color:  var(--white);
     text-align: left;
     font-size: 13px;
 }

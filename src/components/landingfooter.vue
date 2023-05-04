@@ -60,11 +60,15 @@ export default {
 
 .addunderline:hover {
     text-decoration: underline;
+    text-decoration-color: var(--main);
+    text-decoration-thickness: 1.5x;
     cursor: pointer;
 }
 
 .addunderlinewithoutpointer:hover {
     text-decoration: underline;
+    text-decoration-color: var(--main);
+    text-decoration-thickness: 1.5px;
 }
 
 .right {
@@ -74,7 +78,7 @@ export default {
 
 p {
     font-size: 12px;
-    color: #FFFFFF;
+    color: var(--white);
     margin: 0 0;
 }
 </style>

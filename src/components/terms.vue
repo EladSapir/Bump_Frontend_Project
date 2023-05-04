@@ -1,7 +1,8 @@
 <template>
     <div class="backdrop" @click.self="closeTerms">
         <div class="container">
-            <img @click="closeTerms" id="close" src="../assets/closeoverlay.svg">
+            <img v-if="closehover" @click="closeTerms" id="close" src="../assets/closeoverlay.svg" @mouseover="closehover=!closehover" >
+            <img v-else @click="closeTerms" id="close" src="../assets/closehover.svg" @mouseout="closehover=!closehover" >
             <img src="../assets/gavel.svg">
             <h1>Terms and Conditions</h1>
             <h2>Thank you for your interest in using BUMP, a platform for connecting and engaging with gamers in a safe and
@@ -82,6 +83,11 @@
   
 <script>
 export default {
+    data() {
+        return {
+            closehover: true
+        }
+    },
     props:
         ['showTerms'],
     methods: {
@@ -95,83 +101,79 @@ export default {
 
 <style scoped>
 .container {
-    position: absolute;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 30px;
-    height: 60%;
-    width: 70%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #2C394B;
-    border: 1px solid #323244;
-    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 25px;
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+  height: 60%;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #2C394B;
+  border: 1px solid #323244;
+  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
 }
 
 .container #close {
-    position: fixed;
-    right: 8px;
-    top: 10px;
-    width: 3%;
-    cursor: pointer;
+  position: fixed;
+  right: 8px;
+  top: 10px;
+  width: 20px;
+  cursor: pointer;
+  fill: #E54425;
 }
 
 .container img {
-    width: 5%;
+  width: 5%;
 }
 
 .backdrop {
-    top: 0;
-    position: fixed;
-    background: rgba(0, 0, 0, 0.692);
-    width: 100%;
-    height: 100%;
+  top: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.692);
+  width: 100%;
+  height: 100%;
 }
 
 .container h1 {
-    color: #FFFFFF;
-    text-align: left;
-    font-size: 25px;
+  color: var(--white);
+  text-align: left;
+  font-size: 25px;
 }
 
 .container h2 {
-    text-align: left;
-    margin: 0;
-    margin-bottom: 10px;
+  text-align: left;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 .container p {
-    color: #FFFFFF;
-    text-align: left;
-    font-size: 13px;
+  color: var(--white);
+  text-align: left;
+  font-size: 13px;
 }
 
 .container .termscroll {
-    overflow-y: scroll;
-    height: 100%;
-    width: 100%;
-    padding-right: 10px;
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+  padding-right: 10px;
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #E64425;
-    border-radius: 10px;
+  background: var(--main);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #E64425;
+  background: var(--main);
 }
 </style>

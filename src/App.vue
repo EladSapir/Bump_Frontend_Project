@@ -1,13 +1,28 @@
 <template>
   <router-view />
+  <link rel="stylesheet" href="https://use.typekit.net/kji8pud.css%22%3E">
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
 </template>
 
 <style>
+:root{
+  --approve: #09B261;
+--background: #1B1E29;
+--error: #FF0000;
+--white: #EFEFEF;
+--main: #E54425;
+--misc: #00BAFF;
+--pagebgcolor: #161823;
+--secoundarycolor: #33415B;
+--thirdcolor: #232633;
+--warning: #FFB300;
+--white: #FFFFFF;
+--stroke: #ffffff10;
+--hovercolor:#FF6A4D;
+}
 html,body {
-  font-family: 'Poppins', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Poppins' ;
   background-image: url(./assets/bgr.png);
   background-position: center;
   background-repeat: no-repeat;
@@ -17,42 +32,41 @@ html,body {
 }
 
 h1 {
-  color: #FFFFFF;
+  color: var(--white);
   font-size: 25px;
 }
 
 h2 {
-  color: #FFFFFF;
+  color: var(--white);
   font-size: 17px;
 }
 
 .btn {
   padding: 20px 40px;
-  background: #E64425;
-  border: 1.5px solid #E64425;
+  background: var(--main);
+  border: 1.5px solid var(--main);
   border-radius: 10px;
   font-size: 15px;
   text-align: center;
-  color: #FFFFFF;
+  color: var(--white);
   font-weight: bold;
   cursor: pointer;
-  transition: 0.5s;
+  transition: 1.5s;
 }
 
 .btn:hover {
-  background: #FFFFFF;
-  border: 1.5px solid #E64425;
-  color: #E64425;
+  background:  var(--hovercolor);
+  border: 1.5px solid var(--hovercolor);
 }
 
 .link {
   text-decoration: none;
-  color: #FFFFFF;
+  color:  var(--white);
   height: 100%;
 }
 
 .link:hover {
-  color: #E64425;
+  color: var(--main);
 }
 
 </style>

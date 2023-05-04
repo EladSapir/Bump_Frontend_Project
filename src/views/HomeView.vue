@@ -108,7 +108,7 @@ export default {
 }
 
 .fet {
-  color: #FFFFFF;
+  color:  var(--white);
   font-size: 14px;
 }
 
@@ -119,23 +119,24 @@ h2 {
 
 #logo {
   border-radius: 50%;
-  width: 8%;
+  width:95px;
 }
 
 #find {
   font-size: 55px;
-  color: #FFFFFF;
+  color:  var(--white);
   margin: 0;
 }
 
 #gaming {
-  font-weight: 550;
-  font-size: 65px;
+  font-weight: 500;
+  font-size: 75px;
   color: #2c394bd7;
   letter-spacing: 0.03em;
   -webkit-text-stroke-width: 1.5px;
-  -webkit-text-stroke-color: #E64425;
+  -webkit-text-stroke-color:var(--main);
   margin: 0;
+  padding: 0;
   padding-bottom: 20px;
 }
 

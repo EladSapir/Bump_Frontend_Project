@@ -176,4 +176,8 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--main);
 }
+
+h1 {
+  margin-bottom: 5px;
+}
 </style>

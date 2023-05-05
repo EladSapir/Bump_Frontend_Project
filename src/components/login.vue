@@ -143,7 +143,6 @@ input {
   display: block;
   width: 300px;
   border: none;
-  font-family: 'Calibri';
 }
 
 </style>

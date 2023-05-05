@@ -30,12 +30,12 @@
       </div>
     </div>
   </div>
-  <div v-if="showAbout">
-    <about @closeA="toggleAbout" />
-  </div>
-  <div v-if="showTerms">
-    <terms @closeT="toggleTerms" />
-  </div>
+    <div v-if="showAbout">
+      <about @closeA="toggleAbout" />
+    </div>
+    <div v-if="showTerms">
+      <terms @closeT="toggleTerms" />
+    </div>
   <div class="land">
     <landingfooter @openA="toggleAbout" @openT="toggleTerms" />
   </div>
@@ -108,7 +108,7 @@ export default {
 }
 
 .fet {
-  color:  var(--white);
+  color: var(--white);
   font-size: 14px;
 }
 
@@ -119,15 +119,17 @@ h2 {
 
 #logo {
   border-radius: 50%;
-  width:95px;
+  width: 95px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 #find {
   font-size: 55px;
-  color:  var(--white);
+  color: var(--white);
   margin: 0;
   padding: 15px 0;
-line-height: 15px;
+  line-height: 15px;
   font-weight: 200;
 }
 
@@ -137,7 +139,7 @@ line-height: 15px;
   color: #2c394bd7;
   letter-spacing: 0.03em;
   -webkit-text-stroke-width: 1.5px;
-  -webkit-text-stroke-color:var(--main);
+  -webkit-text-stroke-color: var(--main);
   margin: 0;
   padding: 0;
   padding-bottom: 20px;
@@ -152,4 +154,5 @@ line-height: 15px;
   bottom: 0;
   width: 100%;
 }
+
 </style>

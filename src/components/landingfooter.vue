@@ -66,13 +66,13 @@ export default {
 }
 
 .addunderlinewithoutpointer:hover {
-    text-decoration: underline;
     text-decoration-color: var(--main);
     text-decoration-thickness: 1.5px;
 }
 
 .right {
     display: flex;
+    padding-left: 30px;
     justify-content: flex-end;
 }
 

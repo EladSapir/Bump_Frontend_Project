@@ -9,19 +9,19 @@
       </div>
       <div class="Features">
         <div class="fet">
-          <img src="../assets/icon_user_.svg" style="width: 30px;">
+          <img src="../assets/icon_user_.svg" style="width: 29px; margin-bottom: -6px;">
           <h2>Create a Gaming Profile</h2>
           <p>Find and connect with like-minded gamers based on your favorite games, skill level, and other criteria.
             Expand your
             gaming circle and discover new players to play with.</p>
         </div>
         <div class="fet">
-          <img src="../assets/icon_peoples_two_.svg" style="width: 40px;">
+          <img src="../assets/icon_peoples_two_.svg" style="width: 40px; margin-bottom: -11px;">
           <h2>Find Partners to Play With</h2>
           <p>Create a gaming profile and showcase your skills, experience, and favorite games to the community.</p>
         </div>
         <div class="fet">
-          <img src="../assets/icon_muscle_.svg" style="width: 35px;">
+          <img src="../assets/icon_muscle_.svg" style="width: 33px; margin-bottom: -7px;">
           <h2>Collaborate and Improve </h2>
           <p>Collaborate with other gamers, learn from their experiences, and improve your own skills. Play together,
             share tips
@@ -115,6 +115,10 @@ export default {
 h2 {
   text-transform: uppercase;
   font-size: 16px;
+}
+
+img {
+  margin-bottom: -5px;
 }
 
 #logo {

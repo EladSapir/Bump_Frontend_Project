@@ -11,7 +11,7 @@
       <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
       </div>
       <button class="btn" type="submit">Login</button>
-      <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here.</a></p>
+      <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here</a></p>
     </form>
   </div>
 </template>
@@ -51,20 +51,6 @@ form {
   margin-top: 10px;
 }
 
-input {
-  background: #ecf0f3;
-  margin: 5px 0px 5px 0px;
-  height: 20px;
-  width: 222.5px;
-  font-size: 14px;
-  border-radius: 15px;
-  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
 .password-container {
   position: relative;
   width: 315px;
@@ -85,11 +71,11 @@ button[type="submit"] {
   margin-bottom: 2px;
   padding: 9px 137px;
   border-radius: 5px;
-  transition: background-color 0.5s ease;
 }
 
 p {
-  color: white;
+  margin-top: 20px;
+  font-size: 15px;
 }
 
 .logincontainer {
@@ -137,12 +123,5 @@ h1 {
   margin-bottom: 15px;
 }
 
-input {
-  font-size: 18px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  width: 300px;
-  border: none;
-}
 
 </style>

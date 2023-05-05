@@ -40,6 +40,10 @@ export default {
     flex: 1;
 }
 
+p {
+    margin: 0 0;
+}
+
 .footer {
     display: flex;
     justify-content: space-between;
@@ -76,9 +80,4 @@ export default {
     justify-content: flex-end;
 }
 
-p {
-    font-size: 12px;
-    color: var(--white);
-    margin: 0 0;
-}
 </style>

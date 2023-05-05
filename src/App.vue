@@ -51,6 +51,27 @@ h3 {
   font-weight: 200;
 }
 
+p {
+    font-size: 12px;
+    color: var(--white);
+}
+
+input {
+  background: #ecf0f3;
+  margin: 5px 0px 5px 0px;
+  height: 20px;
+  border-radius: 15px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 300px;
+  border: none;
+}
+
 .btn {
   padding: 20px 40px;
   background: var(--main);
@@ -81,7 +102,7 @@ h3 {
 
 ::placeholder {
   font-family: poppins;
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(0, 0, 0, 0.5);
 }
 </style>

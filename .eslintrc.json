@@ -13,5 +13,4 @@
     "rules": {
         "import/extensions": "off"
     }
-    // "ignorePatterns":["./*.html"] 
 }

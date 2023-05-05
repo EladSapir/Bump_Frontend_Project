@@ -52,12 +52,12 @@ h3 {
 }
 
 p {
-    font-size: 12px;
-    color: var(--white);
+  font-size: 12px;
+  color: var(--white);
 }
 
 input {
-  background: #ecf0f3;
+  background: var(--white);
   margin: 5px 0px 5px 0px;
   height: 20px;
   border-radius: 15px;
@@ -70,6 +70,24 @@ input {
   display: block;
   width: 300px;
   border: none;
+}
+
+select {
+  background: var(--white);
+  margin: 5px 0px 5px 0px;
+  height: 20px;
+  border-radius: 15px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  padding: 10px 10px 10px 5px;
+  border: none;
+}
+
+option {
+  font-size: 12px;
+  font-family: var(--mainfont);
 }
 
 .btn {

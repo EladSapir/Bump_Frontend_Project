@@ -53,26 +53,27 @@
                 </select>
                 <!-- <span v-if="!favoriteGame" class="required">*</span> -->
             </div>
-            <div class="form-group div6">
+            <div class="form-group div7">
                 <h3 class="title">Match info</h3>
-                <select class="form-control" v-model="matchinfo" required>
-                    <option value="">Region</option>
-                    <option value="Rocket League">Rocket League</option>
-                    <option value="League of Legends">League of Legends</option>
-                    <option value="Valorant">Valorant</option>
-                </select>
+                <div class="matchinfo">
+                    <select class="form-control region" v-model="matchinfo" required>
+                        <option value="">Region</option>
+                        <option value="Rocket League">Rocket League</option>
+                        <option value="League of Legends">LoL</option>
+                        <option value="Valorant">Valorant</option>
+                    </select>
 
-                <select class="form-control" v-model="mode" required>
-                    <option value="">Mode</option>
-                    <option value="Rocket League">Rocket League</option>
-                    <option value="League of Legends">League of Legends</option>
-                    <option value="Valorant">Valorant</option>
-                </select>
-                <!-- <span v-if="!favoriteGame" class="required">*</span> -->
+                    <select class="form-control mode" v-model="mode" required>
+                        <option value="">Mode</option>
+                        <option value="Rocket League">Rocket League</option>
+                        <option value="League of Legends">League of Legends</option>
+                        <option value="Valorant">Valorant</option>
+                    </select>
+                    <!-- <span v-if="!favoriteGame" class="required">*</span> -->
+                </div>
             </div>
 
-
-            <div class="gen div9" >
+            <div class="gen div10">
                 <h3 class="title">Gender</h3>
                 <div class="form-group gender">
                     <div class="male">
@@ -95,34 +96,34 @@
                     </div>
                 </div>
             </div>
-            <div class="birth-date div8">
+            <div class="birth-date div9">
                 <h3 class="title">Birth date</h3>
                 <div class="form-group Birthdate">
-                        <select class="form-control" v-model="day" required>
-                            <option value="" disabled selected>Day</option>
-                            <option v-for="i in 31" :value="i">{{ i }}</option>
-                        </select>
-                        <select class="form-control" v-model="month" required>
-                            <option value="" disabled selected>Month</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                        </select>
-                        <select class="form-control" v-model="year" required>
-                            <option value="" disabled selected>Year</option>
-                            <option v-for="i in 17" :value="(new Date()).getFullYear() - i">{{ (new Date()).getFullYear() -
-                                i }}
-                            </option>
-                        </select>
+                    <select class="form-control" v-model="day" required>
+                        <option value="" disabled selected>Day</option>
+                        <option v-for="i in 31" :value="i">{{ i }}</option>
+                    </select>
+                    <select class="form-control" v-model="month" required>
+                        <option value="" disabled selected>Month</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select class="form-control" v-model="year" required>
+                        <option value="" disabled selected>Year</option>
+                        <option v-for="i in 17" :value="(new Date()).getFullYear() - i">{{ (new Date()).getFullYear() -
+                            i }}
+                        </option>
+                    </select>
                     <span v-if="validAge" class="required">You must be at least 16 years old</span>
                 </div>
             </div>
@@ -130,7 +131,7 @@
 
 
 
-            <div class="form-group div7">
+            <div class="form-group div8">
 
 
                 <select class="form-control" v-model="Role" required>
@@ -187,19 +188,19 @@
 
             <div class="form-group div11 ">
                 <div class="file-upload-form">
-                    <h3 class="title ">Upload Image</h3>
-                    <input type="file" accept="image/*" @change="previewImage">
-                    <img src="../assets/upload.svg" style="width: 80px;">
+                    <h3 class="title">Upload Image</h3>
+                    <label class="file-input-label">
+                        <input class="file-input" type="file" accept="image/*" @change="previewImage">
+                        Upload profile image
+                    </label>
                 </div>
-                <div class="image-preview" v-if="imageData.length > 0">
-                    <img style="border-radius: 50%; width:120px;" class="preview" :src="imageData">
-                </div>
+
             </div>
 
             <p class="error-msg" v-if="error">{{ error }}</p>
 
         </form>
-        <p class="clearbtn div24">Clear</p>
+        <p class="clearbtn div14">Clear</p>
         <button type="submit" class="btn div15" @click.prevent="submitForm">Submit</button>
         <p>already registered? <a class="loginink" @click="moveToLogin">Login here.</a></p>
     </div>
@@ -246,16 +247,6 @@ export default {
         }
     },
     methods: {
-        previewImage: function (event) {
-            var input = event.target;
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = (e) => {
-                    this.imageData = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        },
         switchVisibility() {
             this.show = !this.show
             this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";
@@ -347,9 +338,18 @@ input {
     border: none;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-select {
+option {
+  font-size: 12px;
+}
+
+::placeholder {
+    font-size: 12px;
+}
+
+/* select {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     box-sizing: border-box;
@@ -358,8 +358,14 @@ select {
     height: 35px;
     line-height: 1;
     padding: 6px 12px;
-}
+} */
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
 
 .password-container {
     position: relative;
@@ -367,18 +373,51 @@ select {
     height: fit-content;
 }
 
-.file-upload-form,
-.image-preview {
-    padding: 20px;
+
+
+.file-input-label {
+    display: inline-block;
+    position: relative;
+
 }
 
-img.preview {
-    width: 200px;
-    height: 120px;
+.file-input {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 1;
+
+}
+
+.file-input-label::after {
+    content: url("../assets/upload.svg");
     position: relative;
-    background-color: white;
-    border: 1px solid #DDD;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #f5f5f5;
+    border: 1px solid #d9d9d9;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    box-sizing: border-box;
     padding: 5px;
+    z-index: 0;
+}
+
+.file-input-label:hover::after {
+    background-color: #81ecec;
+    border: 2px solid #00cec9;
+    border-left: none;
+    cursor: pointer;
+}
+
+.file-input-label:hover input[type="file"] {
+    cursor: pointer;
 }
 
 .eye {
@@ -418,8 +457,9 @@ button[type="submit"] {
 }
 
 .title {
+    display: flex;
     margin: 0;
-    max-width: fit-content;
+    width: 210px;
 }
 
 
@@ -455,15 +495,26 @@ button[type="submit"] {
 
 .Birthdate {
     display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
-.Birthdate .div11,
-.Birthdate .div12 {
-    flex: 1;
-    margin-right: 10px;
+.matchinfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
+.div7 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mode,
+.region {
+    padding: 15px 0 17px 10px;
+}
 
 .gen {
     display: flex;
@@ -472,37 +523,77 @@ button[type="submit"] {
 
 .gender {
     display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
-.gender .div14,
-.Birthdate .div15 {
-    flex: 1;
-}
-
 .parent {
-display: grid;
-grid-template-columns: 3fr repeat(4, 1.5fr);
-grid-template-rows: repeat(5, 0.5fr);
-grid-column-gap: 20px;
-grid-row-gap: 20px;
+    display: grid;
+    /* grid-template-columns: 3fr repeat(4, 1.5fr); */
+    grid-template-rows: repeat(5, 0.25fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
 }
 
-.div1 { grid-area: 1 / 1 / 2 / 2; }
-.div2 { grid-area: 2 / 1 / 3 / 2; }
-.div3 { grid-area: 3 / 1 / 4 / 2; }
-.div4 { grid-area: 4 / 1 / 5 / 2; }
-.div5 { grid-area: 1 / 2 / 2 / 4; }
-.div6 { grid-area: 2 / 2 / 3 / 4; }
-.div7 { grid-area: 3 / 2 / 4 / 4; }
-.div8 { grid-area: 4 / 2 / 5 / 4; }
-.div9 { grid-area: 1 / 4 / 2 / 6; }
-.div10 { grid-area: 2 / 4 / 3 / 6; }
-.div11 { grid-area: 3 / 4 / 4 / 6; }
-.div12 { grid-area: 4 / 4 / 5 / 5; }
-.div13 { grid-area: 4 / 5 / 5 / 6; }
-.div14 { grid-area: 5 / 3 / 6 / 4; }
-.div15 { grid-area: 5 / 4 / 6 / 6; }
+.div1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.div2 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.div3 {
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+.div4 {
+    grid-area: 4 / 1 / 5 / 2;
+}
+
+.div5 {
+    grid-area: 1 / 2 / 2 / 4;
+}
+
+.div6 {
+    grid-area: 2 / 2 / 3 / 4;
+}
+
+.div7 {
+    grid-area: 3 / 2 / 4 / 4;
+}
+
+.div8 {
+    grid-area: 4 / 2 / 5 / 4;
+}
+
+.div9 {
+    grid-area: 1 / 4 / 2 / 6;
+}
+
+.div10 {
+    grid-area: 2 / 4 / 3 / 6;
+}
+
+.div11 {
+    grid-area: 3 / 4 / 4 / 6;
+}
+
+.div12 {
+    grid-area: 4 / 4 / 5 / 5;
+}
+
+.div13 {
+    grid-area: 4 / 5 / 5 / 6;
+}
+
+.div14 {
+    grid-area: 5 / 3 / 6 / 4;
+}
+
+.div15 {
+    grid-area: 5 / 4 / 6 / 6;
+}
 
 /* Hide default radio buttons */
 [type="radio"]:checked,

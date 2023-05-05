@@ -126,11 +126,14 @@ h2 {
   font-size: 55px;
   color:  var(--white);
   margin: 0;
+  padding: 15px 0;
+line-height: 15px;
+  font-weight: 200;
 }
 
 #gaming {
   font-weight: 500;
-  font-size: 75px;
+  font-size: 70px;
   color: #2c394bd7;
   letter-spacing: 0.03em;
   -webkit-text-stroke-width: 1.5px;

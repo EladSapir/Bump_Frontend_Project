@@ -57,11 +57,12 @@ p {
 }
 
 input {
-  background: var(--white);
   margin: 5px 0px 5px 0px;
   height: 20px;
   border-radius: 15px;
   box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  background: #ecf0f3;
+
   border-radius: 5px;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -72,16 +73,18 @@ input {
   border: none;
 }
 
+
+
 select {
-  background: var(--white);
+  background: #ecf0f3;
   margin: 5px 0px 5px 0px;
-  height: 20px;
+  height: 24px;
+  width: 220px;
   border-radius: 15px;
-  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
   border-radius: 5px;
   outline: none;
   font-size: 14px;
-  padding: 10px 10px 10px 5px;
+  padding: 10px 11px 10px 10px;
   border: none;
 }
 

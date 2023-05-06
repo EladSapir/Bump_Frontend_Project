@@ -73,77 +73,19 @@
                 </div>
             </div>
 
-            <div class="gen div10">
-                <h3 class="title">Gender</h3>
-                <div class="form-group gender">
-                    <div class="male">
-                        <input class="checkbox-tools" type="radio" name="tools" id="tool-1" checked>
-                        <label class="for-checkbox-tools" for="tool-1">
-                            <img src="../assets/male.svg">
-                        </label>
-                    </div>
-                    <div class="female ">
-                        <input class="checkbox-tools" type="radio" name="tools" id="tool-2">
-                        <label class="for-checkbox-tools " for="tool-2">
-                            <img src="../assets/female.svg" style="width: 13px;">
-                        </label>
-                    </div>
-                    <div class="transgender ">
-                        <input class="checkbox-tools" type="radio" name="tools" id="tool-3">
-                        <label class="for-checkbox-tools" for="tool-3">
-                            <img src="../assets/transgender.svg">
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="birth-date div9">
-                <h3 class="title">Birth date</h3>
-                <div class="form-group Birthdate">
-                    <select class="form-control" v-model="day" required>
-                        <option value="" disabled selected>Day</option>
-                        <option v-for="i in 31" :value="i">{{ i }}</option>
-                    </select>
-                    <select class="form-control" v-model="month" required>
-                        <option value="" disabled selected>Month</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                    <select class="form-control" v-model="year" required>
-                        <option value="" disabled selected>Year</option>
-                        <option v-for="i in 17" :value="(new Date()).getFullYear() - i">{{ (new Date()).getFullYear() -
-                            i }}
-                        </option>
-                    </select>
-                    <span v-if="validAge" class="required">You must be at least 16 years old</span>
-                </div>
-            </div>
+ <div class="form-group div8">
+                <h3 class="title">Player Info</h3>
 
+                <div class="playreinfo">
 
-
-
-            <div class="form-group div8">
-
-
-                <select class="form-control" v-model="Role" required>
+                <select class="form-control role" v-model="Role" required>
                     <option value="">Role</option>
                     <option value="Rocket League">Rocket League</option>
                     <option value="League of Legends">League of Legends</option>
                     <option value="Valorant">Valorant</option>
                 </select>
 
-                <select class="form-control" v-model="rank" required>
-                    <option value="">Select your rank</option>
-                    <h3 class="title">Rank</h3>
+                <select class="form-control rank" v-model="rank" required>
                     <option v-if="favoriteGame === 'League of Legends'" value="Unranked">Unranked</option>
                     <option v-if="favoriteGame === 'League of Legends'" value="Iron">Iron</option>
                     <option v-if="favoriteGame === 'League of Legends'" value="Bronze">Bronze</option>
@@ -169,21 +111,56 @@
                     <option v-if="favoriteGame === 'Rocket League'" value="Grand Champion">Grand Champion</option>
                     <option v-if="favoriteGame === 'Rocket League'" value="Supersonic Legend (SSL)">Supersonic Legend (SSL)
                     </option>
+                   
                 </select>
+                 </div>
             </div>
 
-
-            <div class="form-group div12">
-                <h3 class="title">Country</h3>
-                <input type="text" class="form-control" v-model="state">
+ <div class="birth-date div9">
+                <h3 class="title">Birth date</h3>
+                <div class="form-group Birthdate">
+                    <select class="form-control birth" v-model="day" required>
+                        <option value="" disabled selected>Day</option>
+                        <option v-for="i in 31" :value="i">{{ i }}</option>
+                    </select>
+                    <select class="form-contro birth" v-model="month" required>
+                        <option value="" disabled selected>Month</option>
+                         <option v-for="i in 12" :value="i">{{ i }}</option>
+                    </select>
+                    <select class="form-control birth" v-model="year" required>
+                        <option value="" disabled selected>Year</option>
+                        <option v-for="i in 17" :value="(new Date()).getFullYear() - i">{{ (new Date()).getFullYear() -
+                            i }}
+                        </option>
+                    </select>
+                    <span v-if="validAge" class="required">You must be at least 16 years old</span>
+                </div>
             </div>
 
-
-            <div class="form-group div13">
-                <h3 class="title">Language</h3>
-                <input type="text" class="form-control" v-model="language" placeholder="Enter your preferred language"
-                    required>
+            <div class="gen div10">
+                <h3 class="title">Gender</h3>
+                <div class="form-group gender">
+                    <div class="male">
+                        <input class="checkbox-tools" type="radio" name="tools" id="tool-1" checked>
+                        <label class="for-checkbox-tools" for="tool-1">
+                            <img src="../assets/male.svg">
+                        </label>
+                    </div>
+                    <div class="female ">
+                        <input class="checkbox-tools" type="radio" name="tools" id="tool-2">
+                        <label class="for-checkbox-tools " for="tool-2">
+                            <img src="../assets/female.svg" style="width: 13px;">
+                        </label>
+                    </div>
+                    <div class="transgender ">
+                        <input class="checkbox-tools" type="radio" name="tools" id="tool-3">
+                        <label class="for-checkbox-tools" for="tool-3">
+                            <img src="../assets/transgender.svg">
+                        </label>
+                    </div>
+                </div>
             </div>
+           
 
 
             <div class="form-group div11 ">
@@ -197,11 +174,28 @@
 
             </div>
 
+           
+<div class="div12">
+            <div class="form-group ">
+                <h3 class="title count">Country</h3>
+                <input type="text" class="form-control country" v-model="state">
+            </div>
+
+
+            <div class="form-group ">
+                <h3 class="title lang">Language</h3>
+                <input type="text" class="form-control language" v-model="language" placeholder="Enter your preferred language"
+                    required>
+            </div>
+</div>
+
             <p class="error-msg" v-if="error">{{ error }}</p>
 
         </form>
-        <p class="clearbtn div14">Clear</p>
-        <button type="submit" class="btn div15" @click.prevent="submitForm">Submit</button>
+        <div class="div13">
+        <p class="clearbtn">Clear</p>
+        <button type="submit" class="btn " @click.prevent="submitForm">Submit</button>
+       </div>
         <p>already registered? <a class="loginink" @click="moveToLogin">Login here.</a></p>
     </div>
 </template>
@@ -341,6 +335,9 @@ input {
     transition: all 0.3s ease;
 }
 
+
+
+
 option {
   font-size: 12px;
 }
@@ -349,16 +346,7 @@ option {
     font-size: 12px;
 }
 
-/* select {
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 13px;
-    font-weight: 400;
-    height: 35px;
-    line-height: 1;
-    padding: 6px 12px;
-} */
+
 
 .form-group {
     display: flex;
@@ -498,101 +486,134 @@ button[type="submit"] {
     flex-direction: row;
     align-items: center;
 }
-
+.birth{
+    margin-right: 10px;
+    width: 70px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 6px 12px;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
 .matchinfo {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-
+.div8{
+    display: flex;
+    flex-direction: column;
+}
+.playreinfo{
+    display: flex;
+    flex-direction: row;;
+}
 .div7 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
+.role, .rank{
+    width: 105px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    padding:16.5px 12px;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.role{
+    margin-right: 10px;
+
+}
+.div12{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.country, .language{
+    width: 110px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    padding:16.5px 12px;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.country{
+    margin-right: 10px;
+
+}
+.count,
+.lang{
+    width: fit-content;
+}
+
 .mode,
 .region {
-    padding: 15px 0 17px 10px;
+    width: 105px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 16.5px 12px;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
+.region{
+    margin-right: 10px;
+
+}
+.parent {
+display: grid;
+grid-template-columns: repeat(3, 3fr);
+grid-template-rows: repeat(5, 0.5fr);
+grid-column-gap: 20px;
+grid-row-gap: 10px;
+}
+
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 2 / 1 / 3 / 2; }
+.div3 { grid-area: 3 / 1 / 4 / 2; }
+.div4 { grid-area: 4 / 1 / 5 / 2; }
+.div5 { grid-area: 1 / 2 / 2 / 3; }
+.div6 { grid-area: 2 / 2 / 3 / 3; }
+.div7 { grid-area: 3 / 2 / 4 / 3; }
+.div8 { grid-area: 4 / 2 / 5 / 3; }
+.div9 { grid-area: 1 / 3 / 2 / 4; }
+.div10 { grid-area: 2 / 3 / 3 / 4; }
+.div11 { grid-area: 3 / 3 / 4 / 4; }
+.div12 { grid-area: 4 / 3 / 5 / 4; }
+.div13 { grid-area: 5 / 3 / 6 / 4; }
 
 .gen {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .gender {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.parent {
-    display: grid;
-    /* grid-template-columns: 3fr repeat(4, 1.5fr); */
-    grid-template-rows: repeat(5, 0.25fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-}
-
-.div1 {
-    grid-area: 1 / 1 / 2 / 2;
-}
-
-.div2 {
-    grid-area: 2 / 1 / 3 / 2;
-}
-
-.div3 {
-    grid-area: 3 / 1 / 4 / 2;
-}
-
-.div4 {
-    grid-area: 4 / 1 / 5 / 2;
-}
-
-.div5 {
-    grid-area: 1 / 2 / 2 / 4;
-}
-
-.div6 {
-    grid-area: 2 / 2 / 3 / 4;
-}
-
-.div7 {
-    grid-area: 3 / 2 / 4 / 4;
-}
-
-.div8 {
-    grid-area: 4 / 2 / 5 / 4;
-}
-
-.div9 {
-    grid-area: 1 / 4 / 2 / 6;
-}
-
-.div10 {
-    grid-area: 2 / 4 / 3 / 6;
-}
-
-.div11 {
-    grid-area: 3 / 4 / 4 / 6;
-}
-
-.div12 {
-    grid-area: 4 / 4 / 5 / 5;
-}
-
-.div13 {
-    grid-area: 4 / 5 / 5 / 6;
-}
-
-.div14 {
-    grid-area: 5 / 3 / 6 / 4;
-}
-
-.div15 {
-    grid-area: 5 / 4 / 6 / 6;
 }
 
 /* Hide default radio buttons */
@@ -609,13 +630,14 @@ button[type="submit"] {
 .checkbox-tools:checked+label,
 .checkbox-tools:not(:checked)+label {
     position: relative;
-    padding: 8px 10px 3px 10px;
+    padding: 5px 10px 5px 10px;
     width: 50px;
     line-height: 5px;
     letter-spacing: 1px;
     margin: 0 auto;
     margin-right: 10px;
     margin-bottom: 10px;
+    margin-top: 4px;
     text-align: center;
     border-radius: 4px;
     overflow: hidden;
@@ -623,6 +645,7 @@ button[type="submit"] {
     text-transform: uppercase;
     color: var(--white);
     transition: all 300ms linear;
+
 }
 
 .checkbox-tools:not(:checked)+label {
@@ -652,7 +675,13 @@ button[type="submit"] {
     transition: all 300ms linear;
 }
 
-
+.div13{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: end;
+    gap: 10px
+}
 
 .for-checkbox-tools {
     display: flex;

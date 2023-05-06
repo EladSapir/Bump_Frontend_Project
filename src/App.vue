@@ -9,7 +9,7 @@
 
 :root {
   --approve: #09B261;
-  --background: #1B1E29;
+  --background: #2c394bd7;
   --error: #FF0000;
   --white: #EFEFEF;
   --main: #E54425;
@@ -22,6 +22,8 @@
   --stroke: #ffffff10;
   --hovercolor: #FF6A4D;
   --mainfont: 'Poppins', sans-serif;
+  --inputcolor: #ecf0f3;
+  --textinput:rgba(0, 0, 0, 0.5);
 }
 
 html,
@@ -60,9 +62,8 @@ input {
   margin: 5px 0px 5px 0px;
   height: 20px;
   border-radius: 15px;
-  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
-  background: #ecf0f3;
-
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px var(--white);
+  background: var(--inputcolor);
   border-radius: 5px;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -71,12 +72,13 @@ input {
   display: block;
   width: 300px;
   border: none;
+  color: var(--black);
 }
 
 
 
 select {
-  background: #ecf0f3;
+  background: var(--inputcolor);
   margin: 5px 0px 5px 0px;
   height: 24px;
   width: 220px;
@@ -86,6 +88,7 @@ select {
   font-size: 14px;
   padding: 10px 11px 10px 10px;
   border: none;
+  color: var(--black);
 }
 
 option {

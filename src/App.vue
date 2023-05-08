@@ -24,6 +24,7 @@
   --mainfont: 'Poppins', sans-serif;
   --inputcolor: #ecf0f3;
   --textinput:rgba(0, 0, 0, 0.5);
+  --black: #000000;
 }
 
 html,
@@ -58,10 +59,14 @@ p {
   color: var(--white);
 }
 
+span{
+  font-size: 10px;
+  color: var(--white);
+}
+
 input {
   margin: 5px 0px 5px 0px;
   height: 20px;
-  border-radius: 15px;
   box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px var(--white);
   background: var(--inputcolor);
   border-radius: 5px;
@@ -79,21 +84,20 @@ input {
 
 select {
   background: var(--inputcolor);
-  margin: 5px 0px 5px 0px;
-  height: 24px;
-  width: 220px;
-  border-radius: 15px;
+  height: 40px;
+  width: 235px;
   border-radius: 5px;
   outline: none;
-  font-size: 14px;
-  padding: 10px 11px 10px 10px;
+  font-size: 12px;
   border: none;
   color: var(--black);
+  margin: 5px 0px 5px 0px;
 }
 
 option {
   font-size: 12px;
   font-family: var(--mainfont);
+  color: var(--black);
 }
 
 .btn {

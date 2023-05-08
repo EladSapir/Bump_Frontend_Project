@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      isLogin: true,
+      isLogin: false,
       showAbout: false,
       showTerms: false
     }

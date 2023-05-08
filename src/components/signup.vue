@@ -24,8 +24,7 @@
                 <img src="../assets/eye-slash-solid.svg" @click="switchVisibility" class="eye" v-if="show" id="eyeslash">
                 <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>              
             </div>
-            <!-- <span v-if="!isPasswordValid" class="required">Password must have at least 8 characters, one uppercase letter,
-                    one lowercase letter, and one number</span> -->
+
            
                     <div class="form-group password-container div3">
                 <h3 class="title">Confirm Password</h3>
@@ -35,7 +34,6 @@
                     id="eyeslash">
                 <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibilityConfirm" v-else>
             </div>
-            <!-- <span v-if="!isConfirmPasswordValid" class="required">Passwords do not match</span> -->
 
             <div class="form-group div4">
                 <h3 class="title">Discord Account</h3>
@@ -170,7 +168,6 @@
                     </select>
                 </div>
             </div>
-            <!-- <span v-if="!isAgeValid" class="required">You must be at least 16 years old</span> -->
 
 
             <div class="gen div10">
@@ -215,9 +212,9 @@
                     <h3 class="title">Upload Image</h3>
                     <label class="file-input-label"  @mouseover="uploadhover=false" @mouseleave="uploadhover=true">
                         <div class="upload-icon">
-                            <span :class="{ changeimg: changeimage }">{{ Upload_profile_image }}</span>
-                            <img v-if="uploadhover" src="../assets/upload.svg">
-                            <img v-else src="../assets/uploadhover.svg">
+                            <span style="font-size: 12px;" :class="{ changeimg: changeimage }">{{ Upload_profile_image }}</span>
+                            <img v-if="!uploadhover || !(Upload_profile_image==='Upload profile image')" src="../assets/uploadhover.svg">
+                            <img v-else src="../assets/upload.svg">
                         </div>
                         <input id="file-input" class="file-input" type="file" accept="image/*" @change="handleImageChange">
                     </label>

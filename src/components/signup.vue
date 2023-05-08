@@ -12,14 +12,14 @@
         <form class="parent" @submit.prevent="handleSubmit">
             <div class="form-group div1">
                 <h3 class="title">Email</h3>
-                <input :class="{ error: !isEmailValid }" type="email" class="form-control" v-model="email"
+                <input :class="{ error: !isEmailValid }" name="email" type="email" class="form-control" v-model="email"
                     placeholder="Yourmailhere@something.com" required>
             </div>
 
 
             <div class="form-group password-container div2">
                 <h3 class="title">Password</h3>
-                <input :class="{ error: !isPasswordValid }" :type="passwordFieldType" class="form-control" v-model="password"
+                <input :class="{ error: !isPasswordValid }" :type="passwordFieldType" name="password" class="form-control" v-model="password"
                     placeholder="Notyourtypical123" required>
                 <img src="../assets/eye-slash-solid.svg" @click="switchVisibility" class="eye" v-if="show" id="eyeslash">
                 <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>              
@@ -29,7 +29,7 @@
            
                     <div class="form-group password-container div3">
                 <h3 class="title">Confirm Password</h3>
-                <input :class="{ error: !isConfirmPasswordValid }" :type="passwordFieldTypec" class="form-control"
+                <input :class="{ error: !isConfirmPasswordValid }" name="password" :type="passwordFieldTypec" class="form-control"
                     v-model="confirmPassword" placeholder="Notyourtypical123" required>
                 <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibilityConfirm" v-if="showc"
                     id="eyeslash">

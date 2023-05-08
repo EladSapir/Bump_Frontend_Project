@@ -1,7 +1,5 @@
 <template>
   <router-view />
-  <link rel="stylesheet" href="https://use.typekit.net/kji8pud.css%22%3E">
-  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </template>
 
 <style>

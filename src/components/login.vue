@@ -107,15 +107,15 @@ p {
 
 #logo {
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  margin-top: -20px;
+  width: 70px;
+  height: 70px;
+  margin-top: -25px;
   margin-bottom: -10px;
 }
 
 h1 {
   font-size: 32px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .group {

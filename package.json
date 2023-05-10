@@ -7,7 +7,7 @@
     "test": "npx mocha tests/*.spec.js --color",
     "dev": "nodemon main.js",
     "lint": "eslint src/router/*.js --color",
-    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
   "repository": {

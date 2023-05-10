@@ -19,17 +19,17 @@
 
             <div class="form-group password-container div2">
                 <h3 class="title">Password</h3>
-                <input :class="{ error: !isPasswordValid }" :type="passwordFieldType" name="password" class="form-control" v-model="password"
-                    placeholder="Notyourtypical123" required>
+                <input :class="{ error: !isPasswordValid }" :type="passwordFieldType" name="password" class="form-control"
+                    v-model="password" placeholder="Notyourtypical123" required>
                 <img src="../assets/eye-slash-solid.svg" @click="switchVisibility" class="eye" v-if="show" id="eyeslash">
-                <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>              
+                <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
             </div>
 
-           
-                    <div class="form-group password-container div3">
+
+            <div class="form-group password-container div3">
                 <h3 class="title">Confirm Password</h3>
-                <input :class="{ error: !isConfirmPasswordValid }" name="password" :type="passwordFieldTypec" class="form-control"
-                    v-model="confirmPassword" placeholder="Notyourtypical123" required>
+                <input :class="{ error: !isConfirmPasswordValid }" name="password" :type="passwordFieldTypec"
+                    class="form-control" v-model="confirmPassword" placeholder="Notyourtypical123" required>
                 <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibilityConfirm" v-if="showc"
                     id="eyeslash">
                 <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibilityConfirm" v-else>
@@ -56,7 +56,8 @@
             <div class="form-group div7">
                 <h3 class="title">Match info</h3>
                 <div class="matchinfo">
-                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !region }" class="form-control region" v-model="region" required>
+                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !region }"
+                        class="form-control region" v-model="region" required>
                         <option value="">Region</option>
                         <option v-if="favoritegame === 'Rocket League'" value="America">America</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Europe">Europe</option>
@@ -66,10 +67,12 @@
                         <option v-if="favoritegame === 'Rocket League'" value="Asia">Asia</option>
                         <option v-if="favoritegame === 'League of Legends'" value="North America">North America</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Europe West">Europe West</option>
-                        <option v-if="favoritegame === 'League of Legends'" value="Europe Nordic & East">Europe Nordic & East</option>
+                        <option v-if="favoritegame === 'League of Legends'" value="Europe Nordic & East">Europe Nordic &
+                            East</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Brazil">Brazil</option>
                     </select>
-                    <select v-if="(favoritegame === 'Valorant')" :class="{ firstoption: !server }" class="form-control server" v-model="server" required>
+                    <select v-if="(favoritegame === 'Valorant')" :class="{ firstoption: !server }"
+                        class="form-control server" v-model="server" required>
                         <option value="">Server</option>
                         <option value="Brazil">Brazil</option>
                         <option value="North America">North America</option>
@@ -78,7 +81,8 @@
                         <option value="Europe">Europe</option>
                         <option value="Korea">Korea</option>
                     </select>
-                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !mode }" class="form-control mode" v-model="mode" required>
+                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !mode }" class="form-control mode"
+                        v-model="mode" required>
                         <option value="">Mode</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Solo">Ranked - Solo</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Duo">Ranked - Duo</option>
@@ -101,7 +105,8 @@
 
                 <div class="playreinfo">
 
-                    <select v-if="!(favoritegame === 'Rocket League')" :class="{ firstoption: !role }" class="form-control role" v-model="role" required>
+                    <select v-if="!(favoritegame === 'Rocket League')" :class="{ firstoption: !role }"
+                        class="form-control role" v-model="role" required>
                         <option value="">Role</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Top">Top</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Mid">Mid</option>
@@ -115,7 +120,8 @@
 
                     </select>
 
-                    <select :class="[{ firstoption: !rank },{rank: !(favoritegame === 'Rocket League')}]" class="form-control " v-model="rank" required>
+                    <select :class="[{ firstoption: !rank }, { rank: !(favoritegame === 'Rocket League') }]"
+                        class="form-control " v-model="rank" required>
                         <option value="" selected>Rank</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Unranked">Unranked</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Iron">Iron</option>
@@ -151,23 +157,25 @@
             <div class="birth-date div9">
                 <h3 class="title">Birth date</h3>
                 <div class="form-group Birthdate">
-                    <select :class="[{ firstoption: !day}, {error: !isAgeValid }]" class="form-control birth" v-model="day"
-                        required>
+                    <select :class="[{ firstoption: !day }, { error: !isAgeValid }]" class="form-control birth"
+                        v-model="day" required>
                         <option value="">Day</option>
-                        <option v-for="i in 31" :value="i">{{ i }}</option>
+                        <option v-for="i in 31" :value="i" :key="i">{{ i }}</option>
                     </select>
-                    <select :class="{ firstoption: !month,error: !isAgeValid }" class="form-contro birth" v-model="month" required>
+                    <select :class="{ firstoption: !month, error: !isAgeValid }" class="form-contro birth" v-model="month"
+                        required>
                         <option value="">Month</option>
-                        <option v-for="i in 12" :value="i">{{ i }}</option>
+                        <option v-for="i in 12" :value="i" :key="i">{{ i }}</option>
                     </select>
-                    <select :class="{ firstoption: !year,error: !isAgeValid }" class="form-control birth" v-model="year" required>
+                    <select :class="{ firstoption: !year, error: !isAgeValid }" class="form-control birth" v-model="year"
+                        required>
                         <option value="">Year</option>
-                        <option v-for="i in 120" :value="(new Date()).getFullYear() - i">{{ (new Date()).getFullYear() -
-                            i }}
-                        </option>
+                        <option v-for="i in 120" :value="(new Date()).getFullYear() - i" :key="i">{{ (new
+                            Date()).getFullYear() - i }}</option>
                     </select>
                 </div>
             </div>
+
 
 
             <div class="gen div10">
@@ -209,11 +217,16 @@
 
             <div class="form-group div11">
                 <div class="file-upload-form">
+                     <div class="optional">
                     <h3 class="title">Upload Image</h3>
-                    <label class="file-input-label"  @mouseover="uploadhover=false" @mouseleave="uploadhover=true">
+                     <span>*optional</span>
+                    </div>
+                    <label class="file-input-label" @mouseover="uploadhover = false" @mouseleave="uploadhover = true">
                         <div class="upload-icon">
-                            <span style="font-size: 12px;" :class="{ changeimg: changeimage }">{{ Upload_profile_image }}</span>
-                            <img v-if="!uploadhover || !(Upload_profile_image==='Upload profile image')" src="../assets/uploadhover.svg">
+                            <span style="font-size: 12px;" :class="{ changeimg: changeimage }">{{ Upload_profile_image
+                            }}</span>
+                            <img v-if="!uploadhover || !(Upload_profile_image === 'Upload profile image')"
+                                src="../assets/uploadhover.svg">
                             <img v-else src="../assets/upload.svg">
                         </div>
                         <input id="file-input" class="file-input" type="file" accept="image/*" @change="handleImageChange">
@@ -221,21 +234,54 @@
                 </div>
             </div>
 
-
-
-
             <div class="div12">
-                <div class="form-group ">
+                <div class="form-group">
+                    <div class="optional">
                     <h3 class="title count">Country</h3>
-                    <input type="text" class="form-control country" v-model="state" placeholder="Israel">
+                    <span>*optional</span>
+                    </div>
+                    <select class="form-control country" :class="{ firstoption: !state }" v-model="state">
+                        <option value="">Select a country</option>
+                        <option value="Israel">Israel</option>
+                        <option value="United States">United States</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="China">China</option>
+                        <option value="India">India</option>
+                    </select>
                 </div>
 
-
-                <div class="form-group ">
+                <div class="form-group">
+                    <div class="optional">
+                        
                     <h3 class="title lang">Language</h3>
-                    <input type="text" class="form-control language" v-model="language" placeholder="Hebrew">
+                    <span>*optional</span>
+                    </div>
+                    <select class="form-control language" :class="{ firstoption: !language }" v-model="language">
+                        <option value="">Select a language</option>
+                        <option value="Hebrew">Hebrew</option>
+                        <option value="English">English</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Hindi">Hindi</option>
+                    </select>
                 </div>
             </div>
+
+
 
             <span v-if="error" class="required" v-html="error"></span>
             <div class="div13">
@@ -243,7 +289,7 @@
                 <button type="submit" class="btn">Submit</button>
             </div>
         </form>
-       
+
 
 
     </div>
@@ -297,6 +343,7 @@ export default {
     methods: {
         /*clear all the fields*/
         clear() {
+            this.error = '';
             this.changeimage = false;
             this.gamerTag = '';
             this.discordAccount = '';
@@ -318,10 +365,10 @@ export default {
             this.gender = 'male';
             this.imageData = '';
             this.Upload_profile_image = 'Upload profile image';
-            this.isAgeValid= true;
-            this.isConfirmPasswordValid= true;
-            this.isPasswordValid= true;
-        }, 
+            this.isAgeValid = true;
+            this.isConfirmPasswordValid = true;
+            this.isPasswordValid = true;
+        },
         handleImageChange(event) {
             const file = event.target.files[0];
             this.changeimage = true;
@@ -372,43 +419,43 @@ export default {
             }
         },
         builderror() {
-            console.log("build error:"+this.error);
-            if(!this.isPasswordValid && this.isConfirmPasswordValid && this.isAgeValid){
+            console.log("build error:" + this.error);
+            if (!this.isPasswordValid && this.isConfirmPasswordValid && this.isAgeValid) {
                 this.error = "Please enter a valid password"
             }
-            else if( this.isPasswordValid && !this.isConfirmPasswordValid && this.isAgeValid){
+            else if (this.isPasswordValid && !this.isConfirmPasswordValid && this.isAgeValid) {
                 this.error = "Passwords do not match"
             }
-            else if( this.isPasswordValid && this.isConfirmPasswordValid && !this.isAgeValid){
+            else if (this.isPasswordValid && this.isConfirmPasswordValid && !this.isAgeValid) {
                 this.error = "Please enter a valid age"
             }
-            else if( !this.isPasswordValid && !this.isConfirmPasswordValid && this.isAgeValid){
+            else if (!this.isPasswordValid && !this.isConfirmPasswordValid && this.isAgeValid) {
                 this.error = "Please enter a valid password and confirm password"
             }
-            else if( !this.isPasswordValid && this.isConfirmPasswordValid && !this.isAgeValid){
+            else if (!this.isPasswordValid && this.isConfirmPasswordValid && !this.isAgeValid) {
                 this.error = "Please enter a valid password and age"
             }
-            else if( this.isPasswordValid && !this.isConfirmPasswordValid && !this.isAgeValid){
+            else if (this.isPasswordValid && !this.isConfirmPasswordValid && !this.isAgeValid) {
                 this.error = "Passwords do not match and enter a valid age"
             }
-            else if(!this.isPasswordValid && !this.isConfirmPasswordValid && this.isAgeValid){
+            else if (!this.isPasswordValid && !this.isConfirmPasswordValid && this.isAgeValid) {
                 this.error = "Please enter a valid password and confirm password"
             }
-            else if(!this.isPasswordValid && this.isConfirmPasswordValid && !this.isAgeValid){
+            else if (!this.isPasswordValid && this.isConfirmPasswordValid && !this.isAgeValid) {
                 this.error = "Please enter a valid password and age"
             }
-            else if( this.isPasswordValid && !this.isConfirmPasswordValid && !this.isAgeValid){
+            else if (this.isPasswordValid && !this.isConfirmPasswordValid && !this.isAgeValid) {
                 this.error = "Please confirm password and age"
             }
-            else if( !this.isPasswordValid && !this.isConfirmPasswordValid && !this.isAgeValid){
+            else if (!this.isPasswordValid && !this.isConfirmPasswordValid && !this.isAgeValid) {
                 this.error = "Please enter a valid password, confirm password and age"
             }
 
-            if(!this.isPasswordValid){
-                this.error= this.error+ "<br>• Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one number"
+            if (!this.isPasswordValid) {
+                this.error = this.error + "<br>• Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one number"
             }
-            if(!this.isAgeValid){
-                this.error= this.error + "<br>• You must be at least 16 years old"
+            if (!this.isAgeValid) {
+                this.error = this.error + "<br>• You must be at least 16 years old"
             }
         },
         validateForm() {
@@ -419,9 +466,9 @@ export default {
             this.isConfirmPasswordValid = (this.confirmPassword === this.password);
             this.validateAge();
             alert('this.isEmailValid' + this.isEmailValid + 'this.isPasswordValid' + this.isPasswordValid + 'this.isConfirmPasswordValid'
-             + this.isConfirmPasswordValid + 'this.isAgeValid' + this.isAgeValid );
+                + this.isConfirmPasswordValid + 'this.isAgeValid' + this.isAgeValid);
             return this.isEmailValid && this.isPasswordValid &&
-                this.isConfirmPasswordValid &&  this.isAgeValid ;
+                this.isConfirmPasswordValid && this.isAgeValid;
         },
         handleSubmit() {
             console.log("submit");
@@ -546,12 +593,11 @@ button[type="submit"] {
     background-color: var(--inputcolor);
     margin: 5px 0px 5px 0px;
     height: 40px;
-    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px var(--white);
     border-radius: 5px;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     font-size: 12px;
-    width: 225px;
+    width: 229px;
     border: none;
     padding-left: 5px;
     cursor: pointer;
@@ -573,7 +619,7 @@ button[type="submit"] {
 
     padding-left: 5px;
     cursor: pointer;
-    
+
 }
 
 .upload-icon img {
@@ -595,12 +641,20 @@ button[type="submit"] {
 }
 
 .optional {
-    position: absolute;
-    top: 0;
-    right: 8px;
-    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
+.optional span {
+    font-size: 8px;
+    margin-left: 5px;
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.file-upload-form .optional h3{
+width: fit-content;
+}
 .error {
     border: 2px solid red;
 }
@@ -623,7 +677,7 @@ button[type="submit"] {
 
 .birth {
     margin-right: 10px;
-    width: 70px;
+    width: 71.5px;
     border-radius: 5px;
     font-size: 12px;
     font-weight: 400;
@@ -680,14 +734,14 @@ button[type="submit"] {
 
 .country,
 .language {
-    width: 93px;
+    width: 112px;
     border-radius: 5px;
     border: 1px solid #d9d9d9;
     font-size: 12px;
     font-weight: 400;
+    line-height: 1;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    padding: 9px 10px 9px 5px;
 }
 
 .country {
@@ -805,7 +859,7 @@ button[type="submit"] {
 .checkbox-tools:checked+label,
 .checkbox-tools:not(:checked)+label {
     position: relative;
-    width: 70px;
+    width: 71.5px;
     height: 42px;
     line-height: 5px;
     letter-spacing: 1px;
@@ -888,4 +942,5 @@ button[type="submit"] {
     text-decoration: underline;
     text-decoration-color: var(--main);
     text-decoration-thickness: 2px;
-}</style>
+}
+</style>

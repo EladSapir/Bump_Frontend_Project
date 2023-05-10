@@ -122,7 +122,6 @@ img {
 }
 
 #logo {
-  border-radius: 50%;
   width: 95px;
   margin-top: 20px;
   margin-bottom: 10px;

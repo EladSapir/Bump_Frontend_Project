@@ -13,9 +13,9 @@
   
   <script>
   export default {
-    name: "Header",
+    name: "header",
     methods: {
-        
+
     },
   };
   </script>
@@ -24,12 +24,12 @@
   .main-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    height: 70px;
+    background-color: var(--background);
+    height: 100px;
+    width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    top: 0;
   }
   
   .nav-menu {

@@ -13,7 +13,7 @@
   --main: #E54425;
   --misc: #00BAFF;
   --pagebgcolor: #161823;
-  --secoundarycolor: #33415B;
+  --secondarycolor: #33415B;
   --thirdcolor: #232633;
   --warning: #FFB300;
   --white: #FFFFFF;

@@ -2,7 +2,7 @@
   <div class="logincontainer">
 
     <form action="/login" method="POST">
-      <img id="logo" src="../assets/logo.png">
+      <img id="logo" src="../../public/Logo1.svg">
       <h1>Login</h1>
       <input type="email" placeholder="Email" id="email" name="email" required>
       <div class="password-container">

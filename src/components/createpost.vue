@@ -87,18 +87,6 @@ textarea {
     opacity: 0.5;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--main);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--main);
-}
 .post-actions {
     display: flex;
     justify-content: flex-end;

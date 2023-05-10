@@ -24,14 +24,16 @@
   --textinput:rgba(0, 0, 0, 0.5);
   --black: #000000;
 }
-
-html,
-body {
-  font-family: 'Poppins';
+html{
   background-image: url(./assets/bgr.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+html,
+body {
+  font-family: 'Poppins';
   height: 100%;
   margin: 0;
 }
@@ -61,6 +63,13 @@ span{
   font-size: 10px;
   color: var(--white);
 }
+
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+
 
 input {
   margin: 5px 0px 5px 0px;

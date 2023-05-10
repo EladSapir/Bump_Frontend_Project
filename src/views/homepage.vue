@@ -1,17 +1,17 @@
 <template>
   <div class="homepage">
-     <headerc />
+     <navbar />
     <h1>This is an the home page</h1>
   </div>
 </template>
   
 <script>
-import headerc from "../components/header.vue";
+import navbar from "../components/navbar.vue";
 
 export default {
   name: "homepage",
   components: {
-    headerc
+    navbar
   }
 
 };

@@ -6,7 +6,7 @@
             @mouseleave="returnmouseover = !returnmouseover">
 
         <div class="signheading">
-            <img id="logo" src="../assets/logo.png">
+            <img id="logo" src="../../public/Logo1.svg">
             <h1>Let’s Sign Up</h1>
         </div>
         <form class="parent" @submit.prevent="handleSubmit">

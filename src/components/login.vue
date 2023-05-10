@@ -6,11 +6,11 @@
       <h1>Login</h1>
       <input type="email" placeholder="Email" id="email" name="email" required>
       <div class="password-container">
-      <input :type="passwordFieldType" placeholder="Password" v-model="password" id="password" required>
+      <input :type="passwordFieldType" placeholder="Password" v-model="password" name="password" id="password" required>
       <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibility" v-if="show"  id="eyeslash">
       <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
       </div>
-      <button class="btn" type="submit">Login</button>
+      <router-link to="/homepage"><button class="btn" type="submit">Login</button></router-link>
       <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here</a></p>
     </form>
   </div>

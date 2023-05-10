@@ -1,14 +1,23 @@
 <template>
     <header class="main-header">
-      <nav class="nav-menu">
-        <ul class="nav-items">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+    <nav class="nav-menu">
+      <div class="nav-left">
+        <a href="#" class="logo"><img src="../../public/Logo1.svg" alt="Logo"></a>
+        <a href="#" class="BUMP">BUMP</a>
+        <a href="#" class="profile-link">My Profile</a>
+      </div>
+      <div class="nav-center">
+        <form action="#">
+          <input type="text" placeholder="Search..." class="search">
+        </form>
+      </div>
+      <div class="nav-right">
+        <button class="btn">Lets Bump</button>
+        <img class="noti" src="../assets/noti_off.svg" alt="Notifications">
+        <img class="logout" src="../assets/logout.svg" alt="Logout">
+      </div>
+    </nav>
+  </header>
   </template>
   
   <script>
@@ -22,44 +31,83 @@
   
   <style scoped>
   .main-header {
-    display: flex;
-    justify-content: space-between;
     background-color: var(--background);
-    height: 100px;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-    top: 0;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
   }
   
   .nav-menu {
     display: flex;
+    width: 100%;
+    padding: 0 30px;
   }
   
-  .nav-items {
+  .nav-left, .nav-right {
     display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    align-items: center;
   }
   
-  .nav-items li {
-    margin-left: 20px;
+  .nav-left {
+    flex: 1;
   }
   
-  .nav-items li:first-child {
-    margin-left: 0;
+  .nav-right {
+    flex: 1;
+    justify-content: flex-end;
   }
   
-  .nav-items li a {
-    color: #333;
+  .logo {
+    display: flex;
+    height: 60px;
+    width: 60px;
+    margin-right: 20px;
+  }
+  
+  .search {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .profile-link {
+    color: var(--white);
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    margin-right: 20px;
   }
   
-  .nav-items li a:hover {
-    color: #f39c12;
+  .noti {
+    margin-right: 20px;
+    height: 20px;
+    width: 20px;
   }
+  .logout {
+    margin-right: 20px;
+    height: 20px;
+    width: 20px;
+  }
+  .btn {
+    margin-right: 20px;
+    padding: 10px 20px;
+  }
+  
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  input[type="text"] {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  
+
   </style>
   

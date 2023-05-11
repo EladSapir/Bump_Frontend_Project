@@ -2,19 +2,25 @@
   <header class="main-header">
     <nav class="nav-menu">
       <div class="nav-left">
-        <a href="#" class="logo"><img src="../../public/Logo1.svg" alt="Logo"></a>
-        <a href="#" class="BUMP">BUMP</a>
+        <img src="../../public/Logo1.svg" class="logo" @click="movetohomepage">
+        <img src="../assets/bumpword.svg" alt="Bump" class="bumpword">
         <a href="#" class="profile-link">My Profile</a>
       </div>
       <div class="nav-center">
-        <form action="#">
-          <input type="text" placeholder="Search..." class="search">
-        </form>
+        <div class="search-container">
+          <input type="text" placeholder="Search" class="search">
+          <img src="../assets/search.svg" alt="Search" class="search-icon">
+        </div>
       </div>
       <div class="nav-right">
-        <button class="btn">Lets Bump</button>
-        <img class="noti" src="../assets/noti_off.svg" alt="Notifications">
-        <img class="logout" src="../assets/logout.svg" alt="Logout">
+        <button class="btn" @click="movetomatching">Let's Bump</button>
+        <img class="noti" src="../assets/noti_off.svg" @click="toggleDropdown">
+        <div class="dropdown" :class="{ active: isDropdownActive }">
+          <ul>
+            <li v-for="notification in notifications" :key="notification">{{ notification }}</li>
+          </ul>
+        </div>
+        <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
     </nav>
   </header>
@@ -23,21 +29,45 @@
 <script>
 export default {
   name: "navbar",
-  methods: {
-
+  data() {
+    return {
+      showNotifications: false,
+      notifications: ["Notification 1", "Notification 2", "Notification 3"], // need to change
+      isDropdownActive: false
+    };
   },
+  methods: {
+    toggleDropdown() {
+      this.isDropdownActive = !this.isDropdownActive;
+    },
+    logout() { // need to implement 
+      this.$router.push('/login_signup')
+    },
+    movetomatching() { // need to change
+      this.$router.push('/matching')
+    },
+    movetohomepage() {
+      this.$router.push('/homepage')
+    }
+  }
 };
+
 </script>
   
 <style scoped>
 .main-header {
-  background-color: var(--background);
+  background-color: var(--pagebgcolor);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 80px;
   width: 100%;
+  border: 1px solid var(--stroke);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 
 .nav-menu {
@@ -63,39 +93,125 @@ export default {
 
 .logo {
   display: flex;
-  height: 60px;
-  width: 60px;
+  height: 55px;
+  width: 55px;
   margin-right: 20px;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.search-container {
+  position: relative;
 }
 
 .search {
   border: none;
-  border-radius: 5px;
-  padding: 10px;
+  background-color: var(--thirdcolor);
+  border-radius: 15px;
+  padding: 10px 40px 10px 20px;
   margin-right: 10px;
+  color: var(--white);
+  border: 2px solid var(--stroke);
+  font-family: var(--mainfont);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  width: 150px;
+  transition: all 0.3s ease;
 }
+
+.search:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+  width: 250px;
+}
+
+.search::placeholder {
+  color: #b9b9b9;
+  font-family: var(--mainfont);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+.search::-webkit-input-placeholder,
+.search:focus::-webkit-input-placeholder,
+.search::-moz-placeholder,
+.search:focus::-moz-placeholder,
+.search:-moz-placeholder,
+.search:focus:-moz-placeholder,
+.search:-ms-input-placeholder,
+.search:focus:-ms-input-placeholder {
+  /* Placeholder styles */
+  color: var(--white);
+  opacity: 0.6;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
+}
+
+.search:focus+.search-icon {
+  fill: var(--accent);
+  transform: translateY(-50%) rotate(90deg);
+}
+
 
 .profile-link {
   color: var(--white);
   text-decoration: none;
   margin-right: 20px;
+  transition: 0.5s;
+}
+
+.profile-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--main);
+  cursor: pointer;
+
 }
 
 .noti {
-  margin-right: 20px;
-  height: 20px;
-  width: 20px;
+  margin-right: 40px;
+  height: 30px;
+  width: 30px;
+}
+
+.noti:hover {
+  cursor: pointer;
 }
 
 .logout {
+  margin-right: 40px;
+  height: 30px;
+  width: 30px;
+}
+
+.logout:hover {
+  cursor: pointer;
+}
+
+.bumpword {
   margin-right: 20px;
-  height: 20px;
-  width: 20px;
+  margin-left: -20px;
+  height: 30px;
+  width: 80px;
 }
 
 .btn {
-  margin-right: 20px;
-  padding: 10px 20px;
+  margin-right: 40px;
+  padding: 8px 20px;
 }
 
 form {
@@ -104,11 +220,20 @@ form {
   align-items: center;
 }
 
-input[type="text"] {
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin-right: 10px;
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--pagebgcolor);
+  min-width: 200px;
+  max-height: 200px;
+  overflow-y: scroll;
+  border: 1px solid var(--stroke);
+}
+
+.dropdown.active {
+  display: block;
 }
 </style>
   

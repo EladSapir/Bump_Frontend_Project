@@ -44,7 +44,7 @@ export default {
       {
         id: 2,
         profilePicture:'yossi_image',
-        username: 'Yossi',
+        username: 'YossiTheKing',
         time:'21:30',
         date:'21/10/2020',
         text:'🕹️ Dive into the latest releases, from pulse-pounding first-person shooters to captivating role-playing adventures. 🏹 Take on the challenge of online battles and prove your skills against fellow gamers from around the globe. Engage in fierce competitions, team up with friends, and celebrate victories together!'
@@ -72,6 +72,7 @@ html{
   background-color: var(--pagebgcolor); 
   height: 100%;
   width: 100vw;
+  margin-top: 80px;  /* Yossi added */
 }
 
 

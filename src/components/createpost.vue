@@ -56,7 +56,6 @@ export default {
     padding: 20px;
     border: 1px solid var(--stroke);
     border-radius: 15px;
-    /* Add any desired styling for the post container */
 }
 
 .profile-picture img {
@@ -71,16 +70,20 @@ export default {
 }
 
 textarea {
-    width: calc(100% - 20px);
-    resize: vertical;
-    border-radius: 7.5px;
-    height: 40px;
-    background-color: var(--thirdcolor);
-    border: none;
-    color: var(--white);
-    font-size: 16px;
-    padding: 10px;
+  width: calc(100% - 42px);
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: 2px solid var(--stroke);
+  background-color: var(--thirdcolor);
+  color: var(--white);
+  font-family: var(--mainfont);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  resize: vertical;
 }
+
 
 ::placeholder {
     color: var(--white);

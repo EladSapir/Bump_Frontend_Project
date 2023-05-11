@@ -22,27 +22,48 @@
         </div>
         <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
+     
     </nav>
   </header>
 </template>
   
 <script>
+import axios from 'axios';
 export default {
   name: "navbar",
   data() {
     return {
       showNotifications: false,
       notifications: ["Notification 1", "Notification 2", "Notification 3"], // need to change
-      isDropdownActive: false
+      isDropdownActive: false,
+      userId : this.$route.query.id
     };
   },
   methods: {
     toggleDropdown() {
       this.isDropdownActive = !this.isDropdownActive;
     },
-    logout() { // need to implement 
-      this.$router.push('/login_signup')
+    async logout() { // need to implement 
+      try {
+        var addr='https://backend-project-vzn7.onrender.com/logout/'+this.userId;
+        console.log('logout:'+addr);
+        const response = await axios.get(addr, {
+
+        });
+
+        // Extract the user ID from the response
+        const res = response.data;
+        console.log("logout:"+res);
+        if (res) {
+          this.$router.push('/login_signup')
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle the error (e.g., show an error message)
+      }
     },
+
+
     movetomatching() { // need to change
       this.$router.push('/matching')
     },

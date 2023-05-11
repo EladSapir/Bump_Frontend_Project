@@ -217,9 +217,9 @@
 
             <div class="form-group div11">
                 <div class="file-upload-form">
-                     <div class="optional">
-                    <h3 class="title">Upload Image</h3>
-                     <span>*optional</span>
+                    <div class="optional">
+                        <h3 class="title">Upload Image</h3>
+                        <span>*optional</span>
                     </div>
                     <label class="file-input-label" @mouseover="uploadhover = false" @mouseleave="uploadhover = true">
                         <div class="upload-icon">
@@ -237,8 +237,8 @@
             <div class="div12">
                 <div class="form-group">
                     <div class="optional">
-                    <h3 class="title count">Country</h3>
-                    <span>*optional</span>
+                        <h3 class="title count">Country</h3>
+                        <span>*optional</span>
                     </div>
                     <select class="form-control country" :class="{ firstoption: !state }" v-model="state">
                         <option value="">Select a country</option>
@@ -259,9 +259,9 @@
 
                 <div class="form-group">
                     <div class="optional">
-                        
-                    <h3 class="title lang">Language</h3>
-                    <span>*optional</span>
+
+                        <h3 class="title lang">Language</h3>
+                        <span>*optional</span>
                     </div>
                     <select class="form-control language" :class="{ firstoption: !language }" v-model="language">
                         <option value="">Select a language</option>
@@ -298,6 +298,7 @@
     
       
 <script>
+import axios from 'axios';
 export default {
     name: 'login',
     data() {
@@ -324,8 +325,8 @@ export default {
             server: '',
             rank: '',
             mode: '',
-            state: '',
-            language: '',
+            state: ' ',
+            language: ' ',
             Upload_profile_image: 'Upload profile image',
             isSubmitted: false,
             isEmailValid: true,
@@ -350,8 +351,8 @@ export default {
             this.email = '';
             this.password = '';
             this.confirmPassword = '';
-            this.language = '';
-            this.state = '';
+            this.language = ' ';
+            this.state = ' ';
             this.rank = '';
             this.year = '';
             this.month = '';
@@ -363,7 +364,7 @@ export default {
             this.matchinfo = '';
             this.favoritegame = '';
             this.gender = 'male';
-            this.imageData = '';
+            this.imageData = ' ';
             this.Upload_profile_image = 'Upload profile image';
             this.isAgeValid = true;
             this.isConfirmPasswordValid = true;
@@ -377,7 +378,7 @@ export default {
                 reader.readAsDataURL(file);
 
                 reader.addEventListener('load', () => {
-                    this.imageData = file;
+                    this.imageData = file.name;
                     this.Upload_profile_image = file.name;
                 });
             }
@@ -474,13 +475,92 @@ export default {
             console.log("submit");
             if (this.validateForm()) {
                 // Submit the form data to the database
-                console.log('Form submitted successfully.');
+                this.submitForm(),
+                    console.log('Form submitted successfully.');
                 // Redirect to the home page
                 this.isSubmitted = true;
             } else {
                 this.builderror();
             }
         },
+        async submitForm() {
+            try {
+                let g = this.favoritegame;
+                let g1;
+                let g2;
+                let g3;
+                let g4;
+                let g5;
+                switch (g) {
+                    case "Rocket League":
+                        g1 = '1';
+                        g2 = this.region;
+                        g3 = this.mode;
+                        g4 = this.rank;
+                        g5 = null;
+                        break;
+                    case "League of Legends":
+                        g1 = '0';
+                        g2 = this.region;
+                        g3 = this.mode;
+                        g4 = this.role;
+                        g5 = this.rank;
+                        break;
+                    case "Valorant":
+                        g1 = '2';
+                        g2 = this.server;
+                        g3 = this.rank;
+                        g4 = this.role;
+                        g5 = null;
+                        break;
+                }
+                if(this.month < 10){
+                    this.month = '0' + this.month;
+                }
+                if(this.day < 10){
+                    this.day = '0' + this.day;
+                }
+                const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
+
+                    "email": this.email,
+                    "gamertag": this.gamerTag,
+                    "password": this.password,
+                    "gender": this.gender,
+                    "dob": this.year + "-" + this.month + "-" + this.day + "T00:00:00.000Z",
+                    "g1": g1,
+                    "g2": g2,
+                    "g3": g3,
+                    "g4": g4,
+                    "g5": g5,
+                    "discord": this.discordAccount,
+                    "language": this.language,
+                    "country": this.state,
+                    "picture": " "
+                });
+
+                // Extract the user ID from the response
+                const userId = response.data;
+
+                if (userId === 'email already exists') {
+                    this.error = "Email already exists";
+                }
+                else if (userId === 'gamerTag exists') {
+                    this.error = "Gamer tag already exists";
+                }
+                else {
+                    console.log('signup:userid' + userId);
+                    console.log('signup:userid.id' + userId.id);
+                    // Store the user ID in localStorage
+                    localStorage.setItem('userId', userId.id);
+                    // Redirect to the homepage
+                    this.$router.push({ name: 'homepage', query: { id: userId.id } });
+                }
+
+            } catch (error) {
+                console.error(error);
+                // Handle the error (e.g., show an error message)
+            }
+        }
     }
 
 }
@@ -652,9 +732,10 @@ button[type="submit"] {
     color: rgba(255, 255, 255, 0.5)
 }
 
-.file-upload-form .optional h3{
-width: fit-content;
+.file-upload-form .optional h3 {
+    width: fit-content;
 }
+
 .error {
     border: 2px solid red;
 }

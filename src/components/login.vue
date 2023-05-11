@@ -1,24 +1,25 @@
 <template>
   <div class="logincontainer">
-
-    <form action="/login" method="POST">
+    <form @submit.prevent="submitForm">
       <img id="logo" src="../../public/Logo1.svg">
       <h1>Login</h1>
-      <input type="email" placeholder="Email" id="email" name="email" required>
+      <input type="email" placeholder="Email" v-model="email" required>
       <div class="password-container">
-      <input :type="passwordFieldType" placeholder="Password" v-model="password" name="password" id="password" required>
-      <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibility" v-if="show"  id="eyeslash">
-      <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
+        <input :type="passwordFieldType" placeholder="Password" v-model="password" required>
+        <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibility" v-if="show" id="eyeslash">
+        <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
       </div>
-      <router-link to="/homepage"><button class="btn" type="submit">Login</button></router-link>
+      <button class="btn" type="submit">Login</button>
       <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here</a></p>
+    <span class="error">{{error}}</span>
     </form>
   </div>
 </template>
 
 
-  
 <script>
+import axios from 'axios';
+
 export default {
   name: 'login',
   data() {
@@ -31,97 +32,124 @@ export default {
   },
   methods: {
     moveTosignUp() {
+      console.log("move to sign up")
       this.$emit('openSingUp')
     },
-  switchVisibility() {
+    switchVisibility() {
       this.show = !this.show
       this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";
-    }
-}
-}
+    },
+    async submitForm() {
+      try {
+        const response = await axios.post('https://backend-project-vzn7.onrender.com/login', {
+          email: this.email,
+          password: this.password
+        });
 
+        // Extract the user ID from the response
+        const userId = response.data;
+        this.error = response.data;
+        console.log("login:"+response.data);
+        console.log("login:"+userId);
+
+        if (userId) {
+          // Store the user ID in localStorage
+          localStorage.setItem('userId', userId.id);
+          // Redirect to the homepage
+          this.$router.push({ name: 'homepage', query: { id: userId.id } });
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle the error (e.g., show an error message)
+      }
+    }
+  }
+}
 </script>
 
+
 <style scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-}
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
 
-.password-container {
-  position: relative;
-  width: 315px;
-}
+  .password-container {
+    position: relative;
+    width: 315px;
+  }
 
-.eye {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  top: 28%;
-  right: 4%;
-  cursor: pointer;
-  opacity: 0.8;
-}
+  .error {
+    color: var(--error);
+  }
 
-button[type="submit"] {
-  margin-top: 5px;
-  margin-bottom: 2px;
-  padding: 9px 137px;
-  border-radius: 5px;
-}
+  .eye {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 28%;
+    right: 4%;
+    cursor: pointer;
+    opacity: 0.8;
+  }
 
-p {
-  margin-top: 20px;
-  font-size: 15px;
-}
+  button[type="submit"] {
+    margin-top: 5px;
+    margin-bottom: 2px;
+    padding: 9px 137px;
+    border-radius: 5px;
+  }
 
-.logincontainer {
-  position: absolute;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 450px;
-  width: 400px;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 60px 30px 30px 30px;
-  background: #2c394bd7;
-  border: 1px solid #323244;
-  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-}
+  p {
+    margin-top: 20px;
+    font-size: 15px;
+  }
 
-.regislink {
-  color: #FF5810;
-  text-decoration: none;
-}
+  .logincontainer {
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    width: 400px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 60px 30px 30px 30px;
+    background: #2c394bd7;
+    border: 1px solid #323244;
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+  }
 
-.regislink:hover {
-  color: #FF5810;
-  text-decoration: underline;
-  cursor: pointer;
-}
+  .regislink {
+    color: #FF5810;
+    text-decoration: none;
+  }
 
-#logo {
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  margin-top: -25px;
-  margin-bottom: -10px;
-}
+  .regislink:hover {
+    color: #FF5810;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
+  #logo {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin-top: -25px;
+    margin-bottom: -10px;
+  }
 
-.group {
-  position: relative;
-  margin-bottom: 15px;
-}
+  h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
 
-
+  .group {
+    position: relative;
+    margin-bottom: 15px;
+  }
 </style>

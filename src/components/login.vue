@@ -54,18 +54,17 @@ export default {
         this.isLoading = true;
         // Extract the user ID from the response
         const userId = response.data;
-    
-        if(response.data=="already logged in")
+   
+        if(userId==="already logged in")
         {
+          console.log(userId);
             this.error = response.data;
         }
-        if(response.data=="email/password not right")
+        else if(userId==="email/password not right")
         {
             this.error = response.data;
         }
         else {    
-          // Store the user ID in localStorage
-          localStorage.setItem('userId', userId.id);
           // Redirect to the homepage
           this.$router.push({ name: 'homepage', query: { id: userId.id } });
           

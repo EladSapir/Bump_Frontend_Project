@@ -548,10 +548,6 @@ export default {
                     this.error = "Gamer tag already exists";
                 }
                 else {
-                    console.log('signup:userid' + userId);
-                    console.log('signup:userid.id' + userId.id);
-                    // Store the user ID in localStorage
-                    localStorage.setItem('userId', userId.id);
                     // Redirect to the homepage
                     this.$router.push({ name: 'homepage', query: { id: userId.id } });
                 }

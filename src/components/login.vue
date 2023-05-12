@@ -1,6 +1,6 @@
 <template>
   <div class="logincontainer">
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="submitForm" v-if="!isLoading">
       <img id="logo" src="../../public/Logo1.svg">
       <h1>Login</h1>
       <input type="email" placeholder="Email" v-model="email" required>
@@ -12,7 +12,11 @@
       <button class="btn" type="submit">Login</button>
       <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here</a></p>
     <span class="error">{{error}}</span>
+    
     </form>
+    
+    <img v-else src="https://assets6.lottiefiles.com/packages/lf20_rwq6ciql.json" alt="Loading">
+   
   </div>
 </template>
 
@@ -28,7 +32,8 @@ export default {
       password: '',
       show: true,
       passwordFieldType: "password",
-      error: ' '
+      error: ' ',
+      isLoading: false,
     }
   },
   methods: {
@@ -46,7 +51,7 @@ export default {
           email: this.email,
           password: this.password
         });
-
+        this.isLoading = true;
         // Extract the user ID from the response
         const userId = response.data;
     
@@ -58,16 +63,18 @@ export default {
         {
             this.error = response.data;
         }
-        else {
+        else {    
           // Store the user ID in localStorage
           localStorage.setItem('userId', userId.id);
           // Redirect to the homepage
           this.$router.push({ name: 'homepage', query: { id: userId.id } });
+          
         }
       } catch (error) {
         console.error(error);
         // Handle the error (e.g., show an error message)
       }
+      this.isLoading = false;
     }
   }
 }

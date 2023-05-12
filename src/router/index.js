@@ -17,6 +17,16 @@ const routes = [
     name: 'homepage',
     component: () => import(/* webpackChunkName: "homepage" */ '../views/homepage.vue'),
   },
+  {
+    path: '/match',
+    name: 'match',
+    component: () => import(/* webpackChunkName: "homepage" */ '../views/match.vue'),
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import(/* webpackChunkName: "homepage" */ '../views/profile.vue'),
+  },
 ];
 
 const router = createRouter({

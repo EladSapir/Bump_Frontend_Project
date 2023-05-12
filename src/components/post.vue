@@ -25,35 +25,39 @@
                     </div>
                     <div class="post-actions">
                         <div class="bump">
-                            <img src="../assets/bump.svg" alt="Bump Icon" />
+                            <img src="../assets/bump.svg" alt="Bump Icon" style="width: 22px; margin:0;"/>
                             <span class="bump-count">{{ post.bump }} Bumps</span>
                         </div>
                         <div class="share">
-                            <img src="../assets/shared.svg" alt="Share Icon" />
+                            <img src="../assets/reply.svg" alt="Share Icon" />
                             <span class="share-count">{{ post.share }} Shares</span>
                         </div>
                     </div>
                     <div class="checkboxes">
-                        <div class="checkbox checkbump">
-                            <img src="../assets/bump.svg" alt="Bump Icon" />
-                            <p> Bump</p>
+                        <div class="checkbox checkbump"  @click="bumpselected=!bumpselected">
+                            <img v-if="!bumpselected" src="../assets/bump.svg" alt="Bump Icon" style="width: 25px;" />
+                            <img v-else src="../assets/bumpselected.svg" alt="Bump Icon" style="width: 25px;" />
+                            <p :class="{ selected: bumpselected }"> Bump</p>
                         </div>
-                        <div class="checkbox checkshare">
-                            <img src="../assets/shared.svg" alt="Share Icon" />
+                        <div class="outshare">
+                        <div class="checkbox checkshare" >
+                            <img src="../assets/reply.svg" alt="Share Icon" style="width: 18px;" />
                             <p> Share</p>
                         </div>
-                        <div class="checkbox checksave">
-                            <img src="../assets/save.svg" alt="Save Icon" />
-                            <p> Save</p>
+                        </div>
+                        <div class="checkbox checksave"  @click="saveselected=!saveselected">
+                            <p :class="{ selected: saveselected }"> Save</p>
+                            <img v-if="!saveselected" src="../assets/save.svg" alt="Save Icon" style="width: 25px;"/>
+                            <img v-else src="../assets/saveselected.svg" alt="Save Icon" style="width: 25px;"/>
                         </div>
                     </div>
                     <div class="comment-section">
                         <div class="comment-profile-picture">
-                            <img :src="require('../assets/' + profilePicture + '.png')" alt="User Profile Picture" />
+                            <img class="profilepict" :src="require('../assets/' + profilePicture + '.png')" alt="User Profile Picture" />
                         </div>
                         <div class="comment-input">
                             <input type="text" placeholder="Write a comment here..." />
-                            <button>Post</button>
+                            <img class="sendicon" src="../assets/send.svg" alt="Comment Icon" />
                         </div>
                     </div>
                 </div>
@@ -69,6 +73,8 @@ export default {
     data() {
         return {
             comment: '',
+            bumpselected: false,
+            saveselected: false,
         };
     },
     methods: {},
@@ -79,7 +85,7 @@ export default {
 .post-container {
     margin-top: 30px;
  
-    width: 52.5%;
+    width: calc(100vw - 45vw);
     background-color: var(--background);
 
     border: 1px solid var(--stroke);
@@ -93,15 +99,15 @@ export default {
     align-items: flex-start;
 }
 .profile-picture img {
-    margin-right: 10px;
+    margin-right: 15px;
     border-radius: 50%;
     border: 2px solid var(--main);
 }
 
 .user-info {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    flex-direction: column;
+    margin-bottom: 15px;
 }
 
 .user-name {
@@ -112,7 +118,7 @@ export default {
 
 .post-date {
     font-size: 12px;
-    color: var(--stroke);
+    color: var(--grey);
 
 }
 
@@ -144,23 +150,36 @@ export default {
 
 
 .checkbox {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--gray);
 }
 
+.checkbox:hover {
+    cursor: pointer;
+    background-color: var(--stroke);
+    border-radius: 15px;
+}
+
+
+
+.checkbox p {
+    font-size: 15px;
+    color: var(--grey);
+}
 .checkbox img {
     margin-right: 5px;
     width: 20px;
 }
 
 .checkbump {
-    padding-left: 50px;
+    padding: 0 50px;
 }
 
 .checksave {
-    padding-right: 50px;
+    padding: 0 50px;
 }
 
 .bump-count,
@@ -170,7 +189,8 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
+    color: var(--grey);
+    font-size: 12px;
 }
 
 .bump img {
@@ -191,13 +211,20 @@ export default {
     margin-bottom: 10px;
     border-top: 1px solid var(--stroke);
     border-bottom: 1px solid var(--stroke);
+    padding: 5px 10px;
 }
 
-.checkshare {
-    padding-left: 85px;
-    padding-right: 90px;
+.outshare{
     border-right: 1px solid var(--stroke);
     border-left: 1px solid var(--stroke);
+   padding:0 5px ;
+   margin: 0 5px;
+    
+}
+.checkshare {
+    width: auto;
+    padding: 0 110px;
+  
 }
 
 .checkshare img {
@@ -229,17 +256,19 @@ export default {
 }
 
 .comment-profile-picture img {
-    width: 30px;
-    height: 30px;
+    border: 2px solid var(--main);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    margin-top: 7px;
 }
 
 .comment-input input {
-    width: 100%;
+    width:calc(100% - 40px);
     resize: vertical;
     border-radius: 7.5px;
-    min-height: 30px;
+    min-height: 25px;
     background-color: var(--thirdcolor);
     border: none;
     color: var(--white);
@@ -251,4 +280,23 @@ export default {
     color: var(--white);
     opacity: 0.5;
 }
+
+.comment-input {
+    position: relative;
+    width: 100%;
+}
+.sendicon{
+position: absolute;
+    cursor: pointer;
+    top: 50%;
+    right: 30px;
+    transform: translate(-50%, -50%);
+}
+
+p.selected {
+  color: var(--main);
+  cursor: pointer;
+    border-radius: 15px;
+}
+
 </style>

@@ -27,7 +27,8 @@ export default {
       email: '',
       password: '',
       show: true,
-      passwordFieldType: "password"
+      passwordFieldType: "password",
+      error: ' '
     }
   },
   methods: {
@@ -48,11 +49,16 @@ export default {
 
         // Extract the user ID from the response
         const userId = response.data;
-        this.error = response.data;
-        console.log("login:"+response.data);
-        console.log("login:"+userId);
-
-        if (userId) {
+    
+        if(response.data=="already logged in")
+        {
+            this.error = response.data;
+        }
+        if(response.data=="email/password not right")
+        {
+            this.error = response.data;
+        }
+        else {
           // Store the user ID in localStorage
           localStorage.setItem('userId', userId.id);
           // Redirect to the homepage

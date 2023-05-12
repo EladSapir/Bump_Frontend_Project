@@ -4,7 +4,7 @@
       <div class="nav-left">
         <img src="../../public/Logo1.svg" class="logo" @click="movetohomepage">
         <img src="../assets/bumpword.svg" alt="Bump" class="bumpword">
-        <a href="#" class="profile-link">My Profile</a>
+        <a  @click="movetomyprofile" class="profile-link">My Profile</a>
       </div>
       <div class="nav-center">
         <div class="search-container">
@@ -62,10 +62,13 @@ export default {
         // Handle the error (e.g., show an error message)
       }
     },
+    movetomyprofile() { 
+      this.$router.push('/profile')
+    },
 
 
-    movetomatching() { // need to change
-      this.$router.push('/matching')
+    movetomatching() {
+      this.$router.push('/match')
     },
     movetohomepage() {
       this.$router.push('/homepage')

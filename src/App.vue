@@ -7,7 +7,7 @@
 
 :root {
   --approve: #09B261;
-  --background: #1b1e2991;
+  --background: #1B1E2991;
   --error: #FF0000;
   --white: #EFEFEF;
   --main: #E54425;
@@ -23,6 +23,7 @@
   --inputcolor: #ecf0f3;
   --textinput:rgba(0, 0, 0, 0.5);
   --black: #000000;
+  --grey:#ffffff4d;
 }
 html{
   background-image: url(./assets/bgr.png);

@@ -42,7 +42,38 @@ export default {
         , photo: 'post1',
         bump: 10,
         share: 5,
-        comments: [],
+        comments: [
+          {
+            username: 'YossiTheKing',
+            profilePicture: 'yossi_image',
+            Comment: '🎮🔥 Let the Games Begin!'
+          },
+          {
+            username: 'SolTheSolal',
+            profilePicture: 'solal_image',
+            Comment: 'My long comment fits here My long comment fits here My long comment fits hereMy long comment fits hereMy long comment fits here My long comment fits here'
+          },
+          {
+            username: 'ToTheTomer',
+            profilePicture: 'tomer_image',
+            comment: 'Ready to level up and conquer the virtual world!'
+          },
+          {
+            username: 'YossiTheKing',
+            profilePicture: 'yossi_image',
+            comment: 'Gaming is my escape from reality. Let the adventure begin!'
+          },
+          {
+            username: 'SolTheSolal',
+            profilePicture: 'solal_image',
+            comment: 'Playing games brings out the inner child in me. So much fun!'
+          },
+          {
+            username: 'ToTheTomer',
+            profilePicture: 'tomer_image',
+            comment: 'Game on! Time to immerse myself in another fantastic gaming experience!'
+          }
+        ],
       },
       {
         id: 2,
@@ -53,7 +84,26 @@ export default {
         text: '🕹️ Dive into the latest releases, from pulse-pounding first-person shooters to captivating role-playing adventures. 🏹 Take on the challenge of online battles and prove your skills against fellow gamers from around the globe. Engage in fierce competitions, team up with friends, and celebrate victories together!'
         , photo: '',
         bump: 10,
-        share: 5
+        share: 5,
+        comments: [
+          {
+            username: 'YossiTheKing',
+            profilePicture: 'yossi_image',
+            comment: "🎉🎉 This game is going to be epic! Can't wait to get my hands on it!"
+          },
+          {
+            username: 'SolTheSolal',
+            profilePicture: 'solal_image',
+            comment: "I've been counting down the days for this release. It's finally here!"
+          },
+          {
+            username: 'ToTheTomer',
+            profilePicture: 'tomer_image',
+            comment: 'Just finished playing this game, and it exceeded all my expectations. Absolutely mind-blowing!'
+          },
+
+
+        ]
       },
       // Add more posts as needed
     ];
@@ -77,7 +127,7 @@ html {
   height: 100%;
   width: 100vw;
   margin-top: 80px;
-  /* Yossi added */
+  padding-bottom: 30px;
 }
 </style>
 

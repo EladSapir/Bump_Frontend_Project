@@ -6,8 +6,10 @@
         <div class="post-content">
             <textarea v-model="postText" placeholder="Write your post"></textarea>
             <div class="post-actions">
+            <p class="presentphotoname">{{ photoname }}</p>
                 <div class="add-photo">
-                    <img src="../assets/add_photo_alternate.svg" alt="Add Photo" @click="openFilePicker" />
+                    <img v-if="addphoto && !photo" src="../assets/add_photo_stroke.svg" alt="Add Photo" @click="openFilePicker"  @mouseenter="addphoto=false" @mouseleave="addphoto=true"  />
+                    <img v-else src="../assets/add_photo_alternate.svg" alt="Add Photo" @click="openFilePicker"  @mouseenter="addphoto=false" @mouseleave="addphoto=true" />
                     <input type="file" ref="fileInput" style="display: none" accept="image/*" @change="handleFileChange" />
                 </div>
                 <button @click="submitPost">Post</button>
@@ -24,7 +26,9 @@ export default {
     data() {
         return {
             postText: '',
-            photo: null
+            photo: null,
+            addphoto: true,
+            photoname: '',
         };
     },
     methods: {
@@ -38,6 +42,10 @@ export default {
         handleFileChange(event) {
             const file = event.target.files[0];
             this.photo = file;
+            if(file)
+                this.photoname = file.name;
+            else
+                this.photoname = '';
             // Handle the selected file here
             console.log('Selected file:', file);
             // You can further process or upload the file to your backend
@@ -51,7 +59,7 @@ export default {
     margin-top: 40px;
     display: flex;
     align-items: flex-start;
-    width: 50%;
+    width: calc(100vw - 47.1vw);
     background-color: var(--background);
     padding: 20px;
     border: 1px solid var(--stroke);
@@ -65,6 +73,9 @@ export default {
 
 }
 
+.presentphotoname{
+    margin-right:20px;
+}
 .post-content {
     flex-grow: 1;
 }
@@ -101,7 +112,11 @@ textarea {
     margin-right: 10px;
     cursor: pointer;
 }
-
+.add-photo img{
+    margin-top: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
 button {
     border: 3px solid var(--white);
     background-color: var(--stroke);
@@ -117,5 +132,6 @@ button {
 button:hover {
     background-color: var(--main);
     color: var(--white);
+    cursor: pointer;
 }
 </style>

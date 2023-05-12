@@ -240,8 +240,8 @@
                         <h3 class="title count">Country</h3>
                         <span>*optional</span>
                     </div>
-                    <select class="form-control country" :class="{ firstoption: !state }" v-model="state">
-                        <option value="">Select a country</option>
+                    <select class="form-control country" :class="{ firstoption: state===' ' }" v-model="state">
+                        <option value=" ">Select a country</option>
                         <option value="Israel">Israel</option>
                         <option value="United States">United States</option>
                         <option value="United Kingdom">United Kingdom</option>
@@ -263,8 +263,8 @@
                         <h3 class="title lang">Language</h3>
                         <span>*optional</span>
                     </div>
-                    <select class="form-control language" :class="{ firstoption: !language }" v-model="language">
-                        <option value="">Select a language</option>
+                    <select class="form-control language" :class="{ firstoption: language===' ' }" v-model="language">
+                        <option value=" ">Select a language</option>
                         <option value="Hebrew">Hebrew</option>
                         <option value="English">English</option>
                         <option value="Spanish">Spanish</option>
@@ -580,7 +580,8 @@ export default {
     max-width: 1300px;
     max-height: 550px;
     padding: 60px 60px 40px;
-    background: var(--background);
+    background: #2c394bd7;
+    
     border: 1px solid #323244;
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
     border-radius: 15px;

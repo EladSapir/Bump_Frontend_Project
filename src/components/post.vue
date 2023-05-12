@@ -25,7 +25,7 @@
                     </div>
                     <div class="post-actions">
                         <div class="bump">
-                            <img src="../assets/bump.svg" alt="Bump Icon" style="width: 22px; margin:0;"/>
+                            <img src="../assets/bump.svg" alt="Bump Icon" style="width: 22px; margin:0;" />
                             <span class="bump-count">{{ post.bump }} Bumps</span>
                         </div>
                         <div class="share">
@@ -34,32 +34,56 @@
                         </div>
                     </div>
                     <div class="checkboxes">
-                        <div class="checkbox checkbump"  @click="bumpselected=!bumpselected">
+                        <div class="checkbox checkbump" @click="bumpselected = !bumpselected">
                             <img v-if="!bumpselected" src="../assets/bump.svg" alt="Bump Icon" style="width: 25px;" />
                             <img v-else src="../assets/bumpselected.svg" alt="Bump Icon" style="width: 25px;" />
                             <p :class="{ selected: bumpselected }"> Bump</p>
                         </div>
                         <div class="outshare">
-                        <div class="checkbox checkshare" >
-                            <img src="../assets/reply.svg" alt="Share Icon" style="width: 18px;" />
-                            <p> Share</p>
+                            <div class="checkbox checkshare">
+                                <img src="../assets/reply.svg" alt="Share Icon" style="width: 18px;" />
+                                <p> Share</p>
+                            </div>
                         </div>
-                        </div>
-                        <div class="checkbox checksave"  @click="saveselected=!saveselected">
+                        <div class="checkbox checksave" @click="saveselected = !saveselected">
                             <p :class="{ selected: saveselected }"> Save</p>
-                            <img v-if="!saveselected" src="../assets/save.svg" alt="Save Icon" style="width: 25px;"/>
-                            <img v-else src="../assets/saveselected.svg" alt="Save Icon" style="width: 25px;"/>
+                            <img v-if="!saveselected" src="../assets/save.svg" alt="Save Icon" style="width: 25px;" />
+                            <img v-else src="../assets/saveselected.svg" alt="Save Icon" style="width: 25px;" />
                         </div>
                     </div>
-                    <div class="comment-section">
-                        <div class="comment-profile-picture">
-                            <img class="profilepict" :src="require('../assets/' + profilePicture + '.png')" alt="User Profile Picture" />
+                    <div class="comments">
+                        <div class="comment-section">
+                            <div class="comment-profile-picture">
+                                <img class="profilepict" :src="require('../assets/' + profilePicture + '.png')"
+                                    alt="User Profile Picture" />
+                            </div>
+                            <div class="comment-input">
+                                <input type="text" placeholder="Write a comment here..." />
+                                <img class="sendicon" src="../assets/send.svg" alt="Comment Icon" />
+                            </div>
                         </div>
-                        <div class="comment-input">
-                            <input type="text" placeholder="Write a comment here..." />
-                            <img class="sendicon" src="../assets/send.svg" alt="Comment Icon" />
+
+                        <div class="comment" v-for="(comment, index) in visibleComments" :key="comment.id">
+                            <div class="comment-profile-picture">
+                                <img :src="require('../assets/' + comment.profilePicture + '.png')"
+                                    alt="User Profile Picture" />
+                            </div>
+                            <div class="comment-content">
+                                <div class="user-info">
+                                    <div class="user-name">{{ comment.username }}</div>
+                                </div>
+                                <div class="comment-text">
+                                    {{ comment.comment }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="post.comments.length > 3">
+                            <button v-if="showAllComments" class="allcomments" @click="toggleComments">View Less Comments</button>
+                            <button class="allcomments" v-else @click="toggleComments">View More Comments</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -75,16 +99,34 @@ export default {
             comment: '',
             bumpselected: false,
             saveselected: false,
+            userId: this.$route.query.id,
+
+            showAllComments: false,
+            visibleComments: [],
         };
+    }, created() {
+        this.updateVisibleComments();
     },
-    methods: {},
+    methods: {
+        toggleComments() {
+            this.showAllComments = !this.showAllComments;
+            this.updateVisibleComments();
+        },
+        updateVisibleComments() {
+            if (this.showAllComments) {
+                this.visibleComments = this.post.comments;
+            } else {
+                this.visibleComments = this.post.comments.slice(0, 3);
+            }
+        },
+    },
 };
 </script>
 
 <style scoped>
 .post-container {
     margin-top: 30px;
- 
+
     width: calc(100vw - 45vw);
     background-color: var(--background);
 
@@ -92,12 +134,14 @@ export default {
     border-radius: 15px;
     /* Add any desired styling for the post container */
 }
-.poststart{
+
+.poststart {
     padding: 20px;
     padding-right: 80px;
     display: flex;
     align-items: flex-start;
 }
+
 .profile-picture img {
     margin-right: 15px;
     border-radius: 50%;
@@ -169,6 +213,7 @@ export default {
     font-size: 15px;
     color: var(--grey);
 }
+
 .checkbox img {
     margin-right: 5px;
     width: 20px;
@@ -214,17 +259,18 @@ export default {
     padding: 5px 10px;
 }
 
-.outshare{
+.outshare {
     border-right: 1px solid var(--stroke);
     border-left: 1px solid var(--stroke);
-   padding:0 5px ;
-   margin: 0 5px;
-    
+    padding: 0 5px;
+    margin: 0 5px;
+
 }
+
 .checkshare {
     width: auto;
     padding: 0 110px;
-  
+
 }
 
 .checkshare img {
@@ -252,7 +298,8 @@ export default {
 .comment-section {
     display: flex;
     align-items: center;
-    padding: 20px;;
+    padding: 20px;
+    ;
 }
 
 .comment-profile-picture img {
@@ -265,7 +312,7 @@ export default {
 }
 
 .comment-input input {
-    width:calc(100% - 40px);
+    width: calc(100% - 40px);
     resize: vertical;
     border-radius: 7.5px;
     min-height: 25px;
@@ -285,8 +332,9 @@ export default {
     position: relative;
     width: 100%;
 }
-.sendicon{
-position: absolute;
+
+.sendicon {
+    position: absolute;
     cursor: pointer;
     top: 50%;
     right: 30px;
@@ -294,9 +342,64 @@ position: absolute;
 }
 
 p.selected {
-  color: var(--main);
-  cursor: pointer;
+    color: var(--main);
+    cursor: pointer;
     border-radius: 15px;
+}
+
+
+.comment {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 80px;
+}
+
+.comment-profile-picture img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 7px;
+    border: 2px solid var(--white);
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+    border-radius: 7.5px;
+    min-height: 25px;
+    background-color: var(--thirdcolor);
+    border: none;
+    color: var(--white);
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.comment-content .user-info {
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    color: var(--white);
+}
+
+.allcomments {
+    padding: 10px;
+    padding-left:30px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    border:none;
+    color: var(--white);
+    font-size: 16px;
+    border-radius: 7.5px;
+    margin-bottom: 10px;
+}
+
+.allcomments:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 </style>

@@ -4,7 +4,7 @@
       <div class="nav-left">
         <img src="../../public/Logo1.svg" class="logo" @click="movetohomepage">
         <img src="../assets/bumpword.svg" alt="Bump" class="bumpword">
-        <a  @click="movetomyprofile" class="profile-link">My Profile</a>
+        <a @click="movetomyprofile" class="profile-link">My Profile</a>
       </div>
       <div class="nav-center">
         <div class="search-container">
@@ -22,21 +22,31 @@
         </div>
         <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
-     
+
     </nav>
   </header>
+  <div class="backdrop" v-if="isloading">
+    <div class="container">
+      <loading />
+    </div>
+  </div>
 </template>
   
 <script>
 import axios from 'axios';
+import loading from './loading.vue'
 export default {
   name: "navbar",
+  components: {
+    loading
+  },
   data() {
     return {
       showNotifications: false,
       notifications: ["Notification 1", "Notification 2", "Notification 3"], // need to change
       isDropdownActive: false,
-      userId : this.$route.query.id
+      userId: this.$route.query.id,
+      isloading: false,
     };
   },
   methods: {
@@ -45,15 +55,16 @@ export default {
     },
     async logout() { // need to implement 
       try {
-        var addr='https://backend-project-vzn7.onrender.com/logout/'+this.userId;
-        console.log('logout:'+addr);
+        this.isloading = true;
+        var addr = 'https://backend-project-vzn7.onrender.com/logout/' + this.userId;
+        console.log('logout:' + addr);
         const response = await axios.get(addr, {
 
         });
-
+        
         // Extract the user ID from the response
         const res = response.data;
-        console.log("logout:"+res);
+        console.log("logout:" + res);
         if (res) {
           this.$router.push('/login_signup')
         }
@@ -61,8 +72,9 @@ export default {
         console.error(error);
         // Handle the error (e.g., show an error message)
       }
+      this.isloading = false;
     },
-    movetomyprofile() { 
+    movetomyprofile() {
       this.$router.push('/profile')
     },
 
@@ -258,6 +270,35 @@ form {
 
 .dropdown.active {
   display: block;
+}
+
+
+.container {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  height: 60%;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--pagebgcolor);
+  border: 1px solid #323244;
+  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  z-index: 10;
+
+}
+
+.backdrop {
+  z-index: 10;
+  top: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.692);
+  width: 100%;
+  height: 100%;
 }
 </style>
   

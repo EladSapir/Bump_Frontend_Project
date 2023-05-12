@@ -1,15 +1,16 @@
 <template>
-    <div class="signupcontainer">
-        <img v-if="!returnmouseover" id="return" src="../assets/backarrow.svg" @click="moveToLogin"
+    <div class="signupcontainer" >
+    <div v-if="isloading">
+        <img v-if="!returnmouseover " id="return" src="../assets/backarrow.svg" @click="moveToLogin"
             @mouseover="returnmouseover = !returnmouseover">
         <img v-else id="return" src="../assets/returnorange.svg" @click="moveToLogin"
             @mouseleave="returnmouseover = !returnmouseover">
-
-        <div class="signheading">
+        </div>
+        <div class="signheading" v-if="isloading">
             <img id="logo" src="../../public/Logo1.svg">
             <h1>Let’s Sign Up</h1>
         </div>
-        <form class="parent" @submit.prevent="handleSubmit">
+        <form class="parent" @submit.prevent="handleSubmit" v-if="isloading">
             <div class="form-group div1">
                 <h3 class="title">Email</h3>
                 <input :class="{ error: !isEmailValid }" name="email" type="email" class="form-control" v-model="email"
@@ -290,6 +291,7 @@
             </div>
         </form>
 
+        <loading v-else />
 
 
     </div>
@@ -299,10 +301,15 @@
       
 <script>
 import axios from 'axios';
+import loading from './loading.vue'
 export default {
     name: 'login',
+    components: {
+        loading
+    },
     data() {
         return {
+            isloading: true,
             uploadhover: true,
             transgendermouseover: false,
             femalemouseover: false,
@@ -520,6 +527,7 @@ export default {
                 if(this.day < 10){
                     this.day = '0' + this.day;
                 }
+                this.isLoading = true;
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
 
                     "email": this.email,
@@ -556,6 +564,7 @@ export default {
                 console.error(error);
                 // Handle the error (e.g., show an error message)
             }
+            this.isLoading = false;
         }
     }
 

@@ -14,8 +14,7 @@
     <span class="error">{{error}}</span>
     
     </form>
-    
-    <img v-else src="https://assets6.lottiefiles.com/packages/lf20_rwq6ciql.json" alt="Loading">
+    <loading v-else />
    
   </div>
 </template>
@@ -23,9 +22,12 @@
 
 <script>
 import axios from 'axios';
-
+import loading from './loading.vue'
 export default {
   name: 'login',
+  components: {
+    loading
+  },
   data() {
     return {
       email: '',
@@ -47,11 +49,12 @@ export default {
     },
     async submitForm() {
       try {
+        this.isLoading = true;
         const response = await axios.post('https://backend-project-vzn7.onrender.com/login', {
           email: this.email,
           password: this.password
         });
-        this.isLoading = true;
+       
         // Extract the user ID from the response
         const userId = response.data;
    

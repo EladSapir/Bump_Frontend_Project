@@ -93,7 +93,7 @@
   height: 10px;
   margin: 0 10px;
   border-radius: 50%;
-  background: #1E88E5;
+  background: var(--main);
   animation: dot1 5s linear 0s infinite none normal;
 }
 

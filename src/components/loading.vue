@@ -246,11 +246,11 @@
 
 @keyframes loader_4013 {
   0%, 100% {
-    border-top: 10px dotted #1E88E5;
+    border-top: 10px dotted var(--main);
   }
 
   0%, 48% {
-    border-top: 10px dotted #1E88E5;
+    border-top: 10px dotted var(--main);
   }
 
   50%, 100% {
@@ -264,7 +264,7 @@
 
 @keyframes dot1 {
   0%,4% {
-    background: #1E88E5;
+    background: var(--main);
     opacity: 1;
   }
 
@@ -274,7 +274,7 @@
   }
 
   95%,100% {
-    background: #1E88E5;
+    background: var(--main);
     opacity: 1;
   }
 }

@@ -59,7 +59,8 @@
                             </div>
                             <div class="comment-input">
                                 <input type="text" placeholder="Write a comment here..." />
-                                <img class="sendicon" src="../assets/send.svg" alt="Comment Icon" />
+                                <img v-if="!sendhover" class="sendicon" src="../assets/send.svg" alt="Comment Icon" @mouseenter="sendhover=true">
+                                <img v-else class="sendicon" src="../assets/sendhover.svg" alt="Comment Icon" @mouseleave="sendhover=false" />
                             </div>
                         </div>
 
@@ -100,7 +101,7 @@ export default {
             bumpselected: false,
             saveselected: false,
             userId: this.$route.query.id,
-
+            sendhover: false,
             showAllComments: false,
             visibleComments: [],
         };

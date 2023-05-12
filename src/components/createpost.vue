@@ -8,8 +8,8 @@
             <div class="post-actions">
             <p class="presentphotoname">{{ photoname }}</p>
                 <div class="add-photo">
-                    <img v-if="addphoto && !photo" src="../assets/add_photo_stroke.svg" alt="Add Photo" @click="openFilePicker"  @mouseenter="addphoto=false" @mouseleave="addphoto=true"  />
-                    <img v-else src="../assets/add_photo_alternate.svg" alt="Add Photo" @click="openFilePicker"  @mouseenter="addphoto=false" @mouseleave="addphoto=true" />
+                    <img v-if="addphoto && !photo" src="../assets/add_photo_stroke.svg" alt="Add Photo" @click="openFilePicker"  @mouseenter="addphoto=false"  />
+                    <img v-else src="../assets/add_photo_alternate.svg" alt="Add Photo" @click="openFilePicker"  @mouseleave="addphoto=true" />
                     <input type="file" ref="fileInput" style="display: none" accept="image/*" @change="handleFileChange" />
                 </div>
                 <button @click="submitPost">Post</button>

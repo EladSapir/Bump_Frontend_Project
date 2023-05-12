@@ -172,7 +172,8 @@ html {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 20px;
+    padding: 5px;
+    padding-top:10px;
     background-color: #1B1E29;
     border: 1px solid var(--stroke);
     z-index: 1;
@@ -203,9 +204,9 @@ html {
 .username {
     color: #fff;
     font-weight: 500;
-    font-size: 32px;
+    font-size: 28px;
     margin:0;
-    margin-left:-5px;
+    margin-left:10px;
 }
 
 .user-stats {
@@ -297,6 +298,9 @@ html {
     font-size: 16px;
     margin-top: 5px;
     opacity: 0.8;
+}
+.myposts{
+    margin-top:180px
 }
 </style>
   

@@ -59,7 +59,7 @@ export default {
     margin-top: 40px;
     display: flex;
     align-items: flex-start;
-    width: calc(100vw - 47.1vw);
+    width: calc(100vw - 52.4vw);
     background-color: var(--background);
     padding: 20px;
     border: 1px solid var(--stroke);

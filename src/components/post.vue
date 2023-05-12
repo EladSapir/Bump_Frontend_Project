@@ -128,7 +128,7 @@ export default {
 .post-container {
     margin-top: 30px;
 
-    width: calc(100vw - 45vw);
+    width: calc(100vw - 50vw);
     background-color: var(--background);
 
     border: 1px solid var(--stroke);

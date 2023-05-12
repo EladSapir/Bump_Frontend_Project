@@ -68,6 +68,7 @@ export default {
             this.error = response.data;
         }
         else {    
+
           // Redirect to the homepage
           this.$router.push({ name: 'homepage', query: { id: userId.id } });
           

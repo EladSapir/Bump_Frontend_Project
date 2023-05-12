@@ -75,15 +75,16 @@ export default {
       this.isloading = false;
     },
     movetomyprofile() {
-      this.$router.push('/profile')
+      this.$router.push({ name: 'profile', query: { id: this.userId } });
     },
 
 
     movetomatching() {
-      this.$router.push('/match')
+      this.$router.push({ name: 'match', query: {  id:this.userId} });
     },
     movetohomepage() {
-      this.$router.push('/homepage')
+      this.$router.push({ name: 'homepage', query: { id: this.userId } });
+  
     }
   }
 };

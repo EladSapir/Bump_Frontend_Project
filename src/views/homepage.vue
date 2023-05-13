@@ -3,7 +3,10 @@
     <navbar />
     <createpost :profilePicture="profilePicture" @createpost="getPosts" />
     <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
-    <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture" />
+    <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture" />
+    <div class="loadingclass">
+    <loading v-if="isloading" />
+  </div>
   </div>
 </template>
   
@@ -13,19 +16,21 @@ import createpost from '../components/createpost.vue';
 import navbar from "../components/navbar.vue";
 import post from '../components/post.vue';
 import axios from 'axios';
-
+import loading from '../components/loading.vue';
 export default {
   name: "homepage",
   components: {
     navbar,
     createpost,
-    post
+    post,
+    loading
   },
   data() {
     return {
       profilePicture: "yossi_image",
       posts: [],
-      userId: ''
+      userId: '',
+      isloading: false,
     };
   },
   methods:{
@@ -69,13 +74,17 @@ html {
 
 }
 
+.loadingclass{
+  width: calc(100vw - 52.4vw);
+
+}
 .homepage {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   background-color: var(--pagebgcolor);
-  height: 100%;
+  height: 100vh;
   width: 100vw;
   margin-top: 80px;
   padding-bottom: 30px;

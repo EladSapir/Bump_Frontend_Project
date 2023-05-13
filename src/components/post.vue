@@ -1,8 +1,9 @@
 <template>
     <div class="post-container">
         <div class="poststart">
-            <div class="profile-picture">
-                <img :src="require('../assets/' + profilePicture + '.png')" alt="Profile Picture" />
+            <div class="profile-picture" >
+                <img  :class="{ mineclass: mine }" :src="require('../assets/' + profilePicture + '.png')"
+                    alt="Profile Picture" />
             </div>
 
             <div class="post-content">
@@ -53,9 +54,9 @@
                     </div>
                     <div class="comments">
                         <div class="comment-section">
-                            <div class="comment-profile-picture">
-                                <img class="profilepict" :src="require('../assets/' + profilePicture + '.png')"
-                                    alt="User Profile Picture" />
+                            <div class="comment-profile-picture_mine">
+                                <img class="profilepict"
+                                    :src="require('../assets/' + profilePicture + '.png')" alt="User Profile Picture" />
                             </div>
                             <div class="comment-input">
                                 <input type="text" placeholder="Write a comment here..." />
@@ -68,7 +69,8 @@
 
                         <div class="comment" v-for="(comment, index) in visibleComments" :key="comment.id">
                             <div class="comment-profile-picture">
-                                <img :src="require('../assets/' + profilePicture + '.png')" alt="User Profile Picture" />
+                                <img :class="{ mineclass: comment.userID===userId }" :src="require('../assets/' + profilePicture + '.png')"
+                                    alt="User Profile Picture" />
                             </div>
                             <div class="comment-content">
                                 <div class="user-info">
@@ -191,7 +193,7 @@ export default {
                     const res = response.data;
                     console.log("save:" + res);
                     if (res) {
-                        this.saveselected = !this.saveselected 
+                        this.saveselected = !this.saveselected
                     }
                     else {
                         console.log("save failed");
@@ -211,7 +213,7 @@ export default {
                     const res = response.data;
                     console.log("save:" + res);
                     if (res) {
-                        this.saveselected = !this.saveselected  
+                        this.saveselected = !this.saveselected
                     }
                     else {
                         console.log("save failed");
@@ -223,6 +225,15 @@ export default {
             }
 
         },
+    },
+    created() {
+        this.userId = this.$route.query.id;
+        console.log("userId:" + this.userId);
+        console.log("post.userId:" + this.post.userID);
+        if (this.post.userID === this.userId) {
+            this.mine = true;
+            console.log("mine");
+        }
     },
 };
 </script>
@@ -249,7 +260,7 @@ export default {
 .profile-picture img {
     margin-right: 15px;
     border-radius: 50%;
-    border: 2px solid var(--main);
+    border: 2px solid var(--white);
 }
 
 .user-info {
@@ -407,7 +418,7 @@ export default {
 }
 
 .comment-profile-picture img {
-    border: 2px solid var(--main);
+    border: 2px solid var(--white);
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -427,6 +438,14 @@ export default {
     padding: 10px;
 }
 
+.comment-profile-picture_mine img{
+    border: 2px solid var(--main);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 7px;
+}
 .comment-input input::placeholder {
     color: var(--white);
     opacity: 0.5;
@@ -460,14 +479,7 @@ p.selected {
     padding-right: 80px;
 }
 
-.comment-profile-picture img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-top: 7px;
-    border: 2px solid var(--white);
-}
+
 
 .comment-content {
     display: flex;
@@ -504,5 +516,9 @@ p.selected {
 .allcomments:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.mineclass {
+    border: 2px solid var(--main) !important;
 }
 </style>

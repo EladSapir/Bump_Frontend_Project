@@ -9,23 +9,19 @@
       </div>
       <div class="Features">
         <div class="fet">
-          <img src="../assets/icon_user_.svg" style="width: 29px; margin-bottom: -6px;">
+          <img src="../assets/icon_user_.svg" >
           <h2>Create a Gaming Profile</h2>
-          <p>Find and connect with like-minded gamers based on your favorite games, skill level, and other criteria.
-            Expand your
-            gaming circle and discover new players to play with.</p>
-        </div>
-        <div class="fet">
-          <img src="../assets/icon_peoples_two_.svg" style="width: 40px; margin-bottom: -11px;">
-          <h2>Find Partners to Play With</h2>
           <p>Create a gaming profile and showcase your skills, experience, and favorite games to the community.</p>
         </div>
         <div class="fet">
-          <img src="../assets/icon_muscle_.svg" style="width: 33px; margin-bottom: -7px;">
+          <img src="../assets/icon_peoples_two_.svg">
+          <h2>Find Partners to Play With</h2>
+          <p>Find and connect with like-minded gamers based on your favorite games, skill level, and other criteria. Expand your gaming circle and discover new players to play with.</p>
+        </div>
+        <div class="fet">
+          <img src="../assets/icon_muscle_.svg">
           <h2>Collaborate and Improve </h2>
-          <p>Collaborate with other gamers, learn from their experiences, and improve your own skills. Play together,
-            share tips
-            and tricks, and enhance your gaming experience.</p>
+          <p>Collaborate with other gamers, learn from their experiences, and improve your own skills. Play together, share tips and tricks, and enhance your gaming experience.</p>
         </div>
       </div>
     </div>
@@ -95,53 +91,53 @@ export default {
 
 .Features {
   box-sizing: border-box;
-  width: 100%;
-  padding: 0 20px;
-  padding-top: 50px;
-  border-radius: 15px;
-  text-align: center;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
+  padding-top: 20px;
   gap: 50px;
-  text-align: center;
 
 }
 
 .fet {
   color: var(--white);
-  font-size: 14px;
+  width:400px;
+  padding: 20px;
 }
 
 h2 {
   text-transform: uppercase;
-  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+
 }
 
-img {
-  margin-bottom: -5px;
-}
+
 
 #logo {
-  width: 95px;
+  width: 110px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
 #find {
-  font-size: 55px;
+  font-size: 80px;
   color: var(--white);
   margin: 0;
-  padding: 15px 0;
+  padding-bottom: 30px;
+  padding-top: 25px;
   line-height: 15px;
   font-weight: 200;
 }
 
 #gaming {
-  font-weight: 500;
-  font-size: 70px;
-  color: #2c394bd7;
+  font-size: 90px;
+  font-weight: 600;
+  color: transparent;
   letter-spacing: 0.03em;
-  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-width: 4px;
   -webkit-text-stroke-color: var(--main);
   margin: 0;
   padding: 0;
@@ -149,7 +145,7 @@ img {
 }
 
 #let {
-  padding: 10px 80px;
+  padding: 10px 60px;
 }
 
 .land {

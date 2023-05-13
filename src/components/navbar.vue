@@ -157,6 +157,7 @@ export default {
   line-height: 1.5;
   letter-spacing: 0.5px;
   width: 150px;
+  height: 30px;
   transition: all 0.3s ease;
 }
 

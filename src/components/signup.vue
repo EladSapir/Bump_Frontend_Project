@@ -82,7 +82,7 @@
                         <option value="Europe">Europe</option>
                         <option value="Korea">Korea</option>
                     </select>
-                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !mode }" class="form-control mode"
+                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !mode }" class="form-control mode last"
                         v-model="mode" required>
                         <option value="">Mode</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Solo">Ranked - Solo</option>
@@ -122,7 +122,7 @@
                     </select>
 
                     <select :class="[{ firstoption: !rank }, { rank: !(favoritegame === 'Rocket League') }]"
-                        class="form-control " v-model="rank" required>
+                        class="form-control last" v-model="rank" required>
                         <option value="" selected>Rank</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Unranked">Unranked</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Iron">Iron</option>
@@ -168,7 +168,7 @@
                         <option value="">Month</option>
                         <option v-for="i in 12" :value="i" :key="i">{{ i }}</option>
                     </select>
-                    <select :class="{ firstoption: !year, error: !isAgeValid }" class="form-control birth" v-model="year"
+                    <select :class="{ firstoption: !year, error: !isAgeValid }" class="form-control last birth" v-model="year"
                         required>
                         <option value="">Year</option>
                         <option v-for="i in 120" :value="(new Date()).getFullYear() - i" :key="i">{{ (new
@@ -201,7 +201,7 @@
                             <img v-else src="../assets/female.svg" style="width: 12px;">
                         </label>
                     </div>
-                    <div class="transgender ">
+                    <div class="transgender">
                         <input class="checkbox-tools" type="radio" v-model="gender" value="transgender" name="tools"
                             id="tool-3">
                         <label class="for-checkbox-tools" for="tool-3" @mouseover="transgendermouseover = true"
@@ -224,8 +224,8 @@
                     </div>
                     <label class="file-input-label" @mouseover="uploadhover = false" @mouseleave="uploadhover = true">
                         <div class="upload-icon">
-                            <span style="font-size: 12px;" :class="{ changeimg: changeimage }">{{ Upload_profile_image
-                            }}</span>
+                            <p :class="{ changeimg: changeimage }">{{ Upload_profile_image
+                            }}</p>
                             <img v-if="!uploadhover || !(Upload_profile_image === 'Upload profile image')"
                                 src="../assets/uploadhover.svg">
                             <img v-else src="../assets/upload.svg">
@@ -241,7 +241,7 @@
                         <h3 class="title count">Country</h3>
                         <span>*optional</span>
                     </div>
-                    <select class="form-control country" :class="{ firstoption: state===' ' }" v-model="state">
+                    <select class="form-control country " :class="{ firstoption: state===' ' }" v-model="state">
                         <option value=" ">Select a country</option>
                         <option value="Israel">Israel</option>
                         <option value="United States">United States</option>
@@ -264,7 +264,7 @@
                         <h3 class="title lang">Language</h3>
                         <span>*optional</span>
                     </div>
-                    <select class="form-control language" :class="{ firstoption: language===' ' }" v-model="language">
+                    <select class="form-control language last" :class="{ firstoption: language===' ' }" v-model="language">
                         <option value=" ">Select a language</option>
                         <option value="Hebrew">Hebrew</option>
                         <option value="English">English</option>
@@ -321,7 +321,7 @@ export default {
             email: '',
             password: '',
             confirmPassword: '',
-            gender: 'male',
+            gender: 'transgender',
             day: '',
             month: '',
             year: '',
@@ -360,17 +360,17 @@ export default {
             this.confirmPassword = '';
             this.language = ' ';
             this.state = ' ';
-            this.rank = '';
+            this.rank = ' ';
             this.year = '';
             this.month = '';
             this.day = '';
-            this.role = '';
-            this.region = '';
-            this.server = '';
-            this.mode = '';
+            this.role = ' ';
+            this.region = ' ';
+            this.server = ' ';
+            this.mode = ' ';
             this.matchinfo = '';
             this.favoritegame = '';
-            this.gender = 'male';
+            this.gender = 'transgender';
             this.imageData = ' ';
             this.Upload_profile_image = 'Upload profile image';
             this.isAgeValid = true;
@@ -582,14 +582,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 1300px;
-    max-height: 550px;
-    padding: 60px 60px 40px;
+    padding: 30px 60px;
     background: #2c394bd7;
-    
     border: 1px solid #323244;
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
+    border-radius: 25px;
 }
 
 #return {
@@ -602,19 +599,19 @@ export default {
     cursor: pointer;
 }
 
+input{
+    width: 415px;
+    height: 45px;
+}
 .signheading {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: -15px;
-    margin-bottom: 10px;
+    margin-bottom:20px;
+    gap:10px;
 }
 
-input {
-    width: 220px;
-    font-size: 12px;
-}
 
 .firstoption {
     color: var(--textinput)
@@ -625,46 +622,32 @@ input {
 }
 
 
-::placeholder {
-    font-size: 12px;
-}
-
-
 .password-container {
     position: relative;
-    height: fit-content;
 }
-
-
 
 .eye {
     position: absolute;
-    top: 53%;
-    right: 5%;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
+    top: 45px;
+    right: 15px;
     cursor: pointer;
     opacity: 0.8;
-}
+  }
 
 button[type="submit"] {
-    margin-top: 5px;
-    margin-bottom: 2px;
-    margin-right: 10px;
-    padding: 9px 60px;
+    padding: 10px 80px;
 }
 
 #logo {
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    margin: -20px 0 -10px;
+    width: 70px;
+    height: 70px;
 }
 
 .title {
-    display: flex;
-    margin: 0;
-    width: 210px;
+    margin-bottom: 5px;
 }
 
 .file-upload-form {
@@ -677,15 +660,12 @@ button[type="submit"] {
     overflow: hidden;
     display: inline-flex;
     background-color: var(--inputcolor);
-    margin: 5px 0px 5px 0px;
-    height: 40px;
-    border-radius: 5px;
+    height: 45px;
+    border-radius: 15px;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    font-size: 12px;
-    width: 229px;
+    width: 430px;
     border: none;
-    padding-left: 5px;
     cursor: pointer;
 }
 
@@ -702,24 +682,22 @@ button[type="submit"] {
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    padding-left: 5px;
+    padding-left: 15px;
     cursor: pointer;
 
 }
 
 .upload-icon img {
     position: absolute;
-    right: 20px;
-    width: 20px;
+    right: 15px;
+    width: 25px;
     cursor: pointer;
-    height: 20px;
+    height: 25px;
 }
 
-.upload-icon span {
+.upload-icon p {
     cursor: pointer;
     color: var(--textinput);
-
 }
 
 .upload-icon .changeimg {
@@ -733,14 +711,11 @@ button[type="submit"] {
 }
 
 .optional span {
-    font-size: 8px;
-    margin-left: 5px;
+    margin-left: 8px;
     color: rgba(255, 255, 255, 0.5)
 }
 
-.file-upload-form .optional h3 {
-    width: fit-content;
-}
+
 
 .error {
     border: 2px solid red;
@@ -761,17 +736,14 @@ button[type="submit"] {
     flex-direction: row;
     align-items: center;
 }
-
-.birth {
-    margin-right: 10px;
-    width: 71.5px;
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+.title{
+    width:fit-content;
 }
+.birth{
+    margin-right: 10px;
+    width: 136.66667px;
+}
+
 
 .matchinfo {
     display: flex;
@@ -787,7 +759,6 @@ button[type="submit"] {
 .playreinfo {
     display: flex;
     flex-direction: row;
-    ;
 }
 
 .div11 {
@@ -796,22 +767,6 @@ button[type="submit"] {
     align-items: flex-start;
 }
 
-.role,
-.rank {
-    width: 112px;
-    border-radius: 5px;
-    border: 1px solid #d9d9d9;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.role {
-    margin-right: 10px;
-
-}
 
 .div8 {
     display: flex;
@@ -819,46 +774,20 @@ button[type="submit"] {
     align-items: center;
 }
 
-.country,
-.language {
-    width: 112px;
-    border-radius: 5px;
-    border: 1px solid #d9d9d9;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.country {
-    margin-right: 10px;
-
-}
 
 .count,
 .lang {
     width: fit-content;
 }
 
-
-.mode,
-.region {
-    width: 112px;
-    border-radius: 5px;
-    border: 1px solid #d9d9d9;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-
-.region {
+.role,.rank,.country,.language,.mode,.region {
+    width: 210px;
     margin-right: 10px;
 
 }
+
+
+
 
 .parent {
     display: grid;
@@ -946,21 +875,14 @@ button[type="submit"] {
 .checkbox-tools:checked+label,
 .checkbox-tools:not(:checked)+label {
     position: relative;
-    width: 71.5px;
-    height: 42px;
-    line-height: 5px;
-    letter-spacing: 1px;
-    margin: 0 auto;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-top: 4px;
+    width: 136.66667px;
+    height: 45px;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
-    text-transform: uppercase;
     transition: all 300ms linear;
-
+    margin-right:10px;
 }
 
 .checkbox-tools:not(:checked)+label {
@@ -995,6 +917,7 @@ button[type="submit"] {
 }
 
 .div13 {
+    margin-top:30px;
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -1005,19 +928,15 @@ button[type="submit"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25px;
 }
 
-.for-checkbox-tools i {
-    font-size: 20px;
-}
+
 
 .for-checkbox-tools img {
     width: 18px;
 }
 
 .clearbtn {
-    font-size: 14px;
     cursor: pointer;
     margin: 0;
     padding: 0;
@@ -1029,5 +948,9 @@ button[type="submit"] {
     text-decoration: underline;
     text-decoration-color: var(--main);
     text-decoration-thickness: 2px;
+}
+
+.last {
+    margin-right: 0px;
 }
 </style>

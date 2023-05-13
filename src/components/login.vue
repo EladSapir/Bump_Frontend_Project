@@ -90,24 +90,28 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
   }
 
-  .password-container {
-    position: relative;
-    width: 315px;
-  }
+ input{
+  height: 55px;
+  margin: 10px 0;
+ }
 
   .error {
     color: var(--error);
+  }
+
+.password-container {
+    position: relative;
   }
 
   .eye {
     position: absolute;
     width: 20px;
     height: 20px;
-    top: 28%;
-    right: 4%;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 15px;
     cursor: pointer;
     opacity: 0.8;
   }
@@ -115,13 +119,15 @@ export default {
   button[type="submit"] {
     margin-top: 5px;
     margin-bottom: 2px;
-    padding: 9px 137px;
-    border-radius: 5px;
+    width: 100%;
+    padding: 10px 180px;
+    height: 55px;
   }
 
   p {
-    margin-top: 20px;
     font-size: 15px;
+    margin:0;
+    margin-top:30px;
   }
 
   .logincontainer {
@@ -129,15 +135,13 @@ export default {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    height: 450px;
-    width: 400px;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 60px 30px 30px 30px;
     background: #2c394bd7;
     border: 1px solid #323244;
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
+    border-radius: 25px;
+    padding: 60px;
   }
 
   .regislink {
@@ -153,19 +157,13 @@ export default {
 
   #logo {
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    margin-top: -25px;
-    margin-bottom: -10px;
+    width: 80px;
+    height: 80px;
   }
 
-  h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
+  h1{
+    margin:0;
+    margin-bottom: 23px;
   }
-
-  .group {
-    position: relative;
-    margin-bottom: 15px;
-  }
+ 
 </style>

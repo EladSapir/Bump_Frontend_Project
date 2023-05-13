@@ -1,5 +1,6 @@
 <template>
   <router-view />
+
 </template>
 
 <style>
@@ -26,7 +27,9 @@
   --grey:#ffffff4d;
 }
 html{
+  background-color: var(--pagebgcolor);
   background-image: url(./assets/bgr.png);
+  /* mix-blend-mode: hard-light; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,28 +44,42 @@ body {
 
 h1 {
   color: var(--white);
-  font-size: 25px;
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+
 }
 
 h2 {
   color: var(--white);
   font-size: 17px;
+  margin: 0;
+
 }
 
 h3 {
   color: var(--white);
-  font-size: 15px;
-  font-weight: 200;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+
 }
 
 p {
-  font-size: 12px;
+  font-size: 18px;
   color: var(--white);
+  font-weight: 400;
+  margin: 0;
+
+  
+
 }
 
 span{
-  font-size: 10px;
+  font-size: 14px;
   color: var(--white);
+  margin: 0;
+
 }
 
 
@@ -73,50 +90,64 @@ span{
 
 
 input {
-  margin: 5px 0px 5px 0px;
-  height: 20px;
   box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px var(--white);
   background: var(--inputcolor);
-  border-radius: 5px;
+  border-radius: 15px;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
-  padding: 10px 10px 10px 5px;
+  font-size: 18px;
   display: block;
-  width: 300px;
+  width: 455px;
+  height: 55px;
   border: none;
   color: var(--black);
+  padding:0;
+  padding-left:15px;
 }
 
 
 
 select {
-  background: var(--inputcolor);
-  height: 40px;
-  width: 235px;
-  border-radius: 5px;
+  background: var(--inputcolor) url("assets/dropdownarrow.svg") no-repeat;
+  background-position: right 15px center; /* Move the arrow to the right */
+  height: 45px;
+  width: 430px;
+  border-radius: 15px;
   outline: none;
-  font-size: 12px;
+  font-size: 18px;
   border: none;
   color: var(--black);
-  margin: 5px 0px 5px 0px;
+  padding-left: 15px;
+  appearance: none; /* Hide the default arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
 }
 
+select:hover{
+  background: var(--inputcolor) url("assets/dropdownarrowhover.svg") no-repeat;
+  background-position: right 15px center;
+}
+
+
+
 option {
-  font-size: 12px;
+  font-size: 18px;
   font-family: var(--mainfont);
   color: var(--black);
 }
+
+
+
 
 .btn {
   padding: 20px 40px;
   background: var(--main);
   border: 1.5px solid var(--main);
-  border-radius: 10px;
-  font-size: 15px;
+  border-radius: 15px;
+  font-size: 22px;
   text-align: center;
   color: var(--white);
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   transition: 0.5s;
 }
@@ -137,8 +168,8 @@ option {
 }
 
 ::placeholder {
-  font-family: poppins;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 400;
   color: rgba(0, 0, 0, 0.5);
 }
 </style>

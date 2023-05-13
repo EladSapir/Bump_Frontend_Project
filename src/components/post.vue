@@ -2,14 +2,14 @@
     <div class="post-container">
         <div class="poststart">
             <div class="profile-picture">
-                <img :src="require('../assets/' + post.profilePicture + '.png')" alt="Profile Picture" />
+                <img :src="require('../assets/' + profilePicture + '.png')" alt="Profile Picture" />
             </div>
 
             <div class="post-content">
 
                 <div class="user-info">
-                    <div class="user-name">{{ post.username }}</div>
-                    <div class="post-date">{{ post.date }} - {{ post.time }}</div>
+                    <div class="user-name">{{ post.GamerTag }}</div>
+                    <div class="post-date">{{ post.date }}</div>
                 </div>
                 <div class="post-text">
                     {{ post.text }}
@@ -26,15 +26,15 @@
                     <div class="post-actions">
                         <div class="bump">
                             <img src="../assets/bump.svg" alt="Bump Icon" style="width: 22px; margin:0;" />
-                            <span class="bump-count">{{ post.bump }} Bumps</span>
+                            <span class="bump-count">{{ post.numOfBumps }} Bumps</span>
                         </div>
                         <div class="share">
                             <img src="../assets/reply.svg" alt="Share Icon" />
-                            <span class="share-count">{{ post.share }} Shares</span>
+                            <span class="share-count">{{ post.numofshares }} Shares</span>
                         </div>
                     </div>
                     <div class="checkboxes">
-                        <div class="checkbox checkbump" @click="bumpselected = !bumpselected">
+                        <div class="checkbox checkbump" @click="pressonbump">
                             <img v-if="!bumpselected" src="../assets/bump.svg" alt="Bump Icon" style="width: 25px;" />
                             <img v-else src="../assets/bumpselected.svg" alt="Bump Icon" style="width: 25px;" />
                             <p :class="{ selected: bumpselected }"> Bump</p>
@@ -45,7 +45,7 @@
                                 <p> Share</p>
                             </div>
                         </div>
-                        <div class="checkbox checksave" @click="saveselected = !saveselected">
+                        <div class="checkbox checksave" @click="pressonsave">
                             <p :class="{ selected: saveselected }"> Save</p>
                             <img v-if="!saveselected" src="../assets/save.svg" alt="Save Icon" style="width: 25px;" />
                             <img v-else src="../assets/saveselected.svg" alt="Save Icon" style="width: 25px;" />
@@ -59,28 +59,30 @@
                             </div>
                             <div class="comment-input">
                                 <input type="text" placeholder="Write a comment here..." />
-                                <img v-if="!sendhover" class="sendicon" src="../assets/send.svg" alt="Comment Icon" @mouseenter="sendhover=true">
-                                <img v-else class="sendicon" src="../assets/sendhover.svg" alt="Comment Icon" @mouseleave="sendhover=false" />
+                                <img v-if="!sendhover" class="sendicon" src="../assets/send.svg" alt="Comment Icon"
+                                    @mouseenter="sendhover = true">
+                                <img v-else class="sendicon" src="../assets/sendhover.svg" alt="Comment Icon"
+                                    @mouseleave="sendhover = false" />
                             </div>
                         </div>
 
                         <div class="comment" v-for="(comment, index) in visibleComments" :key="comment.id">
                             <div class="comment-profile-picture">
-                                <img :src="require('../assets/' + comment.profilePicture + '.png')"
-                                    alt="User Profile Picture" />
+                                <img :src="require('../assets/' + profilePicture + '.png')" alt="User Profile Picture" />
                             </div>
                             <div class="comment-content">
                                 <div class="user-info">
-                                    <div class="user-name">{{ comment.username }}</div>
+                                    <div class="user-name">{{ comment.GamerTag }}</div>
                                 </div>
                                 <div class="comment-text">
-                                    {{ comment.comment }}
+                                    {{ comment.text }}
                                 </div>
                             </div>
                         </div>
 
                         <div v-if="post.comments.length > 3">
-                            <button v-if="showAllComments" class="allcomments" @click="toggleComments">View Less Comments</button>
+                            <button v-if="showAllComments" class="allcomments" @click="toggleComments">View Less
+                                Comments</button>
                             <button class="allcomments" v-else @click="toggleComments">View More Comments</button>
                         </div>
                     </div>
@@ -92,18 +94,19 @@
 </template>
   
 <script>
+import axios from 'axios';
 export default {
     name: 'post',
     props: ['post', 'profilePicture'],
     data() {
         return {
             comment: '',
-            bumpselected: false,
-            saveselected: false,
+            bumpselected: this.post.hasUserBumped,
+            saveselected: this.post.hasUserSaved,
             userId: this.$route.query.id,
             sendhover: false,
             showAllComments: false,
-            visibleComments: [],
+            visibleComments: this.post.comments
         };
     }, created() {
         this.updateVisibleComments();
@@ -119,6 +122,106 @@ export default {
             } else {
                 this.visibleComments = this.post.comments.slice(0, 3);
             }
+        },
+        async pressonbump() {
+            try {
+                console.log("isbumpselected:" + this.bumpselected);
+                if (!this.bumpselected) {
+                    var addr = 'https://backend-project-vzn7.onrender.com/addbump';
+                    console.log('userid:' + this.userId);
+                    console.log('postid:' + this.post._id);
+                    console.log('bump:' + addr);
+                    const response = await axios.post(addr, {
+                        "user": this.userId,
+                        "post": this.post._id
+                    });
+
+                    // Extract the user ID from the response
+                    const res = response.data;
+                    console.log("bump:" + res);
+                    if (res) {
+                        this.post.numOfBumps++;
+                        this.bumpselected = !this.bumpselected;
+                    }
+                    else {
+                        console.log("bump failed");
+                    }
+                }
+                else {
+                    var addr = 'https://backend-project-vzn7.onrender.com/removebump';
+                    console.log('userid:' + this.userId);
+                    console.log('postid:' + this.post._id);
+                    console.log('bump:' + addr);
+                    const response = await axios.post(addr, {
+                        "user": this.userId,
+                        "post": this.post._id
+                    });
+
+                    // Extract the user ID from the response
+                    const res = response.data;
+                    console.log("bump:" + res);
+                    if (res) {
+                        this.post.numOfBumps--;
+                        this.bumpselected = !this.bumpselected;
+                    }
+                    else {
+                        console.log("bump failed");
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                // Handle the error (e.g., show an error message)
+            }
+
+        },
+        async pressonsave() {
+            try {
+                console.log("issaveselected:" + this.saveselected);
+                if (!this.saveselected) {
+                    var addr = 'https://backend-project-vzn7.onrender.com/savepost';
+                    console.log('userid:' + this.userId);
+                    console.log('postid:' + this.post._id);
+                    console.log('save:' + addr);
+                    const response = await axios.post(addr, {
+                        "user": this.userId,
+                        "post": this.post._id
+                    });
+
+                    // Extract the user ID from the response
+                    const res = response.data;
+                    console.log("save:" + res);
+                    if (res) {
+                        this.saveselected = !this.saveselected 
+                    }
+                    else {
+                        console.log("save failed");
+                    }
+                }
+                else {
+                    var addr = 'https://backend-project-vzn7.onrender.com/removesaved';
+                    console.log('userid:' + this.userId);
+                    console.log('postid:' + this.post._id);
+                    console.log('save:' + addr);
+                    const response = await axios.post(addr, {
+                        "user": this.userId,
+                        "post": this.post._id
+                    });
+
+                    // Extract the user ID from the response
+                    const res = response.data;
+                    console.log("save:" + res);
+                    if (res) {
+                        this.saveselected = !this.saveselected  
+                    }
+                    else {
+                        console.log("save failed");
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                // Handle the error (e.g., show an error message)
+            }
+
         },
     },
 };
@@ -388,10 +491,10 @@ p.selected {
 
 .allcomments {
     padding: 10px;
-    padding-left:30px;
+    padding-left: 30px;
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    border:none;
+    border: none;
     color: var(--white);
     font-size: 16px;
     border-radius: 7.5px;
@@ -402,5 +505,4 @@ p.selected {
     cursor: pointer;
     text-decoration: underline;
 }
-
 </style>

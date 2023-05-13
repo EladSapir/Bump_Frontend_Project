@@ -6,10 +6,12 @@
         <div class="post-content">
             <textarea v-model="postText" placeholder="Write your post"></textarea>
             <div class="post-actions">
-            <p class="presentphotoname">{{ photoname }}</p>
+                <p class="presentphotoname">{{ photoname }}</p>
                 <div class="add-photo">
-                    <img v-if="addphoto && !photo" src="../assets/add_photo_stroke.svg" alt="Add Photo" @click="openFilePicker"  @mouseenter="addphoto=false"  />
-                    <img v-else src="../assets/add_photo_alternate.svg" alt="Add Photo" @click="openFilePicker"  @mouseleave="addphoto=true" />
+                    <img v-if="addphoto && !photo" src="../assets/add_photo_stroke.svg" alt="Add Photo"
+                        @click="openFilePicker" @mouseenter="addphoto = false" />
+                    <img v-else src="../assets/add_photo_alternate.svg" alt="Add Photo" @click="openFilePicker"
+                        @mouseleave="addphoto = true" />
                     <input type="file" ref="fileInput" style="display: none" accept="image/*" @change="handleFileChange" />
                 </div>
                 <button @click="submitPost">Post</button>
@@ -19,7 +21,7 @@
 </template>
   
 <script>
-
+import axios from 'axios';
 export default {
     name: 'createpost',
     props: ['profilePicture'],
@@ -28,13 +30,45 @@ export default {
             postText: '',
             photo: null,
             addphoto: true,
-            photoname: '',
+            photoname: ' ',
+            userId: this.$route.query.id,
         };
     },
     methods: {
-        submitPost() {
+        async submitPost() {
             // You can perform any necessary post submission logic here
-            console.log('Post submitted:', this.postText);
+            try {
+
+                var addr = 'https://backend-project-vzn7.onrender.com/createpost';
+                console.log('userid:' + this.userId);
+                console.log('photoname:' + this.photoname);
+                console.log('postText:' + this.postText);
+                const response = await axios.post(addr, {
+                    "id": this.userId,
+                    "text": this.postText,
+                    "photo": ' ',
+                });
+
+                // Extract the user ID from the response
+                const res = response.data;
+                console.log("createpost:" + res);
+                if (res) {
+                    this.$emit('createpost')
+                    this.postText = ''; // Clear the text box
+                    this.photo = null; // Clear the photo
+                    this.photoname = '';
+                    
+                    alert("Post created successfully")
+                }
+                else {
+                    console.log("createpost failed");
+                }
+
+            } catch (error) {
+                console.error(error);
+                // Handle the error (e.g., show an error message)
+            }
+
         },
         openFilePicker() {
             this.$refs.fileInput.click();
@@ -42,7 +76,7 @@ export default {
         handleFileChange(event) {
             const file = event.target.files[0];
             this.photo = file;
-            if(file)
+            if (file)
                 this.photoname = file.name;
             else
                 this.photoname = '';
@@ -73,26 +107,27 @@ export default {
 
 }
 
-.presentphotoname{
-    margin-right:20px;
+.presentphotoname {
+    margin-right: 20px;
 }
+
 .post-content {
     flex-grow: 1;
 }
 
 textarea {
-  width: calc(100% - 42px);
-  height: 40px;
-  padding: 10px 20px;
-  border-radius: 15px;
-  border: 2px solid var(--stroke);
-  background-color: var(--thirdcolor);
-  color: var(--white);
-  font-family: var(--mainfont);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  resize: vertical;
+    width: calc(100% - 42px);
+    height: 40px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 2px solid var(--stroke);
+    background-color: var(--thirdcolor);
+    color: var(--white);
+    font-family: var(--mainfont);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    resize: vertical;
 }
 
 
@@ -112,11 +147,13 @@ textarea {
     margin-right: 10px;
     cursor: pointer;
 }
-.add-photo img{
+
+.add-photo img {
     margin-top: 10px;
     margin-right: 10px;
     cursor: pointer;
 }
+
 button {
     border: 3px solid var(--white);
     background-color: var(--stroke);
@@ -133,5 +170,4 @@ button:hover {
     background-color: var(--main);
     color: var(--white);
     cursor: pointer;
-}
-</style>
+}</style>

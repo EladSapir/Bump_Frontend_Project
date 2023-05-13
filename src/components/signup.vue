@@ -41,11 +41,11 @@
                 <input type="text" class="form-control" v-model="discordAccount" placeholder="Thebestgamer#1234" required>
             </div>
 
-            <div class="form-group div5">
+            <div class="form-group div9">
                 <h3 class="title">Gamer Tag</h3>
                 <input type="text" class="form-control" v-model="gamerTag" placeholder="Thebestgamer1234" required>
             </div>
-            <div class="form-group div6">
+            <div class="form-group di10">
                 <h3 class="title">Favorite Game</h3>
                 <select :class="{ firstoption: !favoritegame }" class="form-control" v-model="favoritegame" required>
                     <option value="">Choose game here</option>
@@ -54,7 +54,7 @@
                     <option value="Valorant">Valorant</option>
                 </select>
             </div>
-            <div class="form-group div7">
+            <div class="form-group div11">
                 <h3 class="title">Match info</h3>
                 <div class="matchinfo">
                     <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !region }"
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="form-group div8">
+            <div class="form-group div12">
                 <h3 class="title">Player Info</h3>
 
                 <div class="playreinfo">
@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <div class="birth-date div9">
+            <div class="birth-date div5">
                 <h3 class="title">Birth date</h3>
                 <div class="form-group Birthdate">
                     <select :class="[{ firstoption: !day }, { error: !isAgeValid }]" class="form-control birth"
@@ -179,7 +179,7 @@
 
 
 
-            <div class="gen div10">
+            <div class="gen div6">
                 <h3 class="title">Gender</h3>
                 <div class="form-group gender">
                     <div class="male">
@@ -216,7 +216,7 @@
 
 
 
-            <div class="form-group div11">
+            <div class="form-group div7">
                 <div class="file-upload-form">
                     <div class="optional">
                         <h3 class="title">Upload Image</h3>
@@ -235,7 +235,7 @@
                 </div>
             </div>
 
-            <div class="div12">
+            <div class="div8">
                 <div class="form-group">
                     <div class="optional">
                         <h3 class="title count">Country</h3>
@@ -779,7 +779,7 @@ button[type="submit"] {
     align-items: center;
 }
 
-.div8 {
+.div12 {
     display: flex;
     flex-direction: column;
 }
@@ -790,7 +790,7 @@ button[type="submit"] {
     ;
 }
 
-.div7 {
+.div11 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -813,7 +813,7 @@ button[type="submit"] {
 
 }
 
-.div12 {
+.div8 {
     display: flex;
     flex-direction: row;
     align-items: center;

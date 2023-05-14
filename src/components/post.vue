@@ -22,7 +22,7 @@
                 <div class="restofpost">
 
                     <div class="post-photo" v-if="post.photo">
-                        <img :src="require('../assets/' + post.photo + '.png')" alt="Post Photo" />
+                        <img :src="require(post.photo)" alt="Post Photo" />
                     </div>
                     <div class="post-actions">
                         <div class="bump">
@@ -69,7 +69,7 @@
 
                         <div class="comment" v-for="(comment, index) in visibleComments" :key="comment.id">
                             <div class="comment-profile-picture">
-                                <img :class="{ mineclass: comment.userID===userId }" :src="require('../assets/' + profilePicture + '.png')"
+                                <img :class="{ mineclass: comment.userID===userId }" :src="require(comment.Picture)"
                                     alt="User Profile Picture" />
                             </div>
                             <div class="comment-content">

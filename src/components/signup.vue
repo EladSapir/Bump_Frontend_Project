@@ -1,16 +1,16 @@
 <template>
-    <div class="signupcontainer" >
-    <div v-if="isloading">
-        <img v-if="!returnmouseover " id="return" src="../assets/backarrow.svg" @click="moveToLogin"
-            @mouseover="returnmouseover = !returnmouseover">
-        <img v-else id="return" src="../assets/returnorange.svg" @click="moveToLogin"
-            @mouseleave="returnmouseover = !returnmouseover">
+    <div class="signupcontainer">
+        <div v-if="!isloading">
+            <img v-if="!returnmouseover" id="return" src="../assets/backarrow.svg" @click="moveToLogin"
+                @mouseover="returnmouseover = !returnmouseover">
+            <img v-else id="return" src="../assets/returnorange.svg" @click="moveToLogin"
+                @mouseleave="returnmouseover = !returnmouseover">
         </div>
-        <div class="signheading" v-if="isloading">
+        <div class="signheading" v-if="!isloading">
             <img id="logo" src="../../public/Logo1.svg">
             <h1>Let’s Sign Up</h1>
         </div>
-        <form class="parent" @submit.prevent="handleSubmit" v-if="isloading">
+        <form class="parent" @submit.prevent="handleSubmit" v-if="!isloading">
             <div class="form-group div1">
                 <h3 class="title">Email</h3>
                 <input :class="{ error: !isEmailValid }" name="email" type="email" class="form-control" v-model="email"
@@ -82,8 +82,8 @@
                         <option value="Europe">Europe</option>
                         <option value="Korea">Korea</option>
                     </select>
-                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !mode }" class="form-control mode last"
-                        v-model="mode" required>
+                    <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !mode }"
+                        class="form-control mode last" v-model="mode" required>
                         <option value="">Mode</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Solo">Ranked - Solo</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Duo">Ranked - Duo</option>
@@ -168,8 +168,8 @@
                         <option value="">Month</option>
                         <option v-for="i in 12" :value="i" :key="i">{{ i }}</option>
                     </select>
-                    <select :class="{ firstoption: !year, error: !isAgeValid }" class="form-control last birth" v-model="year"
-                        required>
+                    <select :class="{ firstoption: !year, error: !isAgeValid }" class="form-control last birth"
+                        v-model="year" required>
                         <option value="">Year</option>
                         <option v-for="i in 120" :value="(new Date()).getFullYear() - i" :key="i">{{ (new
                             Date()).getFullYear() - i }}</option>
@@ -241,7 +241,7 @@
                         <h3 class="title count">Country</h3>
                         <span>*optional</span>
                     </div>
-                    <select class="form-control country " :class="{ firstoption: state===' ' }" v-model="state">
+                    <select class="form-control country " :class="{ firstoption: state === ' ' }" v-model="state">
                         <option value=" ">Select a country</option>
                         <option value="Israel">Israel</option>
                         <option value="United States">United States</option>
@@ -264,7 +264,8 @@
                         <h3 class="title lang">Language</h3>
                         <span>*optional</span>
                     </div>
-                    <select class="form-control language last" :class="{ firstoption: language===' ' }" v-model="language">
+                    <select class="form-control language last" :class="{ firstoption: language === ' ' }"
+                        v-model="language">
                         <option value=" ">Select a language</option>
                         <option value="Hebrew">Hebrew</option>
                         <option value="English">English</option>
@@ -302,6 +303,9 @@
 <script>
 import axios from 'axios';
 import loading from './loading.vue'
+var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dk9nwmeth/upload'
+var CLOUDINARY_UPLOAD_PRESET = 'auhzhahq'
+
 export default {
     name: 'login',
     components: {
@@ -309,7 +313,7 @@ export default {
     },
     data() {
         return {
-            isloading: true,
+            isloading: false,
             uploadhover: true,
             transgendermouseover: false,
             femalemouseover: false,
@@ -317,6 +321,7 @@ export default {
             returnmouseover: false,
             gamerTag: '',
             imageData: "",
+            imageURL: "",
             discordAccount: '',
             email: '',
             password: '',
@@ -378,18 +383,17 @@ export default {
             this.isPasswordValid = true;
         },
         handleImageChange(event) {
-            const file = event.target.files[0];
+            this.imageData = document.querySelector('input[type="file"]');
+            const file = this.imageData.files[0];
             this.changeimage = true;
-            if (file) {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
 
-                reader.addEventListener('load', () => {
-                    this.imageData = file.name;
-                    this.Upload_profile_image = file.name;
-                });
+            if (file) {
+                this.Upload_profile_image = file.name;
             }
         },
+
+
+
         switchVisibility() {
             this.show = !this.show
             this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";
@@ -473,8 +477,6 @@ export default {
             this.isPasswordValid = passwordPattern.test(this.password);
             this.isConfirmPasswordValid = (this.confirmPassword === this.password);
             this.validateAge();
-            alert('this.isEmailValid' + this.isEmailValid + 'this.isPasswordValid' + this.isPasswordValid + 'this.isConfirmPasswordValid'
-                + this.isConfirmPasswordValid + 'this.isAgeValid' + this.isAgeValid);
             return this.isEmailValid && this.isPasswordValid &&
                 this.isConfirmPasswordValid && this.isAgeValid;
         },
@@ -490,8 +492,35 @@ export default {
                 this.builderror();
             }
         },
+        async uploadFile() {
+            const fileInput = this.imageData;
+            const file = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+            try {
+                const response = await axios({
+                    url: CLOUDINARY_URL,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: formData
+                });
+                return response.data.secure_url;
+            } catch (err) {
+                console.error(err);
+            }
+      
+        },
         async submitForm() {
             try {
+                this.error = '';
+                this.imageURL = await this.uploadFile();
+                
+                console.log(this.imageURL);
                 let g = this.favoritegame;
                 let g1;
                 let g2;
@@ -521,11 +550,11 @@ export default {
                         g5 = null;
                         break;
                 }
-                if(this.month < 10){
-                    this.month = '0' + this.month;
+                if (this.month < 10) {
+                     var month2 = '0' + this.month;
                 }
-                if(this.day < 10){
-                    this.day = '0' + this.day;
+                if (this.day < 10) {
+                     var day2 = '0' + this.day;
                 }
                 this.isLoading = true;
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
@@ -534,7 +563,7 @@ export default {
                     "gamertag": this.gamerTag,
                     "password": this.password,
                     "gender": this.gender,
-                    "dob": this.year + "-" + this.month + "-" + this.day + "T00:00:00.000Z",
+                    "dob": this.year + "-" + month2 + "-" + day2 + "T00:00:00.000Z",
                     "g1": g1,
                     "g2": g2,
                     "g3": g3,
@@ -543,12 +572,12 @@ export default {
                     "discord": this.discordAccount,
                     "language": this.language,
                     "country": this.state,
-                    "picture": " "
+                    "picture": this.imageURL,
                 });
 
                 // Extract the user ID from the response
                 const userId = response.data;
-
+                console.log(userId);
                 if (userId === 'email already exists') {
                     this.error = "Email already exists";
                 }
@@ -599,17 +628,18 @@ export default {
     cursor: pointer;
 }
 
-input{
+input {
     width: 415px;
     height: 45px;
 }
+
 .signheading {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-bottom:20px;
-    gap:10px;
+    margin-bottom: 20px;
+    gap: 10px;
 }
 
 
@@ -634,7 +664,7 @@ input{
     right: 15px;
     cursor: pointer;
     opacity: 0.8;
-  }
+}
 
 button[type="submit"] {
     padding: 10px 80px;
@@ -736,10 +766,12 @@ button[type="submit"] {
     flex-direction: row;
     align-items: center;
 }
-.title{
-    width:fit-content;
+
+.title {
+    width: fit-content;
 }
-.birth{
+
+.birth {
     margin-right: 10px;
     width: 136.66667px;
 }
@@ -780,7 +812,12 @@ button[type="submit"] {
     width: fit-content;
 }
 
-.role,.rank,.country,.language,.mode,.region {
+.role,
+.rank,
+.country,
+.language,
+.mode,
+.region {
     width: 210px;
     margin-right: 10px;
 
@@ -882,7 +919,7 @@ button[type="submit"] {
     overflow: hidden;
     cursor: pointer;
     transition: all 300ms linear;
-    margin-right:10px;
+    margin-right: 10px;
 }
 
 .checkbox-tools:not(:checked)+label {
@@ -917,7 +954,7 @@ button[type="submit"] {
 }
 
 .div13 {
-    margin-top:30px;
+    margin-top: 30px;
     display: flex;
     flex-direction: row;
     justify-content: end;

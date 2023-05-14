@@ -4,8 +4,8 @@
     <createpost :profilePicture="profilePicture" @createpost="getPosts" />
     <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
     <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture" />
-    <div class="loadingclass">
-    <loading v-if="isloading" />
+    <div class="loadingclass" v-else>
+    <loading  />
   </div>
   </div>
 </template>

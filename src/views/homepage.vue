@@ -1,9 +1,9 @@
 <template>
   <div class="homepage">
     <navbar />
-    <createpost :profilePicture="profilePicture" @createpost="getPosts" />
+    <createpost v-if="profilePicture" :profilePicture="profilePicture" @createpost="getPosts" />
     <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
-    <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture" />
+    <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :gamertag="gamertag" :profilePicture="profilePicture" />
     <div class="loadingclass" v-else>
     <loading  />
   </div>
@@ -27,10 +27,12 @@ export default {
   },
   data() {
     return {
-      profilePicture: "yossi_image",
+      profilePicture: null,
       posts: [],
       userId: '',
       isloading: false,
+      gamertag: '',
+
     };
   },
   methods:{
@@ -46,8 +48,14 @@ export default {
         // Extract the user ID from the response
         const res = response.data;
         console.log("homepage:" + res);
+        console.log("posts:" + res.posts);
+        console.log("picture:" + res.picture);
+        console.log("gamertag:" + res.gamertag);
+
         if (res) {
-          this.posts = res;
+          this.posts = res.posts;
+          this.profilePicture = res.picture;
+          this.gamertag = res.gamertag;
         }
       } catch (error) {
         console.error(error);
@@ -60,7 +68,6 @@ export default {
     this.userId = this.$route.query.id;
     console.log('homepage:' + this.userId);
     this.getPosts()
-    // Example of manually setting posts
     
     
   },

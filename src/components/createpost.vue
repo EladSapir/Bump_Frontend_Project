@@ -1,7 +1,7 @@
 <template>
     <div class="post-container">
         <div class="profile-picture">
-            <img :src="require('../assets/' + profilePicture + '.png')" alt="Profile Picture" />
+            <img :src="profilePicture" alt="Profile Picture" />
         </div>
         <div class="post-content">
             <textarea v-model="postText" placeholder="Write your post"></textarea>
@@ -21,6 +21,8 @@
 </template>
   
 <script>
+var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dk9nwmeth/upload'
+var CLOUDINARY_UPLOAD_PRESET = 'auhzhahq'
 import axios from 'axios';
 export default {
     name: 'createpost',
@@ -35,18 +37,47 @@ export default {
         };
     },
     methods: {
+        async uploadFile() {
+            const fileInput = this.imageData;
+            const file = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+            try {
+                const response = await axios({
+                    url: CLOUDINARY_URL,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: formData
+                });
+                console.log(response.data.secure_url);
+                return response.data.secure_url;
+            } catch (err) {
+                console.error(err);
+            }
+      
+        },
         async submitPost() {
             // You can perform any necessary post submission logic here
+            if (!this.postText) {
+                alert("Please write something")
+                return;
+            }
             try {
-
+                this.photo = await this.uploadFile();
+                console.log('photo:' + this.photo);
                 var addr = 'https://backend-project-vzn7.onrender.com/createpost';
                 console.log('userid:' + this.userId);
-                console.log('photoname:' + this.photoname);
+                console.log('photo:' + this.photo);
                 console.log('postText:' + this.postText);
                 const response = await axios.post(addr, {
                     "id": this.userId,
                     "text": this.postText,
-                    "photo": ' ',
+                    "picture": this.photo,
                 });
 
                 // Extract the user ID from the response
@@ -57,7 +88,7 @@ export default {
                     this.postText = ''; // Clear the text box
                     this.photo = null; // Clear the photo
                     this.photoname = '';
-                    
+
                     alert("Post created successfully")
                 }
                 else {
@@ -74,16 +105,22 @@ export default {
             this.$refs.fileInput.click();
         },
         handleFileChange(event) {
-            const file = event.target.files[0];
+            this.imageData = document.querySelector('input[type="file"]');
+            const file = this.imageData.files[0];
             this.photo = file;
-            if (file)
+
+            if (file) {
                 this.photoname = file.name;
-            else
+            } else {
                 this.photoname = '';
+            }
+
             // Handle the selected file here
             console.log('Selected file:', file);
             // You can further process or upload the file to your backend
         }
+
+
     }
 };
 </script>
@@ -100,7 +137,20 @@ export default {
     border-radius: 15px;
 }
 
+.profile-picture{
+    position: relative;
+    width:60px;
+    height:60px;
+    margin-right:15px;
+}
 .profile-picture img {
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit: fill;
+
+    top:0;
+    left:0;
     margin-right: 10px;
     border-radius: 50%;
     border: 2px solid var(--main);
@@ -170,4 +220,5 @@ button:hover {
     background-color: var(--main);
     color: var(--white);
     cursor: pointer;
-}</style>
+}
+</style>

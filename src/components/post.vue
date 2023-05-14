@@ -1,8 +1,8 @@
 <template>
     <div class="post-container">
         <div class="poststart">
-            <div class="profile-picture" >
-                <img  :class="{ mineclass: mine }" :src="require('../assets/' + profilePicture + '.png')"
+            <div class="profile-picture">
+                <img :class="{ mineclass: mine }" :src="profilePicture"
                     alt="Profile Picture" />
             </div>
 
@@ -11,6 +11,7 @@
                 <div class="user-info">
                     <div class="user-name">{{ post.GamerTag }}</div>
                     <div class="post-date">{{ post.date }}</div>
+                
                 </div>
                 <div class="post-text">
                     {{ post.text }}
@@ -21,8 +22,10 @@
             <div class="allthepost">
                 <div class="restofpost">
 
-                    <div class="post-photo" v-if="post.photo">
-                        <img :src="require(post.photo)" alt="Post Photo" />
+                    <div class="post-photo" v-if="post.picture!='null'">
+
+                        <img :src="post.picture" alt="Post Photo" />
+
                     </div>
                     <div class="post-actions">
                         <div class="bump">
@@ -55,21 +58,21 @@
                     <div class="comments">
                         <div class="comment-section">
                             <div class="comment-profile-picture_mine">
-                                <img class="profilepict"
-                                    :src="require('../assets/' + profilePicture + '.png')" alt="User Profile Picture" />
+                                <img class="profilepict" :src="profilePicture"
+                                    alt="User Profile Picture" />
                             </div>
                             <div class="comment-input">
-                                <input type="text" placeholder="Write a comment here..." />
+                                <input type="text" v-model="mycomment" placeholder="Write a comment here..." />
                                 <img v-if="!sendhover" class="sendicon" src="../assets/send.svg" alt="Comment Icon"
-                                    @mouseenter="sendhover = true">
+                                    @mouseenter="sendhover = true" @click="sendcomment">
                                 <img v-else class="sendicon" src="../assets/sendhover.svg" alt="Comment Icon"
-                                    @mouseleave="sendhover = false" />
+                                    @mouseleave="sendhover = false" @click="sendcomment" />
                             </div>
                         </div>
 
-                        <div class="comment" v-for="(comment, index) in visibleComments" :key="comment.id">
-                            <div class="comment-profile-picture">
-                                <img :class="{ mineclass: comment.userID===userId }" :src="require(comment.Picture)"
+                        <div v-if="visibleComments!=[]" class="comment" v-for="(comment, index) in visibleComments" :key="comment.id">
+                            <div class="comment-profile-picture" v-if="comment.Picture!='null'">
+                                <img :class="{ mineclass: comment.userID === userId }" :src="comment.Picture"
                                     alt="User Profile Picture" />
                             </div>
                             <div class="comment-content">
@@ -99,10 +102,10 @@
 import axios from 'axios';
 export default {
     name: 'post',
-    props: ['post', 'profilePicture'],
+    props: ['post', 'profilePicture','gamertag'],
     data() {
         return {
-            comment: '',
+            mycomment: '',
             bumpselected: this.post.hasUserBumped,
             saveselected: this.post.hasUserSaved,
             userId: this.$route.query.id,
@@ -156,7 +159,7 @@ export default {
                     console.log('bump:' + addr);
                     const response = await axios.post(addr, {
                         "user": this.userId,
-                        "post": this.post._id
+                        "post": this.post._id,
                     });
 
                     // Extract the user ID from the response
@@ -225,6 +228,42 @@ export default {
             }
 
         },
+        async sendcomment(){
+            if(this.mycomment===''){
+                return;
+            }
+            console.log("sendcomment:" + this.mycomment);
+            console.log("sendcomment:" + this.post._id);
+            console.log("sendcomment:" + this.userId);
+            console.log("sendcomment:" + this.gamertag);
+            var addr = 'https://backend-project-vzn7.onrender.com/addcomment';
+            const response = await axios.post(addr, {
+                        "user": this.userId,
+                        "post": this.post._id,
+                        "text": this.mycomment
+                    });
+                    
+                    // Extract the user ID from the response
+                    const res = response.data;
+                    console.log("save:" + res);
+                    if (res) {
+                        const newcomment= {
+                            "_id": res,
+                            "userID": this.userId,
+                            "GamerTag": this.gamertag,
+                            "text": this.mycomment,
+                            "Picture": this.profilePicture,
+                            "date": "2021-05-01T00:00:00.000Z"
+                        }
+                        this.mycomment = '';
+                        this.post.comments.unshift(newcomment);
+                        this.updateVisibleComments();
+                    }
+                    else {
+                        console.log("save failed");
+                    }
+
+        }
     },
     created() {
         this.userId = this.$route.query.id;
@@ -232,8 +271,9 @@ export default {
         console.log("post.userId:" + this.post.userID);
         if (this.post.userID === this.userId) {
             this.mine = true;
-            console.log("mine");
         }
+
+
     },
 };
 </script>
@@ -241,7 +281,6 @@ export default {
 <style scoped>
 .post-container {
     margin-top: 30px;
-
     width: calc(100vw - 50vw);
     background-color: var(--background);
 
@@ -251,14 +290,26 @@ export default {
 }
 
 .poststart {
+    gap:30px;
     padding: 20px;
-    padding-right: 80px;
+    padding-right: 60px;
     display: flex;
-    align-items: flex-start;
+    
 }
 
-.profile-picture img {
+/* .profile-picture{
     margin-right: 15px;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+} */
+.profile-picture img {
+    width: 60px;
+    height:60px;
+    object-fit: fill;
+    
+}
+.profile-picture img {
     border-radius: 50%;
     border: 2px solid var(--white);
 }
@@ -284,11 +335,24 @@ export default {
 .post-text {
     margin-bottom: 20px;
     color: var(--white);
+    
 }
 
-.post-photo img {
+.post-photo{
+    position: relative;
     width: 100%;
-    margin-bottom: 20px;
+    height: 600px;
+    
+    background-color: var(--thirdcolor);
+    margin-bottom: 10px;
+}
+.post-photo img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+    top: 0;
+  left: 0;
 }
 
 .post-actions {
@@ -438,14 +502,15 @@ export default {
     padding: 10px;
 }
 
-.comment-profile-picture_mine img{
+.comment-profile-picture_mine img {
     border: 2px solid var(--main);
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     margin-right: 10px;
     margin-top: 7px;
 }
+
 .comment-input input::placeholder {
     color: var(--white);
     opacity: 0.5;

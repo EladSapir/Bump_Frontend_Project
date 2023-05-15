@@ -3,8 +3,8 @@
 
         <div class="poststart">
             <div v-if="mine" class="deletebutton" @click="showdelete = !showdelete">
-                <img v-if="!deletehover" src="../assets/delete.svg" alt="Delete Icon" @mouseenter="deletehover = true" />
-                <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" @mouseleave="deletehover = false" />
+                <img v-if="!deletehoverpost" src="../assets/delete.svg" alt="Delete Icon" @mouseenter="deletehoverpost = true" />
+                <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" @mouseleave="deletehoverpost = false" />
 
             </div>
             <div class="profile-picture">
@@ -151,6 +151,7 @@ export default {
             commenthover: false,
             cancelhover: false,
             checkhover: false,
+            deletehoverpost: false,
         };
     }, created() {
         this.updateVisibleComments();

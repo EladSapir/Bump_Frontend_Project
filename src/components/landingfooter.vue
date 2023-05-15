@@ -65,7 +65,7 @@ p {
 .addunderline:hover {
     text-decoration: underline;
     text-decoration-color: var(--main);
-    text-decoration-thickness: 1.5x;
+    text-decoration-thickness: 1.5px;
     cursor: pointer;
 }
 

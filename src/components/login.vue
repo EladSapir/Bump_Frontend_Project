@@ -3,9 +3,9 @@
     <form @submit.prevent="submitForm" v-if="!isLoading">
       <img id="logo" src="../../public/Logo1.svg">
       <h1>Login</h1>
-      <input type="email" placeholder="Email" v-model="email" required>
+      <input type="email" placeholder="Email" name="email" v-model="email" required>
       <div class="password-container">
-        <input :type="passwordFieldType" placeholder="Password" v-model="password" required>
+        <input :type="passwordFieldType" placeholder="Password" name="password" v-model="password" required>
         <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibility" v-if="show" id="eyeslash">
         <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
       </div>

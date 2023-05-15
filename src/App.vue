@@ -66,7 +66,7 @@ h3 {
 }
 
 p {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--white);
   font-weight: 400;
   margin: 0;
@@ -95,7 +95,7 @@ input {
   border-radius: 15px;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  font-size: 18px;
+  font-size: 16px;
   display: block;
   width: 455px;
   height: 55px;
@@ -114,7 +114,7 @@ select {
   width: 430px;
   border-radius: 15px;
   outline: none;
-  font-size: 18px;
+  font-size: 16px;
   border: none;
   color: var(--black);
   padding-left: 15px;
@@ -131,7 +131,7 @@ select:hover{
 
 
 option {
-  font-size: 18px;
+  font-size: 16px;
   font-family: var(--mainfont);
   color: var(--black);
 }
@@ -144,7 +144,7 @@ option {
   background: var(--main);
   border: 1.5px solid var(--main);
   border-radius: 15px;
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
   color: var(--white);
   font-weight: 600;
@@ -168,7 +168,7 @@ option {
 }
 
 ::placeholder {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.5);
 }

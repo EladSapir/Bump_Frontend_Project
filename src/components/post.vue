@@ -79,7 +79,7 @@
                                 <img :class="{ mineclass: comment.userID === userId }" :src="comment.Picture"
                                     alt="User Profile Picture" />
                             </div>
-                            <div class="comment-content" >
+                            <div class="comment-content">
                                 <div class="user-info">
                                     <div class="user-name">{{ comment.GamerTag }}</div>
                                 </div>
@@ -87,18 +87,22 @@
                                     {{ comment.text }}
                                 </div>
                                 <div v-if="comment.userID === userId && commenthover === index" class="deletebuttoncomment"
-                                      @mouseenter="deletehover = true" >
-                                    <img v-if="!deletehover" src="../assets/delete.svg" alt="Delete Icon"
-                                        />
-                                    <img v-else src="../assets/deleteorange.svg" alt="Delete Icon"
-                                         />
+                                    @mouseenter="deletehover = true">
+                                    <img v-if="!deletehover" src="../assets/delete.svg" alt="Delete Icon" />
+                                    <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" />
                                     <div v-if="deletehover" class="delete-options">
                                         <span>Delete?</span>
-                                        <div class="delete-option" >
-                                            <img v-if="!cancelhover" id="cancelIcon" src="../assets/cancel.svg" alt="Cancel Icon" @mouseenter="cancelhover=true" />
-                                            <img v-else id="cancelIcon" src="../assets/cancelgreen.svg" alt="Cancel Icon" @mouseleave="cancelhover=false" />
-                                            <img v-if="!checkhover" @click="deletecomment"  id="checkIcon" src="../assets/check_circle.svg" alt="Check Circle Icon"  @mouseenter="checkhover=true"/>
-                                            <img v-else id="checkIcon" @click="deletecomment"  src="../assets/check_circle_green.svg" alt="Check Circle Icon" @mouseleave="checkhover=false"/>
+                                        <div class="delete-option">
+                                            <img v-if="!cancelhover" id="cancelIcon" src="../assets/cancel.svg"
+                                                alt="Cancel Icon" @mouseenter="cancelhover = true" />
+                                            <img v-else id="cancelIcon" src="../assets/cancelgreen.svg" alt="Cancel Icon"
+                                                @mouseleave="cancelhover = false" />
+                                            <img v-if="!checkhover" @click="deletecomment" id="checkIcon"
+                                                src="../assets/check_circle.svg" alt="Check Circle Icon"
+                                                @mouseenter="checkhover = true" />
+                                            <img v-else id="checkIcon" @click="deletecomment"
+                                                src="../assets/check_circle_green.svg" alt="Check Circle Icon"
+                                                @mouseleave="checkhover = false" />
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +160,7 @@ export default {
         this.updateVisibleComments();
     },
     methods: {
-        deletecomment(){
+        deletecomment() {
             console.log("deletecomment:" + this.post.comments[this.commenthover]._id);
             // this.post.comments.splice();
             this.updateVisibleComments();
@@ -183,6 +187,8 @@ export default {
             try {
                 console.log("isbumpselected:" + this.bumpselected);
                 if (!this.bumpselected) {
+                    this.bumpselected = !this.bumpselected;
+                    this.post.numOfBumps++;
                     var addr = 'https://backend-project-vzn7.onrender.com/addbump';
                     console.log('userid:' + this.userId);
                     console.log('postid:' + this.post._id);
@@ -195,15 +201,13 @@ export default {
                     // Extract the user ID from the response
                     const res = response.data;
                     console.log("bump:" + res);
-                    if (res) {
-                        this.post.numOfBumps++;
-                        this.bumpselected = !this.bumpselected;
-                    }
-                    else {
+                    if (!res) {
                         console.log("bump failed");
                     }
                 }
                 else {
+                    this.bumpselected = !this.bumpselected;
+                    this.post.numOfBumps--;
                     var addr = 'https://backend-project-vzn7.onrender.com/removebump';
                     console.log('userid:' + this.userId);
                     console.log('postid:' + this.post._id);
@@ -216,11 +220,7 @@ export default {
                     // Extract the user ID from the response
                     const res = response.data;
                     console.log("bump:" + res);
-                    if (res) {
-                        this.post.numOfBumps--;
-                        this.bumpselected = !this.bumpselected;
-                    }
-                    else {
+                    if (!res) {
                         console.log("bump failed");
                     }
                 }
@@ -678,7 +678,7 @@ p.selected {
     right: -98px;
     display: flex;
     flex-direction: column;
-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .delete-option {
@@ -687,23 +687,21 @@ transition: 0.3s;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-   hight:300px;
-   width:100px;
-   transition: 0.3s;
+    hight: 300px;
+    width: 100px;
+    transition: 0.3s;
 
 }
 
-#cancelIcon{
+#cancelIcon {
     position: absolute;
     right: 78px;
-    top:25px
+    top: 25px
 }
 
-#checkIcon{
+#checkIcon {
     position: absolute;
     right: 48px;
-    top:25px
-
+    top: 25px
 }
-
 </style>

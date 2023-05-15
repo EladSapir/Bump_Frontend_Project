@@ -321,7 +321,7 @@ export default {
             returnmouseover: false,
             gamerTag: '',
             imageData: "",
-            imageURL: "",
+            imageURL: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png',
             discordAccount: '',
             email: '',
             password: '',
@@ -381,6 +381,7 @@ export default {
             this.isAgeValid = true;
             this.isConfirmPasswordValid = true;
             this.isPasswordValid = true;
+            this.imageURL = 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png'
         },
         handleImageChange(event) {
             this.imageData = document.querySelector('input[type="file"]');
@@ -391,9 +392,6 @@ export default {
                 this.Upload_profile_image = file.name;
             }
         },
-
-
-
         switchVisibility() {
             this.show = !this.show
             this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";

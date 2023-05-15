@@ -6,7 +6,7 @@
                 <img :src="require('../assets/' + profilePicture + '.png')" alt="Profile Picture" />
             </div>
             <div class="user-info">
-                <h2 class="username">{{ username }}</h2>
+                <h2 class="username">{{ username }} <Button v-if="!myprofile" class="btn">Follow</Button></h2>
                 <div class="user-stats">
                     <div class="following">
                         <span>Following</span>
@@ -25,20 +25,20 @@
                     <span class="navigation-icon" >Posts</span>
                     <!-- Add icon for posts here -->
                 </div>
-                <div class="navigation-item" :class="{chosen: issaveddialog}">
+                <div v-if="myprofile" class="navigation-item" :class="{chosen: issaveddialog}">
                     <span class="navigation-icon">Saved</span>
                     <!-- Add icon for saved here -->
                 </div>
-                <div class="navigation-item" :class="{chosen: islikeddialog}">
+                <div v-if="myprofile" class="navigation-item" :class="{chosen: islikeddialog}">
                     <span class="navigation-icon">Liked</span>
                     <!-- Add icon for liked here -->
                 </div>
-                <div class="navigation-item" :class="{chosen: isstatsdialog}">
+                <div v-if="myprofile" class="navigation-item" :class="{chosen: isstatsdialog}">
                     <span class="navigation-icon">Stats</span>
                     <!-- Add icon for stats here -->
                 </div>
             </div>
-            <div class="profile-actions">
+            <div v-if="myprofile"  class="profile-actions">
                 <img v-if="!edithover" src="../assets/edit_square.svg" alt="edit profile" @mouseenter="edithover=true">
                 <img v-else src="../assets/edit_square_hover.svg" alt="edit profile" @mouseleave="edithover=false">
 
@@ -64,86 +64,31 @@ export default {
         createpost,
         post
     },
+    props:['userId','differentUserId'],
     data() {
         return {
             profilePicture: "yossi_image",
             posts: [],
-            userId: '',
             username: 'YossiTheKing',
             edithover: false,
             ispostdialog: true,
             issaveddialog: false,
             islikeddialog: false,
             isstatsdialog: false,
+            myprofile:false,
         };
     },
     created() {
-        this.userId = this.$route.query.id;
-        console.log('homepage:' + this.userId);
-        // Example of manually setting posts
-        this.posts = [
-            {
-                id: 1,
-                profilePicture: 'yossi_image',
-                username: 'YossiTheKing',
-                time: '20:30',
-                date: '20/10/2020',
-                text: "🎮🔥 Let the Games Begin! Join the Ultimate Gaming Adventure! 🔥🎮🌟 Calling all gamers and virtual warriors! 🌟 Get ready to embark on an unforgettable gaming journey as we dive into the realm of excitement and entertainment. 🎉 Whether you're a casual player or a hardcore enthusiast, we've got something epic in store for you!🔥 Brace yourself for heart-pounding action, mind-bending puzzles, and breathtaking visuals that will transport you to another world. Immerse yourself in immersive narratives and become the hero of your own epic saga. 🌍 Are you ready to conquer new realms and save the day?",
-                photo: 'post1',
-                bump: 10,
-                share: 5,
-                comments: [
-                    {
-                        username: 'ToTheTomer',
-                        profilePicture: 'tomer_image',
-                        comment: 'Ready to level up and conquer the virtual world!'
-                    },
-                    {
-                        username: 'YossiTheKing',
-                        profilePicture: 'yossi_image',
-                        comment: 'Gaming is my escape from reality. Let the adventure begin!'
-                    },
-                    {
-                        username: 'SolTheSolal',
-                        profilePicture: 'solal_image',
-                        comment: 'Playing games brings out the inner child in me. So much fun!'
-                    },
-                    {
-                        username: 'ToTheTomer',
-                        profilePicture: 'tomer_image',
-                        comment: 'Game on! Time to immerse myself in another fantastic gaming experience!'
-                    }
-                ],
-            },
-            {
-                id: 2,
-                profilePicture: 'yossi_image',
-                username: 'YossiTheKing',
-                time: '21:30',
-                date: '21/10/2020',
-                text: '🕹️ Dive into the latest releases, from pulse-pounding first-person shooters to captivating role-playing adventures. 🏹 Take on the challenge of online battles and prove your skills against fellow gamers from around the globe. Engage in fierce competitions, team up with friends, and celebrate victories together!',
-                photo: '',
-                bump: 10,
-                share: 5,
-                comments: [
-                    {
-                        username: 'YossiTheKing',
-                        profilePicture: 'yossi_image',
-                        comment: "🎉🎉 This game is going to be epic! Can't wait to get my hands on it!"
-                    },
-                    {
-                        username: 'SolTheSolal',
-                        profilePicture: 'solal_image',
-                        comment: "I've been counting down the days for this release. It's finally here!"
-                    },
-                    {
-                        username: 'ToTheTomer',
-                        profilePicture: 'tomer_image',
-                        comment: 'Just finished playing this game, and it exceeded all my expectations. Absolutely mind-blowing!'
-                    },
-                ]
-            },
-        ];
+        console.log('userId:'+this.userId);
+        console.log('differentUserId:'+this.differentUserId);
+        if(this.differentUserId===this.userId){
+           this.myprofile=true;
+           console.log("same user");
+        }
+        else{
+            console.log("different user");
+        }
+       
     },
 
 };
@@ -161,7 +106,7 @@ html {
     align-items: center;
     justify-content: flex-start;
     background-color: var(--pagebgcolor);
-    height: 100%;
+    height: 100vh;
     width: 100vw;
     margin-top: 80px;
     padding-bottom: 30px;
@@ -172,8 +117,8 @@ html {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 5px;
-    padding-top:10px;
+    padding: 25px;
+    padding-top:25px;
     background-color: #1B1E29;
     border: 1px solid var(--stroke);
     z-index: 1;
@@ -183,8 +128,8 @@ html {
 
     border-radius: 50%;
     border: 3px solid var(--main);
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     background-color: var(--profile-picture-color);
 }
@@ -199,6 +144,11 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;    
+}
+.btn{
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 10px;
 }
 
 .username {

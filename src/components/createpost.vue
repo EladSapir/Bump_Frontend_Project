@@ -68,7 +68,8 @@ export default {
                 return;
             }
             try {
-                this.photo = await this.uploadFile();
+                if(this.photo)
+                     this.photo = await this.uploadFile();
                 console.log('photo:' + this.photo);
                 var addr = 'https://backend-project-vzn7.onrender.com/createpost';
                 console.log('userid:' + this.userId);

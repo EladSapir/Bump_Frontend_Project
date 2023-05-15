@@ -5,12 +5,10 @@
             <div v-if="mine" class="deletebutton" @click="showdelete = !showdelete">
                 <img v-if="!deletehoverpost" src="../assets/delete.svg" alt="Delete Icon" @mouseenter="deletehoverpost = true" />
                 <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" @mouseleave="deletehoverpost = false" />
-
             </div>
             <div class="profile-picture">
-                <img :class="{ mineclass: mine }" :src="profilePicture" alt="Profile Picture" />
+                <img :class="{ mineclass: mine }" :src="post.userProfilePicture" alt="Profile Picture" />
             </div>
-
             <div class="post-content">
 
                 <div class="user-info">
@@ -18,8 +16,26 @@
                     <div class="post-date">{{ post.date }}</div>
 
                 </div>
+                <div v-if="!post.isShared" class="post-text">
+                    {{ post.text }}
+                </div>
+                <div v-if="post.isShared" class="sharedpost">
+                    <div class="profile-picture">
+                         <img :class="{ mineclass: mine }" :src="post.Spicture" alt="Profile Picture" />
+                    </div>
+
+                <div class="post-content">
+
+                <div class="user-info">
+                    <div class="user-name">{{ post.SGamerTag }}</div>
+                    <div class="post-date">{{ post.Sdate }}</div>
+
+                </div>
                 <div class="post-text">
                     {{ post.text }}
+                </div>
+                </div>
+                
                 </div>
             </div>
         </div>
@@ -32,12 +48,13 @@
                         <img :src="post.picture" alt="Post Photo" />
 
                     </div>
+
                     <div class="post-actions">
                         <div class="bump">
                             <img src="../assets/bump.svg" alt="Bump Icon" style="width: 22px; margin:0;" />
                             <span class="bump-count">{{ post.numOfBumps }} Bumps</span>
                         </div>
-                        <div class="share">
+                        <div v-if="post.picture === 'null'&&!post.isShared" class="share">
                             <img src="../assets/reply.svg" alt="Share Icon" />
                             <span class="share-count">{{ post.numofshares }} Shares</span>
                         </div>
@@ -49,7 +66,7 @@
                             <p :class="{ selected: bumpselected }"> Bump</p>
                         </div>
                         <div class="outshare">
-                            <div class="checkbox checkshare">
+                            <div class="checkbox checkshare" v-if="post.picture === 'null'&&!post.isShared" @click="pressonshare">
                                 <img src="../assets/reply.svg" alt="Share Icon" style="width: 18px;" />
                                 <p> Share</p>
                             </div>
@@ -315,9 +332,29 @@ export default {
                 console.log("save failed");
             }
 
+        },
+        async pressonshare(){
+            try{
+                var addr = 'https://backend-project-vzn7.onrender.com/sharepost';
+                    console.log('userid:' + this.userId);
+                    console.log('postid:' + this.post._id);
+                    console.log('shar:' + addr);
+                    const response = await axios.post(addr, {
+                        "user": this.userId,
+                        "post": this.post._id
+                    });
+
+                    // Extract the user ID from the response
+                    const res = response.data;
+                    console.log("shar:" + res);
+              
+            }catch(error){
+                console.error(error);
+            }
         }
     },
     created() {
+        this.updateVisibleComments();
         this.userId = this.$route.query.id;
         console.log("userId:" + this.userId);
         console.log("post.userId:" + this.post.userID);
@@ -349,6 +386,10 @@ export default {
 
 }
 
+.sharedpost{
+    gap: 30px;
+    display: flex;
+}
 /* .profile-picture{
     margin-right: 15px;
     width: 60px;
@@ -371,6 +412,8 @@ export default {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
+    height: 60px;
+    margin-top: 10px;
 }
 
 .user-name {

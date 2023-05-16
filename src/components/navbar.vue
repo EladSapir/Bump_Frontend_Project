@@ -49,6 +49,9 @@ export default {
       isloading: false,
     };
   },
+  beforeDestroy(){
+    this.logout();
+  },
   methods: {
     toggleDropdown() {
       this.isDropdownActive = !this.isDropdownActive;
@@ -58,11 +61,7 @@ export default {
         this.isloading = true;
         var addr = 'https://backend-project-vzn7.onrender.com/logout/' + this.userId;
         console.log('logout:' + addr);
-        const response = await axios.get(addr, {
-
-        });
-        
-        // Extract the user ID from the response
+        const response = await axios.get(addr, {});
         const res = response.data;
         console.log("logout:" + res);
         if (res) {
@@ -70,23 +69,20 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        // Handle the error (e.g., show an error message)
+        console.log(error);
       }
       this.isloading = false;
     },
     movetomyprofile() {
       this.$router.push({ name: 'profile', params: { userId: this.userId, differentUserId: this.userId } });
     },
-
-
     movetomatching() {
-      this.$router.push({ name: 'match', query: {  id:this.userId} });
+      this.$router.push({ name: 'match', query: { id: this.userId } });
     },
     movetohomepage() {
       this.$router.push({ name: 'homepage', query: { id: this.userId } });
-  
     }
-  }
+  } 
 };
 
 </script>

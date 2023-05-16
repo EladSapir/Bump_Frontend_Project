@@ -3,7 +3,8 @@
 
         <div class="poststart">
             <div v-if="mine" class="deletebutton" @click="showdelete = !showdelete">
-                <img v-if="!deletehoverpost" src="../assets/delete.svg" alt="Delete Icon" @mouseenter="deletehoverpost = true" />
+                <img v-if="!deletehoverpost" src="../assets/delete.svg" alt="Delete Icon"
+                    @mouseenter="deletehoverpost = true" />
                 <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" @mouseleave="deletehoverpost = false" />
             </div>
             <div class="profile-picture">
@@ -19,23 +20,24 @@
                 <div v-if="!post.isShared" class="post-text">
                     {{ post.text }}
                 </div>
+
                 <div v-if="post.isShared" class="sharedpost">
                     <div class="profile-picture">
-                         <img :class="{ mineclass: mine }" :src="post.Spicture" alt="Profile Picture" />
+                        <img :class="{ mineclass: mine }" :src="post.Spicture" alt="Profile Picture" />
                     </div>
 
-                <div class="post-content">
+                    <div class="post-content">
 
-                <div class="user-info">
-                    <div class="user-name">{{ post.SGamerTag }}</div>
-                    <div class="post-date">{{ post.Sdate }}</div>
+                        <div class="user-info">
+                            <div class="user-name">{{ post.SGamerTag }}</div>
+                            <div class="post-date">{{ post.Sdate }}</div>
 
-                </div>
-                <div class="post-text">
-                    {{ post.text }}
-                </div>
-                </div>
-                
+                        </div>
+                        <div class="post-text">
+                            {{ post.text }}
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -54,7 +56,7 @@
                             <img src="../assets/bump.svg" alt="Bump Icon" style="width: 22px; margin:0;" />
                             <span class="bump-count">{{ post.numOfBumps }} Bumps</span>
                         </div>
-                        <div v-if="post.picture === 'null'&&!post.isShared" class="share">
+                        <div v-if="post.picture === 'null' && !post.isShared" class="share">
                             <img src="../assets/reply.svg" alt="Share Icon" />
                             <span class="share-count">{{ post.numofshares }} Shares</span>
                         </div>
@@ -66,12 +68,13 @@
                             <p :class="{ selected: bumpselected }"> Bump</p>
                         </div>
                         <div class="outshare">
-                            <div class="checkbox checkshare" v-if="post.picture === 'null'&&!post.isShared" @click="pressonshare">
+                            <div class="checkbox checkshare" v-if="post.picture === 'null' && !post.isShared"
+                                @click="pressonshare">
                                 <img src="../assets/reply.svg" alt="Share Icon" style="width: 18px;" />
                                 <p> Share</p>
                             </div>
                         </div>
-                        <div class="checkbox checksave" @click="pressonsave">
+                        <div v-if="!post.isShared" class="checkbox checksave" @click="pressonsave">
                             <p :class="{ selected: saveselected }"> Save</p>
                             <img v-if="!saveselected" src="../assets/save.svg" alt="Save Icon" style="width: 25px;" />
                             <img v-else src="../assets/saveselected.svg" alt="Save Icon" style="width: 25px;" />
@@ -92,12 +95,14 @@
                         </div>
                         <div v-if="visibleComments != []" class="comment" v-for="(comment, index) in visibleComments"
                             :key="comment.id" @mouseenter="commenthover = index" @mouseleave="deletehover = false">
-                            <div class="comment-profile-picture" v-if="comment.Picture != 'null'">
+                            <div class="comment-profile-picture" v-if="comment.Picture != 'null'" >
                                 <img :class="{ mineclass: comment.userID === userId }" :src="comment.Picture"
                                     alt="User Profile Picture" />
                             </div>
+                           
                             <div class="comment-content">
                                 <div class="user-info">
+                                   
                                     <div class="user-name">{{ comment.GamerTag }}</div>
                                 </div>
                                 <div class="comment-text">
@@ -111,8 +116,8 @@
                                         <span>Delete?</span>
                                         <div class="delete-option">
                                             <img v-if="!cancelhover" id="cancelIcon" src="../assets/cancel.svg"
-                                                alt="Cancel Icon" @mouseenter="cancelhover = true" />
-                                            <img v-else id="cancelIcon" src="../assets/cancelgreen.svg" alt="Cancel Icon"
+                                                alt="Cancel Icon" @click="deletehover = false" @mouseenter="cancelhover = true" />
+                                            <img v-else id="cancelIcon" @click="deletehover = false" src="../assets/cancelgreen.svg" alt="Cancel Icon"
                                                 @mouseleave="cancelhover = false" />
                                             <img v-if="!checkhover" @click="deletecomment" id="checkIcon"
                                                 src="../assets/check_circle.svg" alt="Check Circle Icon"
@@ -142,7 +147,7 @@
     </div>
 
     <div v-if="showdelete">
-        <deletecomp @closeA="colosedelete" :deleteornot="deleteornot" />
+        <deletecomp @closeA="colosedelete" />
     </div>
 </template>
   
@@ -174,21 +179,163 @@ export default {
             checkhover: false,
             deletehoverpost: false,
         };
-    }, created() {
-        this.updateVisibleComments();
     },
-    methods: {
-        deletecomment() {
-            console.log("deletecomment:" + this.post.comments[this.commenthover]._id);
-            // this.post.comments.splice();
+    created() {
+        this.updateVisibleComments();
+        this.userId = this.$route.query.id;
+        console.log("userId:" + this.userId);
+        console.log("post.userId:" + this.post.userID);
+        if (this.post.userID === this.userId) {
+            this.mine = true;
+        }
+    }, methods: {
+        pressonsave() {
+        if (!this.saveselected && !this.post.isShared) {
+            var addr = 'https://backend-project-vzn7.onrender.com/savepost';
+        }
+        else if (this.saveselected && !this.post.isShared) {
+            var addr = 'https://backend-project-vzn7.onrender.com/removesaved';
+        }
+        this.saveselected = !this.saveselected
+        const objecttopass = {
+            "user": this.userId,
+            "post": this.post._id
+        }
+
+        const res = this.requestfromserver(addr, objecttopass)
+        if (!res) {
+            console.log("save failed");
+        }
+
+    },
+        sendcomment() {
+        if (this.mycomment === '') {
+            return;
+        }
+        var objecttopass = {};
+        if (this.post.isShared) {
+            var addr = 'https://backend-project-vzn7.onrender.com/addcommenttoshare';
+            objecttopass = {
+                "user": this.userId,
+                "post": this.post.Sid,
+                "text": this.mycomment
+            }
+        }
+        else {
+            var addr = 'https://backend-project-vzn7.onrender.com/addcomment';
+            objecttopass = {
+                "user": this.userId,
+                "post": this.post._id,
+                "text": this.mycomment
+            }
+        }
+        const res = this.requestfromserver(addr, objecttopass)
+        if (res) {
+            const newcomment = {
+                "_id": res,
+                "userID": this.userId,
+                "GamerTag": this.gamertag,
+                "text": this.mycomment,
+                "Picture": this.profilePicture,
+                "date": "2021-05-01T00:00:00.000Z"
+            }
+            this.mycomment = '';
+            this.post.comments.unshift(newcomment);
             this.updateVisibleComments();
-        },
-        colosedelete() {
-            this.showdelete = false;
-            if (this.deleteornot) {
-                //add delete post function
+        }
+        else {
+            console.log("save failed");
+        }
+
+    },
+        pressonshare() {
+            var addr = 'https://backend-project-vzn7.onrender.com/sharepost';
+            const objecttopass = {
+                "user": this.userId,
+                "post": this.post._id
+            }
+            console.log("pressonshare:", objecttopass);
+            var res = this.requestfromserver(addr, objecttopass)
+
+            if (res) {
                 this.$emit('deletepost');
             }
+            else {
+                console.log("share failed");
+            }
+        },
+        async requestfromserver(addr, objecttopass) {
+            console.log("addr:", addr);
+            try {
+                const response = await axios.post(addr, objecttopass);
+
+                var res = response.data;
+                console.log("res:", res);
+                return res;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        deletecomment() {
+            console.log("deletecomment:" + this.post.comments[this.commenthover]._id);
+            var objecttopass = {};
+            if (this.post.isShared) {
+                var addr = 'https://backend-project-vzn7.onrender.com/removecommentfromshare';
+                objecttopass = {
+                    "user": this.userId,
+                    "post": this.post.Sid,
+                    "comment": this.post.comments[this.commenthover]._id
+                }
+            }
+            
+            else {
+                var addr = 'https://backend-project-vzn7.onrender.com/removecomment';
+                objecttopass = {
+                    "user": this.userId,
+                    "post": this.post._id,
+                    "comment": this.post.comments[this.commenthover]._id
+                }
+            }
+        
+            const res = this.requestfromserver(addr, objecttopass)
+            if (res) {
+                this.post.comments.splice(this.post.comments[this.commenthover]._id, 1);
+                this.updateVisibleComments();
+            }
+            else {
+                console.log("delete failed");
+            }
+        },
+        colosedelete(deleteornot) {
+            this.showdelete = false;
+            this.deleteornot = deleteornot;
+            console.log("deleteornot:" + this.deleteornot);
+            if (this.deleteornot) {
+                var objecttopass = {};
+                if (this.post.isShared) {
+                    var addr = 'https://backend-project-vzn7.onrender.com/removeshare';
+                    objecttopass={
+                        "user": this.userId,
+                        "post": this.post._id,
+                        "share": this.post.Sid
+                    }
+                }
+                else {
+                    var addr = 'https://backend-project-vzn7.onrender.com/removepost';
+                    objecttopass={
+                        "user": this.userId,
+                        "post": this.post._id
+                    }
+                }
+                var res = this.requestfromserver(addr, objecttopass)
+                   if(res)
+                   {
+                     this.$emit('deletepost');
+            }
+            else {
+                console.log("delete failed");
+            }
+        }
         },
         toggleComments() {
             this.showAllComments = !this.showAllComments;
@@ -202,169 +349,49 @@ export default {
             }
         },
         async pressonbump() {
-            try {
-                console.log("isbumpselected:" + this.bumpselected);
-                if (!this.bumpselected) {
-                    this.bumpselected = !this.bumpselected;
-                    this.post.numOfBumps++;
-                    var addr = 'https://backend-project-vzn7.onrender.com/addbump';
-                    console.log('userid:' + this.userId);
-                    console.log('postid:' + this.post._id);
-                    console.log('bump:' + addr);
-                    const response = await axios.post(addr, {
-                        "user": this.userId,
-                        "post": this.post._id
-                    });
-
-                    // Extract the user ID from the response
-                    const res = response.data;
-                    console.log("bump:" + res);
-                    if (!res) {
-                        console.log("bump failed");
-                    }
-                }
-                else {
-                    this.bumpselected = !this.bumpselected;
-                    this.post.numOfBumps--;
-                    var addr = 'https://backend-project-vzn7.onrender.com/removebump';
-                    console.log('userid:' + this.userId);
-                    console.log('postid:' + this.post._id);
-                    console.log('bump:' + addr);
-                    const response = await axios.post(addr, {
-                        "user": this.userId,
-                        "post": this.post._id,
-                    });
-
-                    // Extract the user ID from the response
-                    const res = response.data;
-                    console.log("bump:" + res);
-                    if (!res) {
-                        console.log("bump failed");
-                    }
-                }
-            } catch (error) {
-                console.error(error);
-                // Handle the error (e.g., show an error message)
+            var objecttopass = {};
+            if (!this.bumpselected && !this.post.isShared) {
+                this.post.numOfBumps++;
+                var addr = 'https://backend-project-vzn7.onrender.com/addbump';
             }
-
-        },
-        async pressonsave() {
-            try {
-                console.log("issaveselected:" + this.saveselected);
-                if (!this.saveselected) {
-                    var addr = 'https://backend-project-vzn7.onrender.com/savepost';
-                    console.log('userid:' + this.userId);
-                    console.log('postid:' + this.post._id);
-                    console.log('save:' + addr);
-                    const response = await axios.post(addr, {
-                        "user": this.userId,
-                        "post": this.post._id
-                    });
-
-                    // Extract the user ID from the response
-                    const res = response.data;
-                    console.log("save:" + res);
-                    if (res) {
-                        this.saveselected = !this.saveselected
-                    }
-                    else {
-                        console.log("save failed");
-                    }
-                }
-                else {
-                    var addr = 'https://backend-project-vzn7.onrender.com/removesaved';
-                    console.log('userid:' + this.userId);
-                    console.log('postid:' + this.post._id);
-                    console.log('save:' + addr);
-                    const response = await axios.post(addr, {
-                        "user": this.userId,
-                        "post": this.post._id
-                    });
-
-                    // Extract the user ID from the response
-                    const res = response.data;
-                    console.log("save:" + res);
-                    if (res) {
-                        this.saveselected = !this.saveselected
-                    }
-                    else {
-                        console.log("save failed");
-                    }
-                }
-            } catch (error) {
-                console.error(error);
-                // Handle the error (e.g., show an error message)
+            else if (this.bumpselected && !this.post.isShared) {
+                this.post.numOfBumps--;
+                var addr = 'https://backend-project-vzn7.onrender.com/removebump';
             }
-
-        },
-        async sendcomment() {
-            if (this.mycomment === '') {
-                return;
+            else if (!this.bumpselected && this.post.isShared) {
+                this.post.numOfBumps++;
+                var addr = 'https://backend-project-vzn7.onrender.com/addbumptoshare';
             }
-            console.log("sendcomment:" + this.mycomment);
-            console.log("sendcomment:" + this.post._id);
-            console.log("sendcomment:" + this.userId);
-            console.log("sendcomment:" + this.gamertag);
-            var addr = 'https://backend-project-vzn7.onrender.com/addcomment';
-            const response = await axios.post(addr, {
-                "user": this.userId,
-                "post": this.post._id,
-                "text": this.mycomment
-            });
-
-            // Extract the user ID from the response
-            const res = response.data;
-            console.log("save:" + res);
-            if (res) {
-                const newcomment = {
-                    "_id": res,
-                    "userID": this.userId,
-                    "GamerTag": this.gamertag,
-                    "text": this.mycomment,
-                    "Picture": this.profilePicture,
-                    "date": "2021-05-01T00:00:00.000Z"
+            else if (this.bumpselected && this.post.isShared) {
+                this.post.numOfBumps--;
+                var addr = 'https://backend-project-vzn7.onrender.com/removebumpfromshare';
+            }
+            if (this.post.isShared) {
+                objecttopass = {
+                    "user": this.userId,
+                    "post": this.post.Sid
                 }
-                this.mycomment = '';
-                this.post.comments.unshift(newcomment);
-                this.updateVisibleComments();
             }
             else {
-                console.log("save failed");
+                objecttopass = {
+                    "user": this.userId,
+                    "post": this.post._id
+                }
             }
+            this.bumpselected = !this.bumpselected;
+            const res = this.requestfromserver(addr, objecttopass)
 
-        },
-        async pressonshare(){
-            try{
-                var addr = 'https://backend-project-vzn7.onrender.com/sharepost';
-                    console.log('userid:' + this.userId);
-                    console.log('postid:' + this.post._id);
-                    console.log('shar:' + addr);
-                    const response = await axios.post(addr, {
-                        "user": this.userId,
-                        "post": this.post._id
-                    });
-
-                    // Extract the user ID from the response
-                    const res = response.data;
-                    console.log("shar:" + res);
-              
-            }catch(error){
-                console.error(error);
+            if (!res) {
+                console.log("bump failed");
             }
         }
     },
-    created() {
-        this.updateVisibleComments();
-        this.userId = this.$route.query.id;
-        console.log("userId:" + this.userId);
-        console.log("post.userId:" + this.post.userID);
-        if (this.post.userID === this.userId) {
-            this.mine = true;
-        }
+    
+    
+
+}
 
 
-    },
-};
 </script>
 
 <style scoped>
@@ -386,10 +413,11 @@ export default {
 
 }
 
-.sharedpost{
+.sharedpost {
     gap: 30px;
     display: flex;
 }
+
 /* .profile-picture{
     margin-right: 15px;
     width: 60px;
@@ -412,7 +440,6 @@ export default {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-    height: 60px;
     margin-top: 10px;
 }
 
@@ -480,7 +507,7 @@ export default {
 .checkbox:hover {
     cursor: pointer;
     background-color: var(--stroke);
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 
@@ -596,9 +623,9 @@ export default {
     border: none;
     color: var(--white);
     font-size: 16px;
-    padding: 10px;
     padding-left: 15px;
     padding-right: 60px;
+    height: 55px;
 
 }
 
@@ -620,6 +647,7 @@ export default {
     position: relative;
     width: 100%;
 }
+
 
 .sendicon {
     position: absolute;
@@ -658,11 +686,11 @@ p.selected {
     border: none;
     color: var(--white);
     font-size: 16px;
-    padding: 10px 20px;
+    padding: 10px 15px;
 }
 
 .comment-content .user-info {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .comment-text {
@@ -731,7 +759,6 @@ p.selected {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 300px;
     width: 100px;
     transition: 0.3s;
 

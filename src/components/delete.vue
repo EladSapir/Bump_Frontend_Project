@@ -23,8 +23,6 @@ export default {
             deleteornot: false
         }
     },
-    props:
-        ['deleteornot'],
         mounted() {
     window.addEventListener("scroll", this.preventScroll);
   },
@@ -41,7 +39,7 @@ export default {
                 console.log("delete" + this.deleteornot)
             }
             window.removeEventListener("scroll", this.preventScroll);
-            this.$emit('closeA')
+            this.$emit('closeA',this.deleteornot)
         },
         preventScroll(event) {
       event.preventDefault();

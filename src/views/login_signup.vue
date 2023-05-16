@@ -19,12 +19,12 @@
     <terms @closeT="toggleTerms" />
   </div>
   <div class="land">
-    <footer @openA="toggleAbout" @openT="toggleTerms" />
+    <Footer @openA="toggleAbout" @openT="toggleTerms" />
   </div>
 </template>
 
 <script>
-import footer from '../components/footer.vue'
+import Footer from '../components/footer.vue'
 import login from '../components/login.vue'
 import signup from '../components/signup.vue'
 import about from '../components/about.vue'
@@ -32,7 +32,7 @@ import terms from '../components/terms.vue'
 export default {
   name: 'homeView',
   components: {
-    footer,
+    Footer,
     signup,
     login,
     about,terms

@@ -33,20 +33,20 @@
       <terms @closeT="toggleTerms" />
     </div>
   <div class="land">
-    <landingfooter @openA="toggleAbout" @openT="toggleTerms" />
+    <Footer @openA="toggleAbout" @openT="toggleTerms" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import landingfooter from '../components/footer.vue'
+import Footer from '../components/footer.vue'
 import about from '../components/about.vue'
 import terms from '../components/terms.vue'
 
 export default {
   name: 'landingpage',
   components: {
-    landingfooter,
+    Footer,
     about,
     terms
   },

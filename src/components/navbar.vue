@@ -77,7 +77,7 @@ export default {
       this.$router.push({ name: 'profile', params: { userId: this.userId, differentUserId: this.userId } });
     },
     movetomatching() {
-      this.$router.push({ name: 'match', query: { id: this.userId } });
+      this.$router.push({ name: 'matching', query: { id: this.userId } });
     },
     movetohomepage() {
       this.$router.push({ name: 'homepage', query: { id: this.userId } });

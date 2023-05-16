@@ -19,12 +19,12 @@
     <terms @closeT="toggleTerms" />
   </div>
   <div class="land">
-    <landingfooter @openA="toggleAbout" @openT="toggleTerms" />
+    <footer @openA="toggleAbout" @openT="toggleTerms" />
   </div>
 </template>
 
 <script>
-import landingfooter from '../components/landingfooter.vue'
+import footer from '../components/footer.vue'
 import login from '../components/login.vue'
 import signup from '../components/signup.vue'
 import about from '../components/about.vue'
@@ -32,7 +32,7 @@ import terms from '../components/terms.vue'
 export default {
   name: 'homeView',
   components: {
-    landingfooter,
+    footer,
     signup,
     login,
     about,terms
@@ -69,21 +69,6 @@ export default {
   align-items: center;
   height: 100vh;
 }
-
-/* .home {
-  box-sizing: border-box;
-  padding: 20px;
-  background: #2c394bd7;
-  border: 1px solid #323244;
-  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  text-align: center;
-  width: 90%;
-} */
-
-
-
-
 
 .land {
   position: fixed;

@@ -731,7 +731,7 @@ p.selected {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    hight: 300px;
+    height: 300px;
     width: 100px;
     transition: 0.3s;
 

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import landingpage from '../views/landingpage.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'landingpage',
+    component: landingpage,
   },
   {
     path: '/login_signup',
@@ -18,9 +18,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "homepage" */ '../views/homepage.vue'),
   },
   {
-    path: '/match',
-    name: 'match',
-    component: () => import(/* webpackChunkName: "homepage" */ '../views/match.vue'),
+    path: '/matching',
+    name: 'matching',
+    component: () => import(/* webpackChunkName: "homepage" */ '../views/matching.vue'),
   },
   {
     path: '/profile/:userId/:differentUserId',

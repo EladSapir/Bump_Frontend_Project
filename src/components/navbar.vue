@@ -3,22 +3,28 @@
     <nav class="nav-menu">
       <div class="nav-left">
         <img src="../../public/Logo1.svg" class="logo" @click="movetohomepage">
-        <img src="../assets/bumpword.svg" alt="Bump" class="bumpword">
+        <img src="../assets/bumpword.svg" alt="Bump" class="bumpword" @click="movetohomepage">
         <a @click="movetomyprofile" class="profile-link">My Profile</a>
       </div>
       <div class="nav-center">
         <div class="search-container">
-          <input type="text" placeholder="Search" class="search">
+          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @keyup.enter="searchUsers">
           <img src="../assets/search.svg" alt="Search" class="search-icon">
+          <ul v-if="searchResults.length" class="dropdown">
+            <li v-for="result in searchResults" :key="result.id">{{ result.username }}</li>
+          </ul>
         </div>
+
       </div>
       <div class="nav-right">
         <button class="btn" @click="movetomatching">Let's Bump</button>
-        <img class="noti" src="../assets/noti_off.svg" @click="toggleDropdown">
-        <div class="dropdown" :class="{ active: isDropdownActive }">
+        <div class="notidiv">
+        <img class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
+        <div class="dropdownnoti" :class="{ active: isDropdownActive }">
           <ul>
             <li v-for="notification in notifications" :key="notification">{{ notification }}</li>
           </ul>
+        </div>
         </div>
         <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
@@ -42,21 +48,43 @@ export default {
   },
   data() {
     return {
-      showNotifications: false,
-      notifications: ["Notification 1", "Notification 2", "Notification 3"], // need to change
+      searchQuery: "",
+      searchResults: [],
+      notifications: ["Notification 1", "Notification 2", "Notification 3", "Notification 4", "Tomer Gay", "Elad Gay"], // need to change
       isDropdownActive: false,
       userId: this.$route.query.id,
       isloading: false,
     };
   },
-  beforeDestroy(){
-    this.logout();
+  mounted() {
+    window.addEventListener("beforeunload", this.handleBeforeUnload);
+  },
+  beforeDestroy() {
+    window.removeEventListener("beforeunload", this.handleBeforeUnload);
   },
   methods: {
+    async searchUsers() {
+      if (this.searchQuery.trim() === "") {
+        this.searchResults = [];
+        return;
+      }
+      else {
+        try {
+          var addr = 'https://backend-project-vzn7.onrender.com/search';
+          const response = await axios.post(addr, {
+            "searchQuery": this.searchQuery.trim(),
+            "userId": this.userId,
+          })
+          this.searchResults = response.data
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
     toggleDropdown() {
       this.isDropdownActive = !this.isDropdownActive;
     },
-    async logout() { // need to implement 
+    async logout() { 
       try {
         this.isloading = true;
         var addr = 'https://backend-project-vzn7.onrender.com/logout/' + this.userId;
@@ -81,8 +109,11 @@ export default {
     },
     movetohomepage() {
       this.$router.push({ name: 'homepage', query: { id: this.userId } });
+    },
+    handleBeforeUnload() {
+      this.logout();
     }
-  } 
+  }
 };
 
 </script>
@@ -135,14 +166,23 @@ export default {
   cursor: pointer;
 }
 
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .search-container {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search {
   border: none;
   background-color: var(--thirdcolor);
-  border-radius: 15px;
+  border-radius: 30px;
   padding: 10px 40px 10px 20px;
   margin-right: 10px;
   color: var(--white);
@@ -153,7 +193,7 @@ export default {
   line-height: 1.5;
   letter-spacing: 0.5px;
   width: 150px;
-  height: 30px;
+  height: 20px;
   transition: all 0.3s ease;
 }
 
@@ -216,18 +256,25 @@ export default {
 
 }
 
-.noti {
-  margin-right: 40px;
+.notidiv {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.notiimg {
+  margin-right: 20px;
   height: 30px;
   width: 30px;
 }
 
-.noti:hover {
+.notiimg:hover {
   cursor: pointer;
 }
 
 .logout {
-  margin-right: 40px;
   height: 30px;
   width: 30px;
 }
@@ -243,32 +290,33 @@ export default {
   width: 80px;
 }
 
+.bumpword:hover {
+  cursor: pointer;
+}
+
 .btn {
   margin-right: 40px;
   padding: 8px 20px;
 }
 
-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dropdown {
+.dropdownnoti {
   display: none;
-  position: absolute;
   top: 100%;
-  right: 0;
+  position: absolute;
   background-color: var(--pagebgcolor);
-  min-width: 200px;
+  min-width: 250px;
   max-height: 200px;
   overflow-y: scroll;
   border: 1px solid var(--stroke);
+  border-radius: 0 0 15px 15px;
+  z-index: 1;
 }
 
-.dropdown.active {
+.dropdownnoti.active {
   display: block;
 }
+
+
 
 
 .container {
@@ -297,6 +345,33 @@ form {
   background: rgba(0, 0, 0, 0.692);
   width: 100%;
   height: 100%;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  background-color: var(--thirdcolor);
+  border-radius: 0 0 15px 15px;
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+  overflow-y: auto;
+  border: 2px solid var(--stroke);
+  z-index: 1;
+}
+
+.dropdown li {
+  color: var(--white);
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown li:hover {
+  background-color: var(--accent);
 }
 </style>
   

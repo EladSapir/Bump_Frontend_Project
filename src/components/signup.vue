@@ -955,7 +955,7 @@ button[type="submit"] {
     margin-top: 30px;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 10px;
 }
 

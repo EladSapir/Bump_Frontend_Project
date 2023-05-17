@@ -102,7 +102,7 @@ export default {
       this.isloading = false;
     },
     movetomyprofile() {
-      this.$router.push({ name: 'profile', params: { userId: this.userId, differentUserId: this.userId } });
+      this.$router.push({ name: 'profile', query: { id: this.userId } ,params: {differentUserId: this.userId } });
     },
     movetomatching() {
       this.$router.push({ name: 'matching', query: { id: this.userId } });

@@ -64,7 +64,7 @@ export default {
         createpost,
         post
     },
-    props:['userId','differentUserId'],
+    props:['differentUserId'],
     data() {
         return {
             profilePicture: "yossi_image",
@@ -76,6 +76,7 @@ export default {
             islikeddialog: false,
             isstatsdialog: false,
             myprofile:false,
+            userId: this.$route.query.id,
         };
     },
     created() {

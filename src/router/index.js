@@ -23,7 +23,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "homepage" */ '../views/matching.vue'),
   },
   {
-    path: '/profile/:userId/:differentUserId',
+    path: '/profile/:differentUserId',
     name: 'profile',
     props: true,
     component: () => import(/* webpackChunkName: "homepage" */ '../views/profile.vue'),

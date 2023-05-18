@@ -2,22 +2,23 @@
     <div class="profile">
         <navbar />
         <div class="user-profile">
-            <div class="profile-picture">
-                <img :src="require('../assets/' + profilePicture + '.png')" alt="Profile Picture" />
+            <div class="profile-picture" >
+                <img :src="profilePicture" alt="Profile Picture" />
             </div>
             <div class="user-info">
-                <h2 class="username">{{ username }} <Button v-if="!myprofile" class="btn">Follow</Button></h2>
+                <h2 class="username">{{ GamerTag }} <Button v-if="!myprofile" class="btn" @click="follow">Follow</Button></h2>
                 <div class="user-stats">
                     <div class="following">
                         <span>Following</span>
-                        <p>5656</p>
+                        <p>{{numfollowing}}</p>
 
                     </div>
                     <div class="followers">
                         <span>Followers</span>
-                        <p>45</p>
-
+                        <p>{{numfollowers}}</p>
+                        
                     </div>
+                    
                 </div>
             </div>
             <div class="profile-navigation">
@@ -45,7 +46,7 @@
             </div>
         </div>
         <div class="myposts" v-if="ispostdialog">
-            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture" />
+            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
         </div>
     </div>
 </template>
@@ -56,7 +57,7 @@
 import createpost from '../components/createpost.vue';
 import navbar from "../components/navbar.vue";
 import post from '../components/post.vue';
-
+import axios from 'axios';  
 export default {
     name: "profile",
     components: {
@@ -67,9 +68,9 @@ export default {
     props:['differentUserId'],
     data() {
         return {
-            profilePicture: "yossi_image",
+            profilePicture: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png',
             posts: [],
-            username: 'YossiTheKing',
+            GamerTag: ' ',
             edithover: false,
             ispostdialog: true,
             issaveddialog: false,
@@ -77,18 +78,77 @@ export default {
             isstatsdialog: false,
             myprofile:false,
             userId: this.$route.query.id,
+            res:null,
+            user:null,
+            numfollowers:0,
+            numfollowing:0,
         };
+    },
+    methods:{
+        async requestfromserver(addr) {
+            console.log("addr:", addr);
+            try {
+                const response = await axios.get(addr);
+
+                var res = response.data;
+                console.log("res:", res);
+                return res;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async requestfromserverpost(addr, objecttopass) {
+            console.log("addr:", addr);
+            try {
+                const response = await axios.post(addr, objecttopass);
+
+                var res = response.data;
+                console.log("res:", res);
+                return res;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        follow(){
+            console.log("follow:",this.differentUserId);
+            var addr = 'https://backend-project-vzn7.onrender.com/follows';
+            var objecttopass = {
+                "id1": this.userId,
+                "id2": this.differentUserId
+            };
+            this.requestfromserverpost(addr, objecttopass).then((res) => {
+                console.log("res:", res);
+                if(res.status==="success"){
+                    this.numfollowers++;
+                }
+            });
+        }
     },
     created() {
         console.log('userId:'+this.userId);
         console.log('differentUserId:'+this.differentUserId);
+        var addr="";
         if(this.differentUserId===this.userId){
            this.myprofile=true;
            console.log("same user");
+           addr = 'https://backend-project-vzn7.onrender.com/profile/'+this.userId;
         }
         else{
             console.log("different user");
+            addr = 'https://backend-project-vzn7.onrender.com/profile/'+this.differentUserId;
         }
+        this.requestfromserver(addr).then((res) => {
+            console.log("res:", res);
+            this.res=res;
+            this.user=res.user;
+            this.profilePicture =  this.user.Picture;
+            this.posts =  res.posts;
+            this.GamerTag =  this.user.GamerTag;
+            if(res.followers&&res.follows){          
+            this.numfollowers = res.followers.length;
+            this.numfollowing = res.follows.length;
+            }
+        });
        
     },
 

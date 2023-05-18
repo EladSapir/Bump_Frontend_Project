@@ -19,6 +19,7 @@
                 </div>
                 <div v-if="!post.isShared" class="post-text">
                     {{ post.text }}
+                    <p>{{ post }}</p>
                 </div>
 
                 <div v-if="post.isShared" class="sharedpost">
@@ -31,13 +32,13 @@
                         <div class="user-info">
                             <div class="user-name">{{ post.SGamerTag }}</div>
                             <div class="post-date">{{ post.Sdate }}</div>
-
+                            <p>{{ post }}</p>
                         </div>
                         <div class="post-text">
                             {{ post.text }}
                         </div>
                     </div>
-
+                    
                 </div>
             </div>
         </div>
@@ -348,7 +349,7 @@ export default {
                 this.visibleComments = this.post.comments.slice(0, 3);
             }
         },
-        async pressonbump() {
+        pressonbump() {
             var objecttopass = {};
             if (!this.bumpselected && !this.post.isShared) {
                 this.post.numOfBumps++;

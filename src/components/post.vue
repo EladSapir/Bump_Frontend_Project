@@ -19,7 +19,6 @@
                 </div>
                 <div v-if="!post.isShared" class="post-text">
                     {{ post.text }}
-                    <p>{{ post }}</p>
                 </div>
 
                 <div v-if="post.isShared" class="sharedpost">
@@ -32,7 +31,6 @@
                         <div class="user-info">
                             <div class="user-name">{{ post.SGamerTag }}</div>
                             <div class="post-date">{{ post.Sdate }}</div>
-                            <p>{{ post }}</p>
                         </div>
                         <div class="post-text">
                             {{ post.text }}

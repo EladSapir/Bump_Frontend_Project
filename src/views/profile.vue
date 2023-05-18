@@ -6,35 +6,35 @@
                 <img :src="profilePicture" alt="Profile Picture" />
             </div>
             <div class="user-info">
-                <h2 class="username">{{ GamerTag }} <Button v-if="!myprofile" class="btn" @click="follow">Follow</Button></h2>
+                <h2 class="username">{{ GamerTag }} <button v-if="!myprofile" class="btn" @click="follow">Follow</button></h2>
                 <div class="user-stats">
                     <div class="following">
                         <span>Following</span>
-                        <p>{{numfollowing}}</p>
+                        <p>{{numfollowing.length}}</p>
 
                     </div>
                     <div class="followers">
                         <span>Followers</span>
-                        <p>{{numfollowers}}</p>
+                        <p>{{numfollowers.length}}</p>
                         
                     </div>
                     
                 </div>
             </div>
             <div class="profile-navigation">
-                <div class="navigation-item" :class="{chosen: ispostdialog}">
+                <div class="navigation-item" @click="choosedialog(1)" :class="{chosen: ispostdialog}">
                     <span class="navigation-icon" >Posts</span>
                     <!-- Add icon for posts here -->
                 </div>
-                <div v-if="myprofile" class="navigation-item" :class="{chosen: issaveddialog}">
+                <div v-if="myprofile" class="navigation-item" @click="choosedialog(2)" :class="{chosen: issaveddialog}">
                     <span class="navigation-icon">Saved</span>
                     <!-- Add icon for saved here -->
                 </div>
-                <div v-if="myprofile" class="navigation-item" :class="{chosen: islikeddialog}">
+                <div v-if="myprofile" class="navigation-item" @click="choosedialog(3)" :class="{chosen: islikeddialog}">
                     <span class="navigation-icon">Liked</span>
                     <!-- Add icon for liked here -->
                 </div>
-                <div v-if="myprofile" class="navigation-item" :class="{chosen: isstatsdialog}">
+                <div v-if="myprofile" class="navigation-item" @click="choosedialog(4)" :class="{chosen: isstatsdialog}">
                     <span class="navigation-icon">Stats</span>
                     <!-- Add icon for stats here -->
                 </div>
@@ -46,7 +46,21 @@
             </div>
         </div>
         <div class="myposts" v-if="ispostdialog">
-            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
+            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
+            <emptymessage v-else emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
+        </div>
+        <div class="myposts" v-if="issaveddialog">
+            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
+            <emptymessage v-else emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
+
+        </div>
+        <div class="myposts" v-if="islikeddialog">
+            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
+            <emptymessage v-else emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
+
+        </div>
+        <div class="myposts" v-if="isstatsdialog">
+            <stats />
         </div>
     </div>
 </template>
@@ -58,12 +72,17 @@ import createpost from '../components/createpost.vue';
 import navbar from "../components/navbar.vue";
 import post from '../components/post.vue';
 import axios from 'axios';  
+import emptymessage from '../components/emptymessage'
+import stats from '../components/stats.vue'
 export default {
     name: "profile",
     components: {
         navbar,
         createpost,
-        post
+        post,
+        emptymessage,
+        stats
+
     },
     props:['differentUserId'],
     data() {
@@ -85,6 +104,38 @@ export default {
         };
     },
     methods:{
+        choosedialog(num){
+            this.posts=[];
+            if(num===1){
+            this.post();
+            this.ispostdialog=true;
+            this.issaveddialog=false;
+            this.islikeddialog= false;
+            this.isstatsdialog= false;
+            }
+            else if(num===2){
+            this.saved();
+            this.ispostdialog=false;   
+            this.issaveddialog=true;
+            this.islikeddialog= false;
+            this.isstatsdialog= false;
+            }
+            else if(num===3){
+            this.liked();
+            this.ispostdialog=false;
+            this.issaveddialog=false;
+            this.islikeddialog= true;
+            this.isstatsdialog= false;
+            }
+            else if(num===4){
+            this.stats();
+            this.ispostdialog=false;
+            this.issaveddialog=false;
+            this.islikeddialog= false;
+            this.isstatsdialog= true;
+            }
+            
+        },
         async requestfromserver(addr) {
             console.log("addr:", addr);
             try {
@@ -109,6 +160,29 @@ export default {
                 console.error(error);
             }
         },
+        saved(){
+            console.log("saved");
+            var addr = 'https://backend-project-vzn7.onrender.com/profile/saved/'+this.userId;
+            this.requestfromserver(addr).then((res) => {
+                console.log("res:", res);
+                this.posts =  res.savedpost;
+            });
+        },
+        liked(){
+            console.log("liked");
+            var addr = 'https://backend-project-vzn7.onrender.com/profile/bumped/'+this.userId;
+            this.requestfromserver(addr).then((res) => {
+                console.log("res:", res);
+                // this.posts =  res.posts;
+            });
+        },
+        stats(){
+            console.log("stats");
+            var addr = 'https://backend-project-vzn7.onrender.com/profile/stats/'+this.userId;
+            this.requestfromserver(addr).then((res) => {
+                console.log("res:", res);
+            });
+        },
         follow(){
             console.log("follow:",this.differentUserId);
             var addr = 'https://backend-project-vzn7.onrender.com/follows';
@@ -122,7 +196,15 @@ export default {
                     this.numfollowers++;
                 }
             });
-        }
+        },
+        post(){
+            console.log("post");
+            var addr = 'https://backend-project-vzn7.onrender.com/profile/'+this.userId;
+            this.requestfromserver(addr).then((res) => {
+                console.log("res:", res);
+                this.posts =  res.posts;
+            });
+        },
     },
     created() {
         console.log('userId:'+this.userId);
@@ -145,8 +227,8 @@ export default {
             this.posts =  res.posts;
             this.GamerTag =  this.user.GamerTag;
             if(res.followers&&res.follows){          
-            this.numfollowers = res.followers.length;
-            this.numfollowing = res.follows.length;
+            this.numfollowers = res.followers;
+            this.numfollowing = res.follows;
             }
         });
        
@@ -174,7 +256,7 @@ html {
 }
 
 .user-profile {
-    position: fixed;
+    position: sticky;
     display: flex;
     align-items: center;
     width: 100%;
@@ -273,7 +355,7 @@ html {
 
 .profile-navigation {
     position: absolute;
-    bottom: -33px;
+    bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -311,7 +393,8 @@ html {
     opacity: 0.8;
 }
 .myposts{
-    margin-top:180px
+    margin-top:40px;
+    padding-bottom: 50px;
 }
 </style>
   

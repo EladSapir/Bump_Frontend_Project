@@ -62,10 +62,14 @@ export default {
         {
           console.log(userId);
             this.error = response.data;
+            this.isLoading = false;
+
         }
         else if(userId==="email/password not right")
         {
             this.error = response.data;
+            this.isLoading = false;
+
         }
         else {    
 
@@ -77,7 +81,6 @@ export default {
         console.error(error);
         // Handle the error (e.g., show an error message)
       }
-      this.isLoading = false;
     }
   }
 }

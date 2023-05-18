@@ -11,7 +11,8 @@
           <input type="text" placeholder="Search" class="search" v-model="searchQuery" @keyup.enter="searchUsers">
           <img src="../assets/search.svg" alt="Search" class="search-icon">
           <ul v-if="searchResults.length" class="dropdown">
-            <li v-for="result in searchResults" :key="result.id">{{ result.username }}</li>
+            <!-- <li v-for="result in searchResults" :key="result.id">{{ result.username }}</li> -->
+          <li> {{ searchResults }}</li>
           </ul>
         </div>
 
@@ -301,24 +302,24 @@ export default {
 
 .dropdownnoti {
   display: none;
-  top: 100%;
   position: absolute;
+  top: 100%;
+  margin-top: 10px;
   background-color: var(--pagebgcolor);
   min-width: 250px;
   max-height: 200px;
   overflow-y: scroll;
   border: 1px solid var(--stroke);
-  border-radius: 0 0 15px 15px;
-  z-index: 1;
+  padding: 5px;
+  border-radius: 5px;
+  border: 3px solid var(--stroke);
+  margin-right: 250px;
 }
 
 .dropdownnoti.active {
   display: block;
 }
-
-
-
-
+    
 .container {
   position: absolute;
   box-sizing: border-box;
@@ -335,7 +336,6 @@ export default {
   box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   z-index: 10;
-
 }
 
 .backdrop {

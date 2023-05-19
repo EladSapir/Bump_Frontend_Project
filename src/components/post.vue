@@ -3,24 +3,33 @@
 
         <div class="poststart">
             <div v-if="mine" class="deletebutton" @click="showdelete = !showdelete">
-                <img v-if="!deletehoverpost" src="../assets/delete.svg" alt="Delete Icon"
+                <img v-if="!deletehoverpost" src="../assets/delete.svg"  alt="Delete Icon"
                     @mouseenter="deletehoverpost = true" />
                 <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" @mouseleave="deletehoverpost = false" />
+            </div>
+            <div v-if="mine&& !post.isShared" class="editbutton" @click="showedit = !showedit">
+                <img v-if="!edithoverpost" src="../assets/edit_square.svg" style="width: 18px;" alt="edit Icon"
+                    @mouseenter="edithoverpost = true" />
+                <img v-else src="../assets/edit_square_hover.svg" alt="edit Icon" style="width: 23px; margin-top:1px" @mouseleave="edithoverpost = false" />
             </div>
             <div class="profile-picture">
                 <img :class="{ mineclass: mine }" :src="post.userProfilePicture" alt="Profile Picture" />
             </div>
-            <div class="post-content">
+            <div  class="post-content">
 
                 <div class="user-info">
                     <div class="user-name">{{ post.GamerTag }}</div>
                     <div class="post-date">{{ post.date }}</div>
 
                 </div>
-                <div v-if="!post.isShared" class="post-text">
-                    {{ post.text }}
-                </div>
+                <div v-if="!post.isShared && !showedit" class="post-text" style="white-space: pre-line">
+  {{ post.text }}
+</div>
 
+                <div v-if="showedit && !post.isShared">
+                <textarea v-model="inputText" :rows="textareaRows" :cols="textareaCols" placeholder="Edit your post here."></textarea>
+                <button class="btn" @click="submitPost">Post</button>
+        </div>
                 <div v-if="post.isShared" class="sharedpost">
                     <div class="profile-picture">
                         <img :class="{ mineclass: post.GamerTag===post.SGamerTag }" :src="post.Spicture" alt="Profile Picture" />
@@ -34,11 +43,13 @@
                         </div>
                         <div class="post-text">
                             {{ post.text }}
+                            
                         </div>
                     </div>
                     
                 </div>
             </div>
+
         </div>
         <div>
             <div class="allthepost">
@@ -177,8 +188,18 @@ export default {
             cancelhover: false,
             checkhover: false,
             deletehoverpost: false,
+            edithoverpost: false,
+            showedit: false,
+            inputText: this.post.text,
+            textareaRows: 1,
+            textareaCols: 20 
         };
     },
+    watch: {
+    inputText() {
+      this.adjustTextareaSize();
+    }
+  },
     created() {
         this.updateVisibleComments();
         this.userId = this.$route.query.id;
@@ -191,6 +212,11 @@ export default {
         }
 
     }, methods: {
+        adjustTextareaSize() {
+      const lines = this.inputText.split('\n');
+      this.textareaRows = lines.length;
+      this.textareaCols = Math.max(...lines.map(line => line.length)) + 1;
+    },
         pressonsave() {
         if (!this.saveselected && !this.post.isShared) {
             var addr = 'https://backend-project-vzn7.onrender.com/savepost';
@@ -209,6 +235,21 @@ export default {
             console.log("save failed");
         }
 
+    },
+    submitPost(){
+        var addr = 'https://backend-project-vzn7.onrender.com/editpost';
+        const objecttopass = {
+            "post": this.post._id,
+            "text": this.inputText
+        }
+        const res = this.requestfromserver(addr, objecttopass)
+        if (res) {
+            this.post.text = this.inputText;
+            this.showedit = false;
+        }
+        else {
+            console.log("edit failed");
+        }
     },
         sendcomment() {
         if (this.mycomment === '') {
@@ -715,6 +756,31 @@ p.selected {
     right: 15px;
 }
 
+.editbutton {
+    position: absolute;
+    cursor: pointer;
+    top: 14px;
+    right: 50px;
+}
+
+textarea {
+    width: 550px;
+    min-height: 70px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 2px solid var(--stroke);
+    background-color: var(--thirdcolor);
+    color: var(--white);
+    font-family: var(--mainfont);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    resize: vertical;
+    overflow:  scroll;
+    word-wrap: break-word;
+}
+
+
 .deletebuttoncomment {
     display: flex;
     flex-direction: row;
@@ -761,5 +827,22 @@ p.selected {
     position: absolute;
     right: 48px;
     top: 25px
+}
+.btn{
+    margin-top: 10px;
+    border: 3px solid var(--white);
+    background-color: var(--stroke);
+    color: var(--main);
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 7px;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background-color: var(--main);
+    color: var(--white);
+    cursor: pointer;
 }
 </style>

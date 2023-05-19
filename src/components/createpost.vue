@@ -4,7 +4,7 @@
             <img :src="profilePicture" alt="Profile Picture" />
         </div>
         <div class="post-content">
-            <textarea v-model="postText" placeholder="Write your post"></textarea>
+            <textarea v-model="postText" :rows="textareaRows" :cols="textareaCols" placeholder="Write your post"></textarea>
             <div class="post-actions">
                 <p class="presentphotoname">{{ photoname }}</p>
                 <div class="add-photo">
@@ -34,9 +34,21 @@ export default {
             addphoto: true,
             photoname: ' ',
             userId: this.$route.query.id,
+            textareaRows: 1,
+            textareaCols: 20 
         };
     },
+    watch: {
+    inputText() {
+      this.adjustTextareaSize();
+    }
+  },
     methods: {
+        adjustTextareaSize() {
+      const lines = this.inputText.split('\n');
+      this.textareaRows = lines.length;
+      this.textareaCols = Math.max(...lines.map(line => line.length)) + 1;
+    },
         async uploadFile() {
             const fileInput = this.imageData;
             const file = fileInput.files[0];

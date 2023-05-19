@@ -1,35 +1,16 @@
 <template>
-        <div class="container">
-            <h2>Nothing here<img src="../assets/emoji.svg" alt=""></h2>
-            <p>{{  emptymessage }}</p>
-        </div>
-  
+    <div class="container">
+        <h2>Nothing here<img src="../assets/emoji.svg" alt=""></h2>
+        <p>{{ emptymessage }}</p>
+    </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            closehover: true,
-        }
-    },
-    props:['emptymessage'],
-    mounted() {
-    window.addEventListener("scroll", this.preventScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.preventScroll);
-  },
-    methods: {
-        closeempty() {
-            window.removeEventListener("scroll", this.preventScroll);
-            this.$emit('closee')
-        },
-        preventScroll(event) {
-      event.preventDefault();
-      window.scrollTo(0, 0);
-    },
-    }
+
+    name: 'emptymsg',
+    props: ['emptymessage'],
+
 }
 
 </script>
@@ -54,10 +35,10 @@ export default {
 
 
 
-h2 img{
+h2 img {
     position: relative;
-    top:8px;
-    left:5px;
+    top: 8px;
+    left: 5px;
 }
 
 
@@ -73,8 +54,6 @@ h2 img{
     color: var(--white);
     text-align: center;
     margin-bottom: 15px;
-    width:80%;
+    width: 80%;
 }
-
-
 </style>

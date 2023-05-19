@@ -23,7 +23,7 @@
 
                 <div v-if="post.isShared" class="sharedpost">
                     <div class="profile-picture">
-                        <img :class="{ mineclass: mine }" :src="post.Spicture" alt="Profile Picture" />
+                        <img :class="{ mineclass: post.GamerTag===post.SGamerTag }" :src="post.Spicture" alt="Profile Picture" />
                     </div>
 
                     <div class="post-content">
@@ -186,12 +186,10 @@ export default {
         console.log("post.userId:" + this.post.userID);
         console.log("post.Sid:" + this.post.Sid);
         console.log("post:" + this.post);
-        if (this.post.userID === this.userId && !this.post.isShared) {
+        if (this.post.userID === this.userId) {
             this.mine = true;
         }
-        else if (this.post.userID === this.Sid && this.post.isShared) {
-            this.mine = true;
-        }
+
     }, methods: {
         pressonsave() {
         if (!this.saveselected && !this.post.isShared) {

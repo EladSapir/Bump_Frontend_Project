@@ -7,29 +7,29 @@
         <a @click="movetomyprofile" class="profile-link">My Profile</a>
       </div>
       <div class="nav-center">
-        <div class="search-container">
+        <div ref="searchContainer" class="search-container" :class="{ searched: searchResults.length }">
           <input type="text" placeholder="Search" class="search" v-model="searchQuery" @keyup.enter="searchUsers">
           <img src="../assets/search.svg" alt="Search" class="search-icon">
           <ul v-if="searchResults.length" class="dropdown">
-            <!-- <li v-for="result in searchResults" :key="result.id">{{ result.username }}</li> -->
-          <li> {{ searchResults }}</li>
+            <li v-for="result in searchResults" :key="result._id" @click="movetoprofile(result._id)">
+              <img class="searchimg" :src="result.Picture" alt="Profile Picture" />
+              <p>{{ result.GamerTag }}</p>
+            </li>
           </ul>
         </div>
-
       </div>
       <div class="nav-right">
         <button class="btn" @click="movetomatching">Let's Bump</button>
         <div class="notidiv">
-        <img class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
-        <div class="dropdownnoti" :class="{ active: isDropdownActive }">
-          <ul>
-            <li v-for="notification in notifications" :key="notification">{{ notification }}</li>
-          </ul>
-        </div>
+          <img class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
+          <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
+            <ul>
+              <li v-for="notification in notifications" :key="notification">{{ notification }}</li>
+            </ul>
+          </div>
         </div>
         <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
-
     </nav>
   </header>
   <div class="backdrop" v-if="isloading">
@@ -52,16 +52,21 @@ export default {
       searchQuery: "",
       searchResults: [],
       notifications: ["Notification 1", "Notification 2", "Notification 3", "Notification 4", "Tomer Gay", "Elad Gay"], // need to change
-      isDropdownActive: false,
+      isDropNotiActive: false,
       userId: this.$route.query.id,
       isloading: false,
+      clickOutsideListener: null,
+      defaultProfilePicture: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1619629599/ProfilePictures/default_profile_picture.png'
     };
   },
   mounted() {
     window.addEventListener("beforeunload", this.handleBeforeUnload);
+    this.clickOutsideListener = this.handleClickOutside.bind(this);
+    window.addEventListener("click", this.clickOutsideListener);
   },
   beforeDestroy() {
     window.removeEventListener("beforeunload", this.handleBeforeUnload);
+    window.removeEventListener("click", this.clickOutsideListener);
   },
   methods: {
     async searchUsers() {
@@ -83,9 +88,9 @@ export default {
       }
     },
     toggleDropdown() {
-      this.isDropdownActive = !this.isDropdownActive;
+      this.isDropNotiActive = !this.isDropNotiActive;
     },
-    async logout() { 
+    async logout() {
       try {
         this.isloading = true;
         var addr = 'https://backend-project-vzn7.onrender.com/logout/' + this.userId;
@@ -103,7 +108,7 @@ export default {
       this.isloading = false;
     },
     movetomyprofile() {
-      this.$router.push({ name: 'profile', query: { id: this.userId } ,params: {differentUserId: this.userId } });
+      this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: this.userId } });
     },
     movetomatching() {
       this.$router.push({ name: 'matching', query: { id: this.userId } });
@@ -113,7 +118,19 @@ export default {
     },
     handleBeforeUnload() {
       this.logout();
+    },
+    movetoprofile(id) {
+      console.log(id);
+      this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
+    },
+    handleClickOutside(event) {
+      const isClickedInsideSearchContainer = this.$refs.searchContainer && this.$refs.searchContainer.contains(event.target);
+      const isClickedInsideDropdown = event.target.closest(".dropdown");
+      if (!isClickedInsideSearchContainer && !isClickedInsideDropdown) {
+        this.searchResults = [];
+      }
     }
+
   }
 };
 
@@ -177,15 +194,23 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.search-container.searched .search {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none;
+}
+
+.search-container.searched .dropdown {
+  display: block;
 }
 
 .search {
   border: none;
   background-color: var(--thirdcolor);
-  border-radius: 30px;
-  padding: 10px 40px 10px 20px;
-  margin-right: 10px;
+  border-radius: 15px;
+  padding: 10px 40px 10px 15px;
   color: var(--white);
   border: 2px solid var(--stroke);
   font-family: var(--mainfont);
@@ -195,13 +220,21 @@ export default {
   letter-spacing: 0.5px;
   width: 150px;
   height: 20px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+}
+
+.searchimg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  margin-right: 20px;
+  margin-left: 10px;
 }
 
 .search:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 5px var(--accent);
+  border-color: var(--white);
   width: 250px;
 }
 
@@ -214,6 +247,43 @@ export default {
   letter-spacing: 0.5px;
 }
 
+.dropdown {
+  position: absolute;
+  display: none;
+  left: 0;
+  width: 305px;
+  background-color: var(--thirdcolor);
+  border-radius: 0 0 15px 15px;
+  list-style: none;
+  border: 2px solid var(--white);
+  border-top: none;
+  top: 48px;
+  margin-top: 0;
+  z-index: 1;
+  margin: 0;
+  padding-left: 0;
+  max-height: 270px;
+  overflow-y: auto;
+}
+
+.dropdown li {
+  color: var(--white);
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown li:last-child {
+  border-radius: 0 0 15px 15px;
+}
+
+.dropdown li:hover {
+  background-color: var(--secondarycolor);
+  cursor: pointer;
+}
+
+
 .search::-webkit-input-placeholder,
 .search:focus::-webkit-input-placeholder,
 .search::-moz-placeholder,
@@ -222,7 +292,6 @@ export default {
 .search:focus:-moz-placeholder,
 .search:-ms-input-placeholder,
 .search:focus:-ms-input-placeholder {
-  /* Placeholder styles */
   color: var(--white);
   opacity: 0.6;
 }
@@ -231,14 +300,14 @@ export default {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 20px;
+  right: 10px;
   width: 20px;
   height: 20px;
   transition: all 0.3s ease;
 }
 
 .search:focus+.search-icon {
-  fill: var(--accent);
+  fill: var(--white);
   transform: translateY(-50%) rotate(90deg);
 }
 
@@ -319,7 +388,7 @@ export default {
 .dropdownnoti.active {
   display: block;
 }
-    
+
 .container {
   position: absolute;
   box-sizing: border-box;
@@ -345,33 +414,6 @@ export default {
   background: rgba(0, 0, 0, 0.692);
   width: 100%;
   height: 100%;
-}
-
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  max-height: 200px;
-  background-color: var(--thirdcolor);
-  border-radius: 0 0 15px 15px;
-  padding: 10px;
-  list-style: none;
-  margin: 0;
-  overflow-y: auto;
-  border: 2px solid var(--stroke);
-  z-index: 1;
-}
-
-.dropdown li {
-  color: var(--white);
-  padding: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.dropdown li:hover {
-  background-color: var(--accent);
 }
 </style>
   

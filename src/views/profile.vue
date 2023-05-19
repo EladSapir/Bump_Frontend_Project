@@ -99,8 +99,8 @@ export default {
             userId: this.$route.query.id,
             res:null,
             user:null,
-            numfollowers:0,
-            numfollowing:0,
+            numfollowers:[],
+            numfollowing:[],
         };
     },
     methods:{

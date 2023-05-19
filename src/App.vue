@@ -59,7 +59,7 @@ h2 {
 
 h3 {
   color: var(--white);
-  font-size: 18px;
+  font-size: 1.0625rem;
   font-weight: 600;
   margin: 0;
 
@@ -76,7 +76,7 @@ p {
 }
 
 span{
-  font-size: 14px;
+  font-size:  .8125rem;
   color: var(--white);
   margin: 0;
 

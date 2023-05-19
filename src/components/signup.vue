@@ -221,6 +221,7 @@
                     <div class="optional">
                         <h3 class="title">Upload Image</h3>
                         <span>*optional</span>
+                        <span class="deleteimg" v-if="Upload_profile_image != 'Upload profile image'" @click="deleteiamge">Press here to clear the image</span>
                     </div>
                     <label class="file-input-label" @mouseover="uploadhover = false" @mouseleave="uploadhover = true">
                         <div class="upload-icon">
@@ -391,6 +392,12 @@ export default {
             if (file) {
                 this.Upload_profile_image = file.name;
             }
+        },
+        deleteiamge() {
+            this.imageData = "";
+            this.Upload_profile_image = "Upload profile image";
+            this.changeimage = false;
+            this.imageURL = 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png'
         },
         switchVisibility() {
             this.show = !this.show
@@ -743,7 +750,15 @@ button[type="submit"] {
     color: rgba(255, 255, 255, 0.5)
 }
 
-
+.deleteimg {
+    margin-left: 35px !important;
+    color: var(--textinput);
+}
+.deleteimg:hover {
+    color: var(--hovercolor);
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 .error {
     border: 2px solid red;

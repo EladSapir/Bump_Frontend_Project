@@ -71,22 +71,27 @@ export default {
 </script>
 <style scoped>
 .box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -53%);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+
 }
 
 .home {
   box-sizing: border-box;
-  padding: 20px;
   background: #2c394bd7;
   border: 1px solid #323244;
   box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   text-align: center;
   width: 90%;
+  padding: 5px 20px;
+  padding-bottom: 10px;
 }
 
 .Features {
@@ -104,12 +109,12 @@ export default {
 .fet {
   color: var(--white);
   width:400px;
-  padding: 20px;
+  padding: 10px;
 }
 
 h2 {
   text-transform: uppercase;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-bottom: 10px;
 
 }
@@ -117,13 +122,13 @@ h2 {
 
 
 #logo {
-  width: 110px;
+  width: 100px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
 #find {
-  font-size: 80px;
+  font-size: 70px;
   color: var(--white);
   margin: 0;
   padding-bottom: 30px;
@@ -133,7 +138,7 @@ h2 {
 }
 
 #gaming {
-  font-size: 90px;
+  font-size: 77px;
   font-weight: 600;
   color: transparent;
   letter-spacing: 0.03em;

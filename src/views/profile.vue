@@ -46,17 +46,17 @@
             </div>
         </div>
         <div class="myposts" v-if="ispostdialog">
-            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag"/>
-            <emptymessage v-else emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
+            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag"/>
+            <emptymessage v-if="posts.lenght==0" emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
         </div>
         <div class="myposts" v-if="issaveddialog">
-            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag" />
-            <emptymessage v-else emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
+            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag" />
+            <emptymessage v-if="posts.lenght===0" emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
 
         </div>
         <div class="myposts" v-if="islikeddialog">
-            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag" />
-            <emptymessage v-else emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
+            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag" />
+            <emptymessage v-if="posts.lenght==0" emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
 
         </div>
         <div class="myposts" v-if="isstatsdialog">

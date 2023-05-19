@@ -46,16 +46,16 @@
             </div>
         </div>
         <div class="myposts" v-if="ispostdialog">
-            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
+            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag"/>
             <emptymessage v-else emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
         </div>
         <div class="myposts" v-if="issaveddialog">
-            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
+            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag" />
             <emptymessage v-else emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
 
         </div>
         <div class="myposts" v-if="islikeddialog">
-            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" />
+            <post v-if="posts!=[]" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag" />
             <emptymessage v-else emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
 
         </div>
@@ -122,6 +122,7 @@ export default {
             }
             else if(num===3){
             this.liked();
+            
             this.ispostdialog=false;
             this.issaveddialog=false;
             this.islikeddialog= true;
@@ -173,7 +174,7 @@ export default {
             var addr = 'https://backend-project-vzn7.onrender.com/profile/bumped/'+this.userId;
             this.requestfromserver(addr).then((res) => {
                 console.log("res:", res);
-                // this.posts =  res.posts;
+                this.posts =  res.bumpedpost;
             });
         },
         stats(){

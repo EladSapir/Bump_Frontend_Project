@@ -159,7 +159,7 @@ export default {
     components: {
         deletecomp
     },
-    props: ['post', 'profilePicture', 'gamertag'],
+    props: ['post', 'profilePicture', 'GamerTag'],
     data() {
         return {
             mycomment: '',
@@ -184,7 +184,12 @@ export default {
         this.userId = this.$route.query.id;
         console.log("userId:" + this.userId);
         console.log("post.userId:" + this.post.userID);
-        if (this.post.userID === this.userId) {
+        console.log("post.Sid:" + this.post.Sid);
+        console.log("post:" + this.post);
+        if (this.post.userID === this.userId && !this.post.isShared) {
+            this.mine = true;
+        }
+        else if (this.post.userID === this.Sid && this.post.isShared) {
             this.mine = true;
         }
     }, methods: {
@@ -214,26 +219,22 @@ export default {
         var objecttopass = {};
         if (this.post.isShared) {
             var addr = 'https://backend-project-vzn7.onrender.com/addcommenttoshare';
-            objecttopass = {
-                "user": this.userId,
-                "post": this.post.Sid,
-                "text": this.mycomment
-            }
         }
         else {
             var addr = 'https://backend-project-vzn7.onrender.com/addcomment';
-            objecttopass = {
+        }
+        objecttopass = {
                 "user": this.userId,
                 "post": this.post._id,
                 "text": this.mycomment
-            }
         }
         const res = this.requestfromserver(addr, objecttopass)
         if (res) {
+            console.log("this.GamerTag:", this.GamerTag);
             const newcomment = {
                 "_id": res,
                 "userID": this.userId,
-                "GamerTag": this.gamertag,
+                "GamerTag": this.GamerTag,
                 "text": this.mycomment,
                 "Picture": this.profilePicture,
                 "date": "2021-05-01T00:00:00.000Z"
@@ -243,7 +244,7 @@ export default {
             this.updateVisibleComments();
         }
         else {
-            console.log("save failed");
+            console.log("comment failed");
         }
 
     },
@@ -280,22 +281,16 @@ export default {
             var objecttopass = {};
             if (this.post.isShared) {
                 var addr = 'https://backend-project-vzn7.onrender.com/removecommentfromshare';
-                objecttopass = {
-                    "user": this.userId,
-                    "post": this.post.Sid,
-                    "comment": this.post.comments[this.commenthover]._id
-                }
             }
             
             else {
                 var addr = 'https://backend-project-vzn7.onrender.com/removecomment';
-                objecttopass = {
+            }
+            objecttopass = {
                     "user": this.userId,
                     "post": this.post._id,
                     "comment": this.post.comments[this.commenthover]._id
                 }
-            }
-        
             const res = this.requestfromserver(addr, objecttopass)
             if (res) {
                 this.post.comments.splice(this.post.comments[this.commenthover]._id, 1);
@@ -315,8 +310,8 @@ export default {
                     var addr = 'https://backend-project-vzn7.onrender.com/removeshare';
                     objecttopass={
                         "user": this.userId,
-                        "post": this.post._id,
-                        "share": this.post.Sid
+                        "post": this.post.Sid,
+                        "share": this.post._id,
                     }
                 }
                 else {
@@ -365,24 +360,19 @@ export default {
                 this.post.numOfBumps--;
                 var addr = 'https://backend-project-vzn7.onrender.com/removebumpfromshare';
             }
-            if (this.post.isShared) {
-                objecttopass = {
-                    "user": this.userId,
-                    "post": this.post.Sid
-                }
-            }
-            else {
-                objecttopass = {
+
+            objecttopass = {
                     "user": this.userId,
                     "post": this.post._id
-                }
             }
+ 
             this.bumpselected = !this.bumpselected;
             const res = this.requestfromserver(addr, objecttopass)
 
             if (!res) {
                 console.log("bump failed");
             }
+
         }
     },
     

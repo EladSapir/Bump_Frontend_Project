@@ -239,8 +239,8 @@ export default {
     submitPost(){
         var addr = 'https://backend-project-vzn7.onrender.com/editpost';
         const objecttopass = {
-            "post": this.post._id,
-            "text": this.inputText
+            "postid": this.post._id,
+            "txt": this.inputText
         }
         const res = this.requestfromserver(addr, objecttopass)
         if (res) {

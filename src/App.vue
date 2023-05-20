@@ -8,7 +8,7 @@
 
 :root {
   --approve: #09B261;
-  --background: #1B1E2991;
+  --background: #1B1E29;
   --error: #FF0000;
   --white: #EFEFEF;
   --main: #E54425;

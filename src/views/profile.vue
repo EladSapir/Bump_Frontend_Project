@@ -67,7 +67,7 @@
 
         </div>
         <div class="myposts" v-if="isstatsdialog">
-            <stats />
+            <stats :statsData="statsData" />
         </div>
     </div>
 </template>
@@ -81,6 +81,7 @@ import post from '../components/post.vue';
 import axios from 'axios';
 import emptymessage from '../components/emptymessage'
 import stats from '../components/stats.vue'
+
 export default {
     name: "profile",
     components: {
@@ -98,16 +99,17 @@ export default {
             posts: [],
             GamerTag: ' ',
             edithover: false,
-            ispostdialog: true,
+            ispostdialog: true, 
             issaveddialog: false,
             islikeddialog: false,
-            isstatsdialog: false,
+            isstatsdialog: false, 
             myprofile: false,
             userId: this.$route.query.id,
             res: null,
             user: null,
             numfollowers: [],
             numfollowing: [],
+            statsData: 0
         };
     },
     methods: {
@@ -197,8 +199,10 @@ export default {
             var addr = 'https://backend-project-vzn7.onrender.com/profile/stats/' + this.userId;
             this.requestfromserver(addr).then((res) => {
                 console.log("res:", res);
+                this.statsData = res;
             });
         },
+
         follow() {
             console.log("follow:", this.differentUserId);
             var addr = 'https://backend-project-vzn7.onrender.com/follows';
@@ -215,8 +219,12 @@ export default {
         },
         post() {
             console.log("post");
-            var addr = 'https://backend-project-vzn7.onrender.com/profile/' + this.userId;
-            this.requestfromserver(addr).then((res) => {
+            var addr = 'https://backend-project-vzn7.onrender.com/profile';
+            var objecttopass = {
+            "profileid": this.userId,
+            "idtocheck": this.differentUserId
+             };
+            this.requestfromserverpost(addr, objecttopass).then((res) => {
                 console.log("res:", res);
                 this.posts = res.posts;
             });
@@ -226,18 +234,22 @@ export default {
         console.log('userId:' + this.userId);
         console.log('differentUserId:' + this.differentUserId);
         var addr = "";
+        var objecttopass = {
+            "profileid": this.userId,
+            "idtocheck": this.differentUserId
+        };
         if (this.differentUserId === this.userId) {
             this.myprofile = true;
             console.log("same user");
-            addr = 'https://backend-project-vzn7.onrender.com/profile/' + this.userId;
         }
         else {
             console.log("different user");
-            addr = 'https://backend-project-vzn7.onrender.com/profile/' + this.differentUserId;
         }
-        this.requestfromserver(addr).then((res) => {
+        addr = 'https://backend-project-vzn7.onrender.com/profile';
+        this.requestfromserverpost(addr, objecttopass).then((res) => {
             console.log("res:", res);
             this.res = res;
+            console.log("res:", this.res);
             this.user = res.user;
             this.profilePicture = this.user.Picture;
             this.posts = res.posts;
@@ -278,7 +290,7 @@ html {
     width: 100%;
     padding: 25px;
     padding-top: 25px;
-    background-color: #1B1E29;
+    background-color: var(--backgroun);
     border: 1px solid var(--stroke);
     z-index: 1;
 }
@@ -415,6 +427,7 @@ html {
 .myposts {
     margin-top: 40px;
     padding-bottom: 50px;
-}</style>
+}
+</style>
   
   

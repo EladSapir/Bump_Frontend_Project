@@ -306,8 +306,12 @@ export default {
   transition: all 0.3s ease;
 }
 
-.search:focus+.search-icon {
+.search:hover+.search-icon {
   fill: var(--white);
+}
+
+.search:focus+.search-icon {
+  fill: var(--main);
   transform: translateY(-50%) rotate(90deg);
 }
 

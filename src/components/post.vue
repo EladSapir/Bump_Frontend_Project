@@ -3,19 +3,20 @@
 
         <div class="poststart">
             <div v-if="mine" class="deletebutton" @click="showdelete = !showdelete">
-                <img v-if="!deletehoverpost" src="../assets/delete.svg"  alt="Delete Icon"
+                <img v-if="!deletehoverpost" src="../assets/delete.svg" alt="Delete Icon"
                     @mouseenter="deletehoverpost = true" />
-                <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" @mouseleave="deletehoverpost = false" />
+                <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" @mouseout="deletehoverpost = false" />
             </div>
-            <div v-if="mine&& !post.isShared" class="editbutton" @click="showedit = !showedit">
+            <div v-if="mine && !post.isShared" class="editbutton" @click="showedit = !showedit">
                 <img v-if="!edithoverpost" src="../assets/edit_square.svg" style="width: 18px;" alt="edit Icon"
                     @mouseenter="edithoverpost = true" />
-                <img v-else src="../assets/edit_square_hover.svg" alt="edit Icon" style="width: 23px; margin-top:1px" @mouseleave="edithoverpost = false" />
+                <img v-else src="../assets/edit_square_hover.svg" alt="edit Icon" style="width: 23px; margin-top:1px"
+                    @mouseout="edithoverpost = false" />
             </div>
             <div class="profile-picture">
                 <img :class="{ mineclass: mine }" :src="post.userProfilePicture" alt="Profile Picture" />
             </div>
-            <div  class="post-content">
+            <div class="post-content">
 
                 <div class="user-info">
                     <div class="user-name">{{ post.GamerTag }}</div>
@@ -23,16 +24,18 @@
 
                 </div>
                 <div v-if="!post.isShared && !showedit" class="post-text" style="white-space: pre-line">
-  {{ post.text }}
-</div>
+                    {{ post.text }}
+                </div>
 
                 <div v-if="showedit && !post.isShared">
-                <textarea v-model="inputText" :rows="textareaRows" :cols="textareaCols" placeholder="Edit your post here."></textarea>
-                <button class="btn" @click="submitPost">Post</button>
-        </div>
+                    <textarea v-model="inputText" :rows="textareaRows" :cols="textareaCols"
+                        placeholder="Edit your post here."></textarea>
+                    <button class="btn" @click="submitPost">Post</button>
+                </div>
                 <div v-if="post.isShared" class="sharedpost">
                     <div class="profile-picture">
-                        <img :class="{ mineclass: post.GamerTag===post.SGamerTag }" :src="post.Spicture" alt="Profile Picture" />
+                        <img :class="{ mineclass: post.GamerTag === post.SGamerTag }" :src="post.Spicture"
+                            alt="Profile Picture" />
                     </div>
 
                     <div class="post-content">
@@ -43,10 +46,10 @@
                         </div>
                         <div class="post-text">
                             {{ post.text }}
-                            
+
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -100,19 +103,19 @@
                                 <img v-if="!sendhover" class="sendicon" src="../assets/send.svg" alt="Comment Icon"
                                     @mouseenter="sendhover = true" @click="sendcomment">
                                 <img v-else class="sendicon" src="../assets/sendhover.svg" alt="Comment Icon"
-                                    @mouseleave="sendhover = false" @click="sendcomment" />
+                                    @mouseout="sendhover = false" @click="sendcomment" />
                             </div>
                         </div>
                         <div v-if="visibleComments != []" class="comment" v-for="(comment, index) in visibleComments"
                             :key="comment.id" @mouseenter="commenthover = index" @mouseleave="deletehover = false">
-                            <div class="comment-profile-picture" v-if="comment.Picture != 'null'" >
+                            <div class="comment-profile-picture" v-if="comment.Picture != 'null'">
                                 <img :class="{ mineclass: comment.userID === userId }" :src="comment.Picture"
                                     alt="User Profile Picture" />
                             </div>
-                           
+
                             <div class="comment-content">
                                 <div class="user-info">
-                                   
+
                                     <div class="user-name">{{ comment.GamerTag }}</div>
                                 </div>
                                 <div class="comment-text">
@@ -126,8 +129,10 @@
                                         <span>Delete?</span>
                                         <div class="delete-option">
                                             <img v-if="!cancelhover" id="cancelIcon" src="../assets/cancel.svg"
-                                                alt="Cancel Icon" @click="deletehover = false" @mouseenter="cancelhover = true" />
-                                            <img v-else id="cancelIcon" @click="deletehover = false" src="../assets/cancelgreen.svg" alt="Cancel Icon"
+                                                alt="Cancel Icon" @click="deletehover = false"
+                                                @mouseenter="cancelhover = true" />
+                                            <img v-else id="cancelIcon" @click="deletehover = false"
+                                                src="../assets/cancelgreen.svg" alt="Cancel Icon"
                                                 @mouseleave="cancelhover = false" />
                                             <img v-if="!checkhover" @click="deletecomment" id="checkIcon"
                                                 src="../assets/check_circle.svg" alt="Check Circle Icon"
@@ -192,14 +197,14 @@ export default {
             showedit: false,
             inputText: this.post.text,
             textareaRows: 1,
-            textareaCols: 20 
+            textareaCols: 20
         };
     },
     watch: {
-    inputText() {
-      this.adjustTextareaSize();
-    }
-  },
+        inputText() {
+            this.adjustTextareaSize();
+        }
+    },
     created() {
         this.updateVisibleComments();
         this.userId = this.$route.query.id;
@@ -213,80 +218,80 @@ export default {
 
     }, methods: {
         adjustTextareaSize() {
-      const lines = this.inputText.split('\n');
-      this.textareaRows = lines.length;
-      this.textareaCols = Math.max(...lines.map(line => line.length)) + 1;
-    },
+            const lines = this.inputText.split('\n');
+            this.textareaRows = lines.length;
+            this.textareaCols = Math.max(...lines.map(line => line.length)) + 1;
+        },
         pressonsave() {
-        if (!this.saveselected && !this.post.isShared) {
-            var addr = 'https://backend-project-vzn7.onrender.com/savepost';
-        }
-        else if (this.saveselected && !this.post.isShared) {
-            var addr = 'https://backend-project-vzn7.onrender.com/removesaved';
-        }
-        this.saveselected = !this.saveselected
-        const objecttopass = {
-            "user": this.userId,
-            "post": this.post._id
-        }
+            if (!this.saveselected && !this.post.isShared) {
+                var addr = 'https://backend-project-vzn7.onrender.com/savepost';
+            }
+            else if (this.saveselected && !this.post.isShared) {
+                var addr = 'https://backend-project-vzn7.onrender.com/removesaved';
+            }
+            this.saveselected = !this.saveselected
+            const objecttopass = {
+                "user": this.userId,
+                "post": this.post._id
+            }
 
-        const res = this.requestfromserver(addr, objecttopass)
-        if (!res) {
-            console.log("save failed");
-        }
+            const res = this.requestfromserver(addr, objecttopass)
+            if (!res) {
+                console.log("save failed");
+            }
 
-    },
-    submitPost(){
-        var addr = 'https://backend-project-vzn7.onrender.com/editpost';
-        const objecttopass = {
-            "postid": this.post._id,
-            "txt": this.inputText
-        }
-        const res = this.requestfromserver(addr, objecttopass)
-        if (res) {
-            this.post.text = this.inputText;
-            this.showedit = false;
-        }
-        else {
-            console.log("edit failed");
-        }
-    },
+        },
+        submitPost() {
+            var addr = 'https://backend-project-vzn7.onrender.com/editpost';
+            const objecttopass = {
+                "postid": this.post._id,
+                "txt": this.inputText
+            }
+            const res = this.requestfromserver(addr, objecttopass)
+            if (res) {
+                this.post.text = this.inputText;
+                this.showedit = false;
+            }
+            else {
+                console.log("edit failed");
+            }
+        },
         sendcomment() {
-        if (this.mycomment === '') {
-            return;
-        }
-        var objecttopass = {};
-        if (this.post.isShared) {
-            var addr = 'https://backend-project-vzn7.onrender.com/addcommenttoshare';
-        }
-        else {
-            var addr = 'https://backend-project-vzn7.onrender.com/addcomment';
-        }
-        objecttopass = {
+            if (this.mycomment === '') {
+                return;
+            }
+            var objecttopass = {};
+            if (this.post.isShared) {
+                var addr = 'https://backend-project-vzn7.onrender.com/addcommenttoshare';
+            }
+            else {
+                var addr = 'https://backend-project-vzn7.onrender.com/addcomment';
+            }
+            objecttopass = {
                 "user": this.userId,
                 "post": this.post._id,
                 "text": this.mycomment
-        }
-        const res = this.requestfromserver(addr, objecttopass)
-        if (res) {
-            console.log("this.GamerTag:", this.GamerTag);
-            const newcomment = {
-                "_id": res,
-                "userID": this.userId,
-                "GamerTag": this.GamerTag,
-                "text": this.mycomment,
-                "Picture": this.profilePicture,
-                "date": "2021-05-01T00:00:00.000Z"
             }
-            this.mycomment = '';
-            this.post.comments.unshift(newcomment);
-            this.updateVisibleComments();
-        }
-        else {
-            console.log("comment failed");
-        }
+            const res = this.requestfromserver(addr, objecttopass)
+            if (res) {
+                console.log("this.GamerTag:", this.GamerTag);
+                const newcomment = {
+                    "_id": res,
+                    "userID": this.userId,
+                    "GamerTag": this.GamerTag,
+                    "text": this.mycomment,
+                    "Picture": this.profilePicture,
+                    "date": "2021-05-01T00:00:00.000Z"
+                }
+                this.mycomment = '';
+                this.post.comments.unshift(newcomment);
+                this.updateVisibleComments();
+            }
+            else {
+                console.log("comment failed");
+            }
 
-    },
+        },
         pressonshare() {
             var addr = 'https://backend-project-vzn7.onrender.com/sharepost';
             const objecttopass = {
@@ -321,15 +326,15 @@ export default {
             if (this.post.isShared) {
                 var addr = 'https://backend-project-vzn7.onrender.com/removecommentfromshare';
             }
-            
+
             else {
                 var addr = 'https://backend-project-vzn7.onrender.com/removecomment';
             }
             objecttopass = {
-                    "user": this.userId,
-                    "post": this.post._id,
-                    "comment": this.post.comments[this.commenthover]._id
-                }
+                "user": this.userId,
+                "post": this.post._id,
+                "comment": this.post.comments[this.commenthover]._id
+            }
             const res = this.requestfromserver(addr, objecttopass)
             if (res) {
                 this.post.comments.splice(this.post.comments[this.commenthover]._id, 1);
@@ -347,7 +352,7 @@ export default {
                 var objecttopass = {};
                 if (this.post.isShared) {
                     var addr = 'https://backend-project-vzn7.onrender.com/removeshare';
-                    objecttopass={
+                    objecttopass = {
                         "user": this.userId,
                         "post": this.post.Sid,
                         "share": this.post._id,
@@ -355,20 +360,19 @@ export default {
                 }
                 else {
                     var addr = 'https://backend-project-vzn7.onrender.com/removepost';
-                    objecttopass={
+                    objecttopass = {
                         "user": this.userId,
                         "post": this.post._id
                     }
                 }
                 var res = this.requestfromserver(addr, objecttopass)
-                   if(res)
-                   {
-                     this.$emit('deletepost');
+                if (res) {
+                    this.$emit('deletepost');
+                }
+                else {
+                    console.log("delete failed");
+                }
             }
-            else {
-                console.log("delete failed");
-            }
-        }
         },
         toggleComments() {
             this.showAllComments = !this.showAllComments;
@@ -401,10 +405,10 @@ export default {
             }
 
             objecttopass = {
-                    "user": this.userId,
-                    "post": this.post._id
+                "user": this.userId,
+                "post": this.post._id
             }
- 
+
             this.bumpselected = !this.bumpselected;
             const res = this.requestfromserver(addr, objecttopass)
 
@@ -414,8 +418,8 @@ export default {
 
         }
     },
-    
-    
+
+
 
 }
 
@@ -478,7 +482,7 @@ export default {
 }
 
 .post-date {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--grey);
 
 }
@@ -541,7 +545,6 @@ export default {
 
 
 .checkbox p {
-    font-size: 15px;
     color: var(--grey);
 }
 
@@ -566,7 +569,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     color: var(--grey);
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .bump img {
@@ -638,7 +641,7 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 15px;
     margin-top: 7px;
 }
 
@@ -650,7 +653,6 @@ export default {
     background-color: var(--thirdcolor);
     border: none;
     color: var(--white);
-    font-size: 16px;
     padding-left: 15px;
     padding-right: 60px;
     height: 55px;
@@ -713,8 +715,8 @@ p.selected {
     background-color: var(--thirdcolor);
     border: none;
     color: var(--white);
-    font-size: 16px;
-    padding: 10px 15px;
+    padding: 5px 15px;
+    padding-bottom: 15px;
 }
 
 .comment-content .user-info {
@@ -764,19 +766,19 @@ p.selected {
 }
 
 textarea {
-    width: 550px;
-    min-height: 70px;
+    width: 200%;
+    min-height: 100px;
     padding: 10px 20px;
     border-radius: 15px;
     border: 2px solid var(--stroke);
     background-color: var(--thirdcolor);
     color: var(--white);
     font-family: var(--mainfont);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     letter-spacing: 0.5px;
     resize: vertical;
-    overflow:  scroll;
+    overflow: scroll;
     word-wrap: break-word;
 }
 
@@ -828,7 +830,8 @@ textarea {
     right: 48px;
     top: 25px
 }
-.btn{
+
+.btn {
     margin-top: 10px;
     border: 3px solid var(--white);
     background-color: var(--stroke);

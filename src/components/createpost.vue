@@ -11,7 +11,7 @@
                     <img v-if="addphoto && !photo" src="../assets/add_photo_stroke.svg" alt="Add Photo"
                         @click="openFilePicker" @mouseenter="addphoto = false" />
                     <img v-else src="../assets/add_photo_alternate.svg" alt="Add Photo" @click="openFilePicker"
-                        @mouseleave="addphoto = true" />
+                        @mouseout="addphoto = true" />
                     <input type="file" ref="fileInput" style="display: none" accept="image/*" @change="handleFileChange" />
                 </div>
                 <button @click="submitPost">Post</button>
@@ -35,20 +35,20 @@ export default {
             photoname: ' ',
             userId: this.$route.query.id,
             textareaRows: 1,
-            textareaCols: 20 
+            textareaCols: 20
         };
     },
     watch: {
-    inputText() {
-      this.adjustTextareaSize();
-    }
-  },
+        inputText() {
+            this.adjustTextareaSize();
+        }
+    },
     methods: {
         adjustTextareaSize() {
-      const lines = this.inputText.split('\n');
-      this.textareaRows = lines.length;
-      this.textareaCols = Math.max(...lines.map(line => line.length)) + 1;
-    },
+            const lines = this.inputText.split('\n');
+            this.textareaRows = lines.length;
+            this.textareaCols = Math.max(...lines.map(line => line.length)) + 1;
+        },
         async uploadFile() {
             const fileInput = this.imageData;
             const file = fileInput.files[0];
@@ -71,7 +71,7 @@ export default {
             } catch (err) {
                 console.error(err);
             }
-      
+
         },
         async submitPost() {
             // You can perform any necessary post submission logic here
@@ -80,8 +80,8 @@ export default {
                 return;
             }
             try {
-                if(this.photo)
-                     this.photo = await this.uploadFile();
+                if (this.photo)
+                    this.photo = await this.uploadFile();
                 console.log('photo:' + this.photo);
                 var addr = 'https://backend-project-vzn7.onrender.com/createpost';
                 console.log('userid:' + this.userId);
@@ -150,20 +150,21 @@ export default {
     border-radius: 15px;
 }
 
-.profile-picture{
+.profile-picture {
     position: relative;
-    width:60px;
-    height:60px;
-    margin-right:15px;
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
 }
+
 .profile-picture img {
-    position:absolute;
-    width:100%;
-    height:100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     object-fit: fill;
 
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     margin-right: 10px;
     border-radius: 50%;
     border: 2px solid var(--main);

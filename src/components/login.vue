@@ -138,7 +138,7 @@ export default {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    top: 50%;
+    top: 47%;
     transform: translate(-50%, -50%);
     background: #2c394bd7;
     border: 1px solid #323244;

@@ -4,7 +4,7 @@
             <img v-if="!returnmouseover" id="return" src="../assets/backarrow.svg" @click="moveToLogin"
                 @mouseover="returnmouseover = !returnmouseover">
             <img v-else id="return" src="../assets/returnorange.svg" @click="moveToLogin"
-                @mouseleave="returnmouseover = !returnmouseover">
+                @mouseout="returnmouseover = !returnmouseover">
         </div>
         <div class="signheading" v-if="!isloading">
             <img id="logo" src="../../public/Logo1.svg">
@@ -186,7 +186,7 @@
                         <input class="checkbox-tools" type="radio" v-model="gender" name="tools" value="male" id="tool-1"
                             checked>
                         <label class="for-checkbox-tools" for="tool-1" @mouseover="malemouseover = true"
-                            @mouseleave="malemouseover = false">
+                            @mouseout="malemouseover = false">
                             <img v-if="gender === 'male' || malemouseover" src="../assets/malewhite.svg"
                                 style="width: 25px;">
                             <img v-else src="../assets/male.svg">
@@ -195,7 +195,7 @@
                     <div class="female ">
                         <input class="checkbox-tools" type="radio" v-model="gender" value="female" name="tools" id="tool-2">
                         <label class="for-checkbox-tools " for="tool-2" @mouseover="femalemouseover = true"
-                            @mouseleave="femalemouseover = false">
+                            @mouseout="femalemouseover = false">
                             <img v-if="gender === 'female' || femalemouseover" src="../assets/femalewhite.svg"
                                 style="width: 25px;">
                             <img v-else src="../assets/female.svg" style="width: 12px;">
@@ -205,7 +205,7 @@
                         <input class="checkbox-tools" type="radio" v-model="gender" value="transgender" name="tools"
                             id="tool-3">
                         <label class="for-checkbox-tools" for="tool-3" @mouseover="transgendermouseover = true"
-                            @mouseleave="transgendermouseover = false">
+                            @mouseout="transgendermouseover = false">
                             <img v-if="gender === 'transgender' || transgendermouseover"
                                 src="../assets/transgenderwhite.svg" style="width: 20px;">
                             <img v-else src="../assets/transgender.svg">
@@ -221,9 +221,10 @@
                     <div class="optional">
                         <h3 class="title">Upload Image</h3>
                         <span>*optional</span>
-                        <span class="deleteimg" v-if="Upload_profile_image != 'Upload profile image'" @click="deleteiamge">Press here to clear the image</span>
+                        <span class="deleteimg" v-if="Upload_profile_image != 'Upload profile image'"
+                            @click="deleteiamge">Press here to clear the image</span>
                     </div>
-                    <label class="file-input-label" @mouseover="uploadhover = false" @mouseleave="uploadhover = true">
+                    <label class="file-input-label" @mouseover="uploadhover = false" @mouseout="uploadhover = true">
                         <div class="upload-icon">
                             <p :class="{ changeimg: changeimage }">{{ Upload_profile_image
                             }}</p>
@@ -518,13 +519,13 @@ export default {
             } catch (err) {
                 console.error(err);
             }
-      
+
         },
         async submitForm() {
             try {
                 this.error = '';
                 this.imageURL = await this.uploadFile();
-                
+
                 console.log(this.imageURL);
                 let g = this.favoritegame;
                 let g1;
@@ -556,10 +557,10 @@ export default {
                         break;
                 }
                 if (this.month < 10) {
-                     var month2 = '0' + this.month;
+                    var month2 = '0' + this.month;
                 }
                 if (this.day < 10) {
-                     var day2 = '0' + this.day;
+                    var day2 = '0' + this.day;
                 }
                 this.isLoading = true;
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
@@ -754,6 +755,7 @@ button[type="submit"] {
     margin-left: 35px !important;
     color: var(--textinput);
 }
+
 .deleteimg:hover {
     color: var(--hovercolor);
     cursor: pointer;

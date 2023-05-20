@@ -36,7 +36,7 @@
 #container {
   position: relative;
   top: 30%;
-  overflow: hidden;
+  /* overflow: hidden; */
 
 }
 .circle {

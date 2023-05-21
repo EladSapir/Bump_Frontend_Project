@@ -41,7 +41,6 @@
   width: 100px;
   height: 100px;
   position: absolute;
-  animation: move 5s linear infinite;
 }
 
 .fist {
@@ -55,11 +54,11 @@
 }
 
 .fist {
-  animation: move-fist 5s linear infinite;
+  animation: move-fist 3s linear infinite;
 }
 
 .joystick {
-  animation: move-joystick 5s linear infinite;
+  animation: move-joystick 3s linear infinite;
 }
 
 @keyframes move-fist {

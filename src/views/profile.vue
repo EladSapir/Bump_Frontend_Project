@@ -17,12 +17,12 @@
                     <div class="following">
                         <span>Following</span>
                         <p @click="openfollowing=true">{{ numfollowing }}</p>
-                        <followpopup v-if="openfollowing&&myprofile" :followingUsers="following"  :heading="'Following users'" @close="openfollowing=false"/>
+                        <followpopup v-if="openfollowing" :followingUsers="following"  :heading="'Following users'" @close="openfollowing=false"/>
                     </div>
                     <div class="followers">
                         <span>Followers</span>
                         <p @click="openfollowers=true">{{ numfollowers}}</p>
-                        <followpopup v-if="openfollowers&&myprofile" :followingUsers="followers" :heading="'Followers users'" @close="openfollowers=false"/>
+                        <followpopup v-if="openfollowers" :followingUsers="followers" :heading="'Followers users'" @close="openfollowers=false"/>
                     </div>
 
                 </div>
@@ -127,7 +127,7 @@ export default {
         choosedialog(num) {
             this.posts = [];
             if (num === 1) {
-                this.post();
+                this.post(this.differentUserId);
                 this.ispostdialog = true;
                 this.issaveddialog = false;
                 this.islikeddialog = false;

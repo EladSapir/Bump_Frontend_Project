@@ -1,13 +1,16 @@
 <template>
     <div class="backdrop" @click.self="closePopup">
         <div class="popup">
-            <img v-if="!closehover" @click="closePopup" id="close" src="../assets/closeoverlay.svg"
+            <img v-if="!closehover" @click="closePopup" id="close" class="x" src="../assets/closeoverlay.svg"
                 @mouseenter="closehover = !closehover" />
-            <img v-else @click="closePopup" id="close" src="../assets/closehover.svg"
+            <img v-else @click="closePopup" id="close" class="x" src="../assets/closehover.svg"
                 @mouseout="closehover = !closehover" />
             <h2>{{ heading }}</h2>
-            <ul>
-                <li v-for="user in followingUsers" :key="user.id">{{ user.GamerTag }}</li>
+            <ul v-for="user in followingUsers" :key="user._id">
+                <div class="line" @click="movetoprofile(user._id)">
+                    <img class="profilepicture" :src="user.Picture" />
+                    <li>{{ user.GamerTag }}</li>
+                </div>
             </ul>
         </div>
     </div>
@@ -32,21 +35,23 @@ export default {
         };
     },
     mounted() {
-    window.addEventListener("scroll", this.preventScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.preventScroll);
-  },
+        window.addEventListener("scroll", this.preventScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener("scroll", this.preventScroll);
+    },
     methods: {
         closePopup() {
             window.removeEventListener("scroll", this.preventScroll);
             this.$emit('close');
         },
-        
+        movetoprofile(id) {
+            this.$router.push({ path: '/profile', query: { id: id } });
+        },
         preventScroll(event) {
-      event.preventDefault();
-      window.scrollTo(0, 0);
-    },
+            event.preventDefault();
+            window.scrollTo(0, 0);
+        },
     },
 };
 </script>
@@ -54,11 +59,10 @@ export default {
 <style>
 .popup {
     position: absolute;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 30px;
-    min-height: 300px;
+    padding: 20px;
+    min-height: 350px;
     width: 500px;
     top: 50%;
     left: 50%;
@@ -70,7 +74,7 @@ export default {
     z-index: 100;
 }
 
-.popup img {
+.x {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -80,12 +84,20 @@ export default {
 
 .backdrop {
     top: 0;
-    left:0;
+    left: 0;
     position: fixed;
     background: rgba(0, 0, 0, 0.692);
     width: 100%;
     height: 100%;
     z-index: 10;
 }
+
+.profilepicture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 </style>
   

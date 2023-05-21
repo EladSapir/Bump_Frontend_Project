@@ -16,13 +16,13 @@
                 <div class="user-stats">
                     <div class="following">
                         <span>Following</span>
-                        <p>{{ numfollowing }}</p>
-
+                        <p @click="openfollowing=true">{{ numfollowing }}</p>
+                        <followpopup v-if="openfollowing&&myprofile" :followingUsers="following"  :heading="'Following users'" @close="openfollowing=false"/>
                     </div>
                     <div class="followers">
                         <span>Followers</span>
-                        <p>{{ numfollowers}}</p>
-
+                        <p @click="openfollowers=true">{{ numfollowers}}</p>
+                        <followpopup v-if="openfollowers&&myprofile" :followingUsers="followers" :heading="'Followers users'" @close="openfollowers=false"/>
                     </div>
 
                 </div>
@@ -86,6 +86,7 @@ import post from '../components/post.vue';
 import axios from 'axios';
 import emptymessage from '../components/emptymessage'
 import stats from '../components/stats.vue'
+import followpopup from '../components/followpopup.vue'
 
 export default {
     name: "profile",
@@ -94,7 +95,8 @@ export default {
         createpost,
         post,
         emptymessage,
-        stats
+        stats,
+        followpopup
 
     },
     props: ['differentUserId'],
@@ -117,6 +119,8 @@ export default {
             numfollowers: 0,
             numfollowing: 0,
             isfollowing: false,
+            openfollowing: false,
+            openfollowers: false,
         };
     },
     methods: {

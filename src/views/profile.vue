@@ -67,7 +67,7 @@
 
         </div>
         <div class="myposts" v-if="isstatsdialog">
-            <stats :statsData="statsData" />
+            <stats/>
         </div>
     </div>
 </template>
@@ -109,7 +109,6 @@ export default {
             user: null,
             numfollowers: [],
             numfollowing: [],
-            statsData: 0
         };
     },
     methods: {
@@ -137,7 +136,6 @@ export default {
                 this.isstatsdialog = false;
             }
             else if (num === 4) {
-                this.stats();
                 this.ispostdialog = false;
                 this.issaveddialog = false;
                 this.islikeddialog = false;
@@ -194,14 +192,7 @@ export default {
                 }
             });
         },
-        stats() {
-            console.log("stats");
-            var addr = 'https://backend-project-vzn7.onrender.com/profile/stats/' + this.userId;
-            this.requestfromserver(addr).then((res) => {
-                console.log("res:", res);
-                this.statsData = res;
-            });
-        },
+
 
         follow() {
             console.log("follow:", this.differentUserId);

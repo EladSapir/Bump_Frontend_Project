@@ -6,17 +6,22 @@
                 <img :src="profilePicture" alt="Profile Picture" />
             </div>
             <div class="user-info">
-                <h2 class="username">{{ GamerTag }} <button v-if="!myprofile" class="btn" @click="follow">Follow</button>
-                </h2>
+            <div class="userplusbtn">
+                <h2 class="username">
+                    {{ GamerTag }}       </h2>
+                    <button v-if="!myprofile&&!isfollowing" class="btn" @click="follow">Follow</button>
+                    <button v-if="!myprofile&&isfollowing" class="btn" @click="unfollow">Unfollow</button>
+                </div>
+         
                 <div class="user-stats">
                     <div class="following">
                         <span>Following</span>
-                        <p>{{ numfollowing.length }}</p>
+                        <p>{{ numfollowing }}</p>
 
                     </div>
                     <div class="followers">
                         <span>Followers</span>
-                        <p>{{ numfollowers.length }}</p>
+                        <p>{{ numfollowers}}</p>
 
                     </div>
 
@@ -107,8 +112,11 @@ export default {
             userId: this.$route.query.id,
             res: null,
             user: null,
-            numfollowers: [],
-            numfollowing: [],
+            followers: [],
+            following: [],
+            numfollowers: 0,
+            numfollowing: 0,
+            isfollowing: false,
         };
     },
     methods: {
@@ -192,8 +200,6 @@ export default {
                 }
             });
         },
-
-
         follow() {
             console.log("follow:", this.differentUserId);
             var addr = 'https://backend-project-vzn7.onrender.com/follows';
@@ -203,8 +209,25 @@ export default {
             };
             this.requestfromserverpost(addr, objecttopass).then((res) => {
                 console.log("res:", res);
-                if (res.status === "success") {
+                if (res) {
                     this.numfollowers++;
+                    this.isfollowing = true;
+
+                }
+            });
+        },
+        unfollow(){
+            console.log("follow:", this.differentUserId);
+            var addr = 'https://backend-project-vzn7.onrender.com/unfollow';
+            var objecttopass = {
+                "id1": this.userId,
+                "id2": this.differentUserId
+            };
+            this.requestfromserverpost(addr, objecttopass).then((res) => {
+                console.log("res:", res);
+                if (res) {
+                    this.numfollowers--;
+                    this.isfollowing = false;
                 }
             });
         },
@@ -232,9 +255,12 @@ export default {
             this.profilePicture = this.user.Picture;
             this.posts = res.posts;
             this.GamerTag = this.user.GamerTag;
+            this.isfollowing = res.iffollows;
             if (res.followers && res.follows) {
-                this.numfollowers = res.followers;
-                this.numfollowing = res.follows;
+                this.followers = res.followers;
+                this.following = res.follows;
+                this.numfollowers = this.followers.length;
+                this.numfollowing = this.following.length;
             }
             });
         },
@@ -293,11 +319,20 @@ html {
     margin-right: 15px;
 }
 
+.userplusbtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 .user-info {
     margin-left: 20px;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width:230px;
 }
 
 .btn {
@@ -311,7 +346,6 @@ html {
     font-weight: 500;
     font-size: 28px;
     margin: 0;
-    margin-left: 10px;
 }
 
 .user-stats {

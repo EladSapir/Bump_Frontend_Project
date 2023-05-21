@@ -1,298 +1,136 @@
 <template>
-    
-    <div id="container">
-        
-        <div class="dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-        <div class="dots2">
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-        </div>
-        <div class="circle"></div>
+  <div class="loading-overlay">
+    <div class="loading-container">
+      <img src="../assets/fist_loading.svg" class="fist" />
+      <img src="../assets/joystick_loading.svg" class="joystick" />
     </div>
-
+  </div>
 </template>
 
-<style scoped>  
-
-#container {
-  position: relative;
-  top: 30%;
-  /* overflow: hidden; */
-
-}
-.circle {
-
-  position: relative;
-  left: -100px;
-  width: 0;
-  height: 0;
-  border: 50px solid #FDD835;
-  border-radius: 50%;
-  border-right-color: transparent;
-  animation: move 5s linear 0s infinite normal forwards;
-}
-
-.circle:before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  left: -50px;
-  width: 0;
-  height: 0;
-  border: 50px solid #FDD835;
-  border-radius: 50%;
-  border-right-color: transparent;
-  animation: chomp1 .25s ease-in-out 0s infinite normal forwards;
-}
-
-.circle:after {
-  content: "";
-  position: absolute;
-  top: -50px;
-  left: -50px;
-  width: 0;
-  height: 0;
-  border: 50px solid #FDD835;
-  border-radius: 50%;
-  border-right-color: transparent;
-  animation: chomp2 .25s ease-in-out 0s infinite normal forwards;
-}
-
-
-
-.dots {
-  position: relative;
-  top: 60px;
+<style scoped>
+.loading-container {
   display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: var(--background);
+  border-radius: 15px;
+  border: 1px solid var(--stroke);
+  transform: translate(-50%, -50%);
+  width: 650px;
+  height: 350px;
+  margin: 0 auto;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
-.dot {
-  position: relative;
-  width: 10px;
-  height: 10px;
-  margin: 0 10px;
-  border-radius: 50%;
-  background: var(--main);
-  animation: dot1 5s linear 0s infinite none normal;
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1;
 }
 
-.dot:nth-child(1) {
-  animation-delay: 0s
+.fist,
+.joystick {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  animation: move 5s linear infinite;
 }
 
-.dot:nth-child(2) {
-  animation-delay: 0.25s
+.fist {
+  left: -200px;
 }
 
-.dot:nth-child(3) {
-  animation-delay: 0.5s
+.joystick {
+  margin-top: 38px;
+  margin-left: 100px;
+  left: -200px;
 }
 
-.dot:nth-child(4) {
-  animation-delay: 0.75s
+.fist {
+  animation: move-fist 5s linear infinite;
 }
 
-.dot:nth-child(5) {
-  animation-delay: 1s
+.joystick {
+  animation: move-joystick 5s linear infinite;
 }
 
-.dot:nth-child(6) {
-  animation-delay: 1.25s
-}
-
-.dot:nth-child(7) {
-  animation-delay: 1.5s
-}
-
-.dot:nth-child(8) {
-  animation-delay: 1.75s
-}
-
-.dot:nth-child(9) {
-  animation-delay: 1.9s
-}
-
-.dot:nth-child(10) {
-  animation-delay: 2.1s
-}
-
-.dots2 {
-  position: relative;
-  top: 50px;
-  left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dot2 {
-  position: relative;
-  left: -10px;
-  width: 10px;
-  height: 10px;
-  margin: 0 10px;
-  border-radius: 50%;
-  background: #F44336;
-  opacity: 0;
-  animation: dot2 5s linear 0s infinite none normal;
-}
-
-.dot2:nth-child(10) {
-  animation-delay: 2.5s
-}
-
-.dot2:nth-child(9) {
-  animation-delay: 2.75s
-}
-
-.dot2:nth-child(8) {
-  animation-delay: 3.0s
-}
-
-.dot2:nth-child(7) {
-  animation-delay: 3.25s
-}
-
-.dot2:nth-child(6) {
-  animation-delay: 3.5s
-}
-
-.dot2:nth-child(5) {
-  animation-delay: 3.75s
-}
-
-.dot2:nth-child(4) {
-  animation-delay: 4.0s
-}
-
-.dot2:nth-child(3) {
-  animation-delay: 4.25s
-}
-
-.dot2:nth-child(2) {
-  animation-delay: 4.5s
-}
-
-.dot2:nth-child(1) {
-  animation-delay: 4.6s
-}
-/* #F44336;, #1E88E5, #FDD835; */
-@keyframes chomp1 {
+@keyframes move-fist {
   0% {
-    transform: rotate(0deg);
+    transform: translateX(0px);
   }
-
+  10% {
+    transform: translateX(85px);
+  }
+  20% {
+    transform: translateX(170px);
+  }
+  30% {
+    transform: translateX(255px);
+  }
+  40% {
+    transform: translateX(340px);
+  }
   50% {
-    transform: rotate(45deg);
+    transform: translateX(425px);
   }
-
+  60% {
+    transform: translateX(510px);
+  }
+  70% {
+    transform: translateX(595px);
+  }
+  80% {
+    transform: translateX(680px);
+  }
+  90% {
+    transform: translateX(765px);
+  }
   100% {
-    transform: rotate(0deg);
+    transform: translateX(850px);
   }
 }
 
-@keyframes chomp2 {
+@keyframes move-joystick {
   0% {
-    transform: rotate(0deg);
+    transform: translateX(0px);
   }
-
+  10% {
+    transform: translateX(85px);
+  }
+  20% {
+    transform: translateX(170px);
+  }
+  30% {
+    transform: translateX(255px);
+  }
+  40% {
+    transform: translateX(340px);
+  }
   50% {
-    transform: rotate(-45deg);
+    transform: translateX(425px);
   }
-
+  60% {
+    transform: translateX(510px);
+  }
+  70% {
+    transform: translateX(595px);
+  }
+  80% {
+    transform: translateX(680px);
+  }
+  90% {
+    transform: translateX(765px);
+  }
   100% {
-    transform: rotate(0deg);
+    transform: translateX(850px);
   }
 }
-
-@keyframes move {
-  0%, 100% {
-    left: -100px;
-  }
-
-  0%, 48% {
-    transform: rotateY(0deg);
-  }
-
-  50%, 100% {
-    transform: rotateY(180deg);
-  }
-
-  50% {
-    left: 100%;
-  }
-}
-
-@keyframes loader_4013 {
-  0%, 100% {
-    border-top: 10px dotted var(--main);
-  }
-
-  0%, 48% {
-    border-top: 10px dotted var(--main);
-  }
-
-  50%, 100% {
-    border-top: 10px dotted #F44336;
-  }
-
-  50% {
-    border-top: 10px dotted #F44336;
-  }
-}
-
-@keyframes dot1 {
-  0%,4% {
-    background: var(--main);
-    opacity: 1;
-  }
-
-  5%,94% {
-    background: #F44336;
-    opacity: 0;
-  }
-
-  95%,100% {
-    background: var(--main);
-    opacity: 1;
-  }
-}
-
-@keyframes dot2 {
-  0%,4% {
-    background: #F44336;
-    opacity: 1;
-  }
-
-  5%,94% {
-    opacity: 0;
-  }
-
-  95%,100% {
-    background: #F44336;
-    opacity: 1;
-  }
-}
-
 </style>

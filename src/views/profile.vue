@@ -1,6 +1,6 @@
 <template>
     <div class="profile">
-        <navbar />
+        <navbar @openProfile="post" />
         <div class="user-profile">
             <div class="profile-picture">
                 <img :src="profilePicture" alt="Profile Picture" />
@@ -208,39 +208,26 @@ export default {
                 }
             });
         },
-        post() {
-            console.log("post");
-            var addr = 'https://backend-project-vzn7.onrender.com/profile';
-            var objecttopass = {
-            "profileid": this.userId,
-            "idtocheck": this.differentUserId
-             };
-            this.requestfromserverpost(addr, objecttopass).then((res) => {
-                console.log("res:", res);
-                this.posts = res.posts;
-            });
-        },
-    },
-    created() {
-        console.log('userId:' + this.userId);
-        console.log('differentUserId:' + this.differentUserId);
-        var addr = "";
-        var objecttopass = {
-            "profileid": this.userId,
-            "idtocheck": this.differentUserId
-        };
-        if (this.differentUserId === this.userId) {
+        post(id) {
+            this.myprofile = false;
+            console.log('userId:' + this.userId);
+            console.log('differentUserId:' + id);
+        if (id === this.userId) {
             this.myprofile = true;
             console.log("same user");
         }
         else {
             console.log("different user");
         }
-        addr = 'https://backend-project-vzn7.onrender.com/profile';
-        this.requestfromserverpost(addr, objecttopass).then((res) => {
+            console.log("post");
+            var addr = 'https://backend-project-vzn7.onrender.com/profile';
+            var objecttopass = {
+            "profileid": id,
+            "idtocheck": this.userId
+             };
+            this.requestfromserverpost(addr, objecttopass).then((res) => {
             console.log("res:", res);
             this.res = res;
-            console.log("res:", this.res);
             this.user = res.user;
             this.profilePicture = this.user.Picture;
             this.posts = res.posts;
@@ -249,7 +236,12 @@ export default {
                 this.numfollowers = res.followers;
                 this.numfollowing = res.follows;
             }
-        });
+            });
+        },
+    },
+    created() {
+        
+        this.post(this.differentUserId);
 
     },
 

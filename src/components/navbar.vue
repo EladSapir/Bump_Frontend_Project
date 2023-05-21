@@ -108,7 +108,10 @@ export default {
       this.isloading = false;
     },
     movetomyprofile() {
+      console.log('before push' + this.userId + ' dif ' + this.$route.query.id)
       this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: this.userId } });
+
+      this.$emit('openProfile', this.userId)
     },
     movetomatching() {
       this.$router.push({ name: 'matching', query: { id: this.userId } });
@@ -119,9 +122,12 @@ export default {
     handleBeforeUnload() {
       this.logout();
     },
+
     movetoprofile(id) {
-      console.log(id);
+      console.log('before push' + this.userId + ' dif ' + this.$route.query.id)
       this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
+
+      this.$emit('openProfile', id)
     },
     handleClickOutside(event) {
       const isClickedInsideSearchContainer = this.$refs.searchContainer && this.$refs.searchContainer.contains(event.target);

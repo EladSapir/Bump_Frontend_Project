@@ -303,7 +303,7 @@ html {
     width: 100%;
     padding: 25px;
     padding-top: 25px;
-    background-color: var(--backgroun);
+    background-color: var(--background);
     border: 1px solid var(--stroke);
     z-index: 1;
 }

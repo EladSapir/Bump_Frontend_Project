@@ -59,14 +59,14 @@
                 emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
         </div>
         <div class="myposts" v-if="issaveddialog">
-            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
                 :GamerTag="GamerTag" />
             <emptymessage v-if="!posts"
                 emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
 
         </div>
         <div class="myposts" v-if="islikeddialog">
-            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
                 :GamerTag="GamerTag" />
             <emptymessage v-if="!posts"
                 emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
@@ -97,7 +97,8 @@ export default {
         post,
         emptymessage,
         stats,
-        followpopup
+        followpopup,
+
 
     },
     props: ['differentUserId'],
@@ -122,17 +123,20 @@ export default {
             isfollowing: false,
             openfollowing: false,
             openfollowers: false,
+            postsforsave: [],
+            postsforlike: [],
         };
     },
     methods: {
         choosedialog(num) {
-            this.posts = [];
+      
             if (num === 1) {
                 this.post(this.differentUserId);
                 this.ispostdialog = true;
                 this.issaveddialog = false;
                 this.islikeddialog = false;
                 this.isstatsdialog = false;
+                this.posts = [];
             }
             else if (num === 2) {
                 this.saved();
@@ -140,6 +144,7 @@ export default {
                 this.issaveddialog = true;
                 this.islikeddialog = false;
                 this.isstatsdialog = false;
+                this.postsforsave = this.posts;
             }
             else if (num === 3) {
                 this.liked();
@@ -147,6 +152,7 @@ export default {
                 this.issaveddialog = false;
                 this.islikeddialog = true;
                 this.isstatsdialog = false;
+                this.postsforlike = this.posts;
             }
             else if (num === 4) {
                 this.ispostdialog = false;
@@ -186,10 +192,10 @@ export default {
             this.requestfromserver(addr).then((res) => {
                 console.log("res:", res);
                 if (res) {
-                    this.posts = res.savedpost;
+                    this.postsforsave = res.savedpost;
                 }
                 else {
-                    this.posts = false;
+                    this.postsforsave = false;
                 }
             });
         },
@@ -199,9 +205,9 @@ export default {
             this.requestfromserver(addr).then((res) => {
                 console.log("res:", res);
                 if (res) {
-                    this.posts = res.bumpedpost;
+                    this.postsforlike = res.bumpedpost;
                 } else {
-                    this.posts = false;
+                    this.postsforlike = false;
                 }
             });
         },
@@ -348,6 +354,8 @@ html {
 }
 
 .username {
+    background-color: var(--background);
+
     color: var(--white);
     font-weight: 500;
     font-size: 28px;

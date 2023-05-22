@@ -101,7 +101,6 @@ h2 {
   top: 0;
   text-align: center;
   font-weight: 400;
-  background-color: var(--thirdcolor); 
   padding: 10px; 
 }
 

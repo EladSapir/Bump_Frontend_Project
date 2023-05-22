@@ -8,10 +8,9 @@
       </div>
       <div class="nav-center">
         <div ref="searchContainer" class="search-container" :class="{ searched: searchResults.length }">
-          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers"
-            @focus="isSearchFocused = true" @blur="isSearchFocused = false; closeSearchResults"> <img
-            src="../assets/search.svg" alt="Search" class="search-icon">
-          <ul v-if=" searchResults.length " :class=" ['dropdown', { 'expanded': isSearchFocused }] ">
+          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers" @focus="isSearchFocused = true" @blur="handleSearchBlur">
+            <img src="../assets/search.svg" alt="Search" class="search-icon">
+            <ul v-if="searchResults.length" :class="['dropdown', { 'expanded': isSearchFocused }]">
             <li v-for=" result  in  searchResults " :key=" result._id " @click="movetoprofile(result._id)">
               <img class="searchimg" :src=" result.Picture " :class=" { me: (result._id === userId) } "
                 alt="Profile Picture" />
@@ -69,6 +68,10 @@ export default {
     window.removeEventListener("click", this.clickOutsideListener);
   },
   methods: {
+    handleSearchBlur() {
+    this.isSearchFocused = false;
+    this.closeSearchResults();
+  },
     closeSearchResults() {
       this.closeResultsTimeout = setTimeout(() => {
         this.searchResults = [];

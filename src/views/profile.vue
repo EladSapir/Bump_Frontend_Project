@@ -1,6 +1,6 @@
 <template>
     <div class="profile">
-        <navbar @openProfile="choosedialog(1)" />
+        <navbar @openProfile="choosedialog" />
         <div class="user-profile">
             <div class="profile-picture">
                 <img :src="profilePicture" alt="Profile Picture" />
@@ -131,7 +131,6 @@ export default {
     },
     methods: {
         choosedialog(num) {
-
             if (num === 1) {
                 this.post(this.differentUserId);
                 this.ispostdialog = true;
@@ -161,6 +160,14 @@ export default {
                 this.issaveddialog = false;
                 this.islikeddialog = false;
                 this.isstatsdialog = true;
+            }
+            else{
+                this.post(num);
+                this.ispostdialog = true;
+                this.issaveddialog = false;
+                this.islikeddialog = false;
+                this.isstatsdialog = false;
+                this.posts = [];
             }
 
         },

@@ -12,6 +12,7 @@
           <img src="../assets/search.svg" alt="Search" class="search-icon">
           <ul v-if="searchResults.length" class="dropdown">
             <li v-for="result in searchResults" :key="result._id" @click="movetoprofile(result._id)">
+            <p>{{ result }}</p>
               <img class="searchimg" :src="result.Picture" :class="{ me: (result._id === userId) }" alt="Profile Picture" />
               <p>{{ result.GamerTag }}</p>
             </li>
@@ -73,6 +74,7 @@ export default {
       }
       else {
         try {
+          this.searchResults = [];
           this.isloading = true;
           var addr = 'https://backend-project-vzn7.onrender.com/search';
           const response = await axios.post(addr, {

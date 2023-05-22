@@ -8,33 +8,33 @@
       </div>
       <div class="nav-center">
         <div ref="searchContainer" class="search-container" :class="{ searched: searchResults.length }">
-          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers">
-          <img src="../assets/search.svg" alt="Search" class="search-icon">
-          <ul v-if="searchResults.length" class="dropdown">
-            <li v-for="result in searchResults" :key="result._id" @click="movetoprofile(result._id)">
-            <p>{{ result }}</p>
-              <img class="searchimg" :src="result.Picture" :class="{ me: (result._id === userId) }" alt="Profile Picture" />
+          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers"
+            @focus="isSearchFocused = true" @blur="isSearchFocused = false; closeSearchResults"> <img
+            src="../assets/search.svg" alt="Search" class="search-icon">
+          <ul v-if=" searchResults.length " :class=" ['dropdown', { 'expanded': isSearchFocused }] ">
+            <li v-for=" result  in  searchResults " :key=" result._id " @click="movetoprofile(result._id)">
+              <img class="searchimg" :src=" result.Picture " :class=" { me: (result._id === userId) } "
+                alt="Profile Picture" />
               <p>{{ result.GamerTag }}</p>
             </li>
           </ul>
         </div>
       </div>
       <div class="nav-right">
-        <button class="btn" @click="movetomatching">Let's Bump</button>
+        <button class="btn" @click=" movetomatching ">Let's Bump</button>
         <div class="notidiv">
-          <img class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
-          <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
+          <img class="notiimg" src="../assets/noti_off.svg" @click=" toggleDropdown ">
+          <div class="dropdownnoti" :class=" { active: isDropNotiActive } ">
             <ul>
-              <li v-for="notification in notifications" :key="notification">{{ notification }}</li>
+              <li v-for=" notification  in  notifications " :key=" notification ">{{ notification }}</li>
             </ul>
           </div>
         </div>
-        <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
+        <img class="logout" src="../assets/logout.svg" alt="Logout" @click=" logout ">
       </div>
     </nav>
   </header>
-  <loading v-if="isloading"/>
-
+  <loading v-if=" isloading " />
 </template>
   
 <script>
@@ -54,7 +54,9 @@ export default {
       userId: this.$route.query.id,
       isloading: false,
       clickOutsideListener: null,
-      defaultProfilePicture: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1619629599/ProfilePictures/default_profile_picture.png'
+      defaultProfilePicture: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1619629599/ProfilePictures/default_profile_picture.png',
+      closeResultsTimeout: null,
+      isSearchFocused: false,
     };
   },
   mounted() {
@@ -67,6 +69,16 @@ export default {
     window.removeEventListener("click", this.clickOutsideListener);
   },
   methods: {
+    closeSearchResults() {
+      this.closeResultsTimeout = setTimeout(() => {
+        this.searchResults = [];
+      }, 200);
+    },
+    cancelCloseSearchResults() {
+      if (this.closeResultsTimeout) {
+        clearTimeout(this.closeResultsTimeout);
+      }
+    },
     async searchUsers() {
       if (this.searchQuery.trim() === "") {
         this.searchResults = [];
@@ -74,7 +86,6 @@ export default {
       }
       else {
         try {
-          this.searchResults = [];
           this.isloading = true;
           var addr = 'https://backend-project-vzn7.onrender.com/search';
           const response = await axios.post(addr, {
@@ -125,6 +136,8 @@ export default {
       this.logout();
     },
     movetoprofile(id) {
+      this.searchResults = [];
+
       console.log('before push' + this.userId + ' dif ' + this.$route.query.id)
       this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
       this.$emit('openProfile', id)
@@ -257,11 +270,11 @@ export default {
   position: absolute;
   display: none;
   left: 0;
-  width: 305px;
+  width: 205px;
   background-color: var(--thirdcolor);
   border-radius: 0 0 15px 15px;
   list-style: none;
-  border: 2px solid var(--white);
+  border: 2px solid var(--stroke);
   border-top: none;
   top: 48px;
   margin-top: 0;
@@ -270,6 +283,15 @@ export default {
   padding-left: 0;
   max-height: 270px;
   overflow-y: auto;
+  transition: all 0.2s ease;
+
+}
+
+.dropdown.expanded {
+  width: 305px;
+  border: 2px solid var(--white);
+
+
 }
 
 .dropdown li {

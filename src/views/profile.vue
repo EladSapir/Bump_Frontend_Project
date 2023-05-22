@@ -344,7 +344,7 @@ html {
 .userplusbtn {
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
 }
 
 

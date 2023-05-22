@@ -25,6 +25,7 @@
   --textinput:rgba(0, 0, 0, 0.5);
   --black: #000000;
   --grey:#ffffff4d;
+  --hover: #ffffff1a;
 }
 html{
   background-color: var(--pagebgcolor);

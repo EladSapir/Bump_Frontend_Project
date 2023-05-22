@@ -8,11 +8,11 @@
       </div>
       <div class="nav-center">
         <div ref="searchContainer" class="search-container" :class="{ searched: searchResults.length }">
-          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @keyup.enter="searchUsers">
+          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers">
           <img src="../assets/search.svg" alt="Search" class="search-icon">
           <ul v-if="searchResults.length" class="dropdown">
             <li v-for="result in searchResults" :key="result._id" @click="movetoprofile(result._id)">
-              <img class="searchimg" :src="result.Picture" alt="Profile Picture" />
+              <img class="searchimg" :src="result.Picture" :class="{ me: (result._id === userId) }" alt="Profile Picture" />
               <p>{{ result.GamerTag }}</p>
             </li>
           </ul>
@@ -122,11 +122,9 @@ export default {
     handleBeforeUnload() {
       this.logout();
     },
-
     movetoprofile(id) {
       console.log('before push' + this.userId + ' dif ' + this.$route.query.id)
       this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
-
       this.$emit('openProfile', id)
     },
     handleClickOutside(event) {
@@ -285,8 +283,12 @@ export default {
 }
 
 .dropdown li:hover {
-  background-color: var(--secondarycolor);
+  background-color: var(--hover);
   cursor: pointer;
+}
+
+.me {
+  border: 2px solid var(--main);
 }
 
 

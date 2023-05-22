@@ -12,10 +12,8 @@
       <button class="btn" type="submit">Login</button>
       <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here</a></p>
     <span class="error">{{error}}</span>
-    
     </form>
     <loading v-else />
-   
   </div>
 </template>
 

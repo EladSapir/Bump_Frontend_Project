@@ -6,23 +6,24 @@
                 <img :src="profilePicture" alt="Profile Picture" />
             </div>
             <div class="user-info">
-            <div class="userplusbtn">
-                <h2 class="username">
-                    {{ GamerTag }}       </h2>
-                    <button v-if="!myprofile&&!isfollowing" class="btn" @click="follow">Follow</button>
-                    <button v-if="!myprofile&&isfollowing" class="btn" @click="unfollow">Unfollow</button>
+                <div class="userplusbtn">
+                    <h2 class="username">{{ GamerTag }}</h2>
+                    <button v-if="!myprofile && !isfollowing" class="btn" @click="follow">Follow</button>
+                    <button v-if="!myprofile && isfollowing" class="btn" @click="unfollow">Unfollow</button>
                 </div>
-         
+
                 <div class="user-stats">
                     <div class="following">
                         <span>Following</span>
-                        <p @click="openfollowing=true">{{ numfollowing }}</p>
-                        <followpopup v-if="openfollowing" :followingUsers="following"  :heading="'Following users'" @close="openfollowing=false"/>
+                        <p @click="openfollowing = true">{{ numfollowing }}</p>
+                        <followpopup v-if="openfollowing" :followingUsers="following" :heading="'Following users'"
+                            @close="openfollowing = false" />
                     </div>
                     <div class="followers">
                         <span>Followers</span>
-                        <p @click="openfollowers=true">{{ numfollowers}}</p>
-                        <followpopup v-if="openfollowers" :followingUsers="followers" :heading="'Followers users'" @close="openfollowers=false"/>
+                        <p @click="openfollowers = true">{{ numfollowers }}</p>
+                        <followpopup v-if="openfollowers" :followingUsers="followers" :heading="'Followers users'"
+                            @close="openfollowers = false" />
                     </div>
 
                 </div>
@@ -72,7 +73,7 @@
 
         </div>
         <div class="myposts" v-if="isstatsdialog">
-            <stats/>
+            <stats />
         </div>
     </div>
 </template>
@@ -106,10 +107,10 @@ export default {
             posts: [],
             GamerTag: ' ',
             edithover: false,
-            ispostdialog: true, 
+            ispostdialog: true,
             issaveddialog: false,
             islikeddialog: false,
-            isstatsdialog: false, 
+            isstatsdialog: false,
             myprofile: false,
             userId: this.$route.query.id,
             res: null,
@@ -220,7 +221,7 @@ export default {
                 }
             });
         },
-        unfollow(){
+        unfollow() {
             console.log("follow:", this.differentUserId);
             var addr = 'https://backend-project-vzn7.onrender.com/unfollow';
             var objecttopass = {
@@ -239,38 +240,38 @@ export default {
             this.myprofile = false;
             console.log('userId:' + this.userId);
             console.log('differentUserId:' + id);
-        if (id === this.userId) {
-            this.myprofile = true;
-            console.log("same user");
-        }
-        else {
-            console.log("different user");
-        }
+            if (id === this.userId) {
+                this.myprofile = true;
+                console.log("same user");
+            }
+            else {
+                console.log("different user");
+            }
             console.log("post");
             var addr = 'https://backend-project-vzn7.onrender.com/profile';
             var objecttopass = {
-            "profileid": id,
-            "idtocheck": this.userId
-             };
+                "profileid": id,
+                "idtocheck": this.userId
+            };
             this.requestfromserverpost(addr, objecttopass).then((res) => {
-            console.log("res:", res);
-            this.res = res;
-            this.user = res.user;
-            this.profilePicture = this.user.Picture;
-            this.posts = res.posts;
-            this.GamerTag = this.user.GamerTag;
-            this.isfollowing = res.iffollows;
-            if (res.followers && res.follows) {
-                this.followers = res.followers;
-                this.following = res.follows;
-                this.numfollowers = this.followers.length;
-                this.numfollowing = this.following.length;
-            }
+                console.log("res:", res);
+                this.res = res;
+                this.user = res.user;
+                this.profilePicture = this.user.Picture;
+                this.posts = res.posts;
+                this.GamerTag = this.user.GamerTag;
+                this.isfollowing = res.iffollows;
+                if (res.followers && res.follows) {
+                    this.followers = res.followers;
+                    this.following = res.follows;
+                    this.numfollowers = this.followers.length;
+                    this.numfollowing = this.following.length;
+                }
             });
         },
     },
     created() {
-        
+
         this.post(this.differentUserId);
 
     },
@@ -323,20 +324,21 @@ html {
     margin-right: 15px;
 }
 
-.userplusbtn{
+.userplusbtn {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
 }
+
 .user-info {
     margin-left: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width:230px;
+    width: 230px;
 }
 
 .btn {
@@ -346,7 +348,7 @@ html {
 }
 
 .username {
-    color: #fff;
+    color: var(--white);
     font-weight: 500;
     font-size: 28px;
     margin: 0;
@@ -370,12 +372,12 @@ html {
     padding: 5px;
 }
 
-.user-stats>div {
+.user-stats > div {
     margin-right: 20px;
 }
 
 .user-stats p {
-    color: #fff;
+    color: var(--white);
     background-color: none;
     padding: 5px 0;
     width: 80px;
@@ -383,7 +385,7 @@ html {
     font-size: 14px;
     margin-top: 5px;
     text-align: center;
-    border: 3px solid #ffffff75;
+    border: 3px solid var(--grey);
     border-radius: 15px;
 }
 

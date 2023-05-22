@@ -1,20 +1,22 @@
 <template>
     <div class="backdrop" @click.self="closePopup">
-        <div class="popup">
-            <img v-if="!closehover" @click="closePopup" id="close" class="x" src="../assets/closeoverlay.svg"
-                @mouseenter="closehover = !closehover" />
-            <img v-else @click="closePopup" id="close" class="x" src="../assets/closehover.svg"
-                @mouseout="closehover = !closehover" />
-            <h2>{{ heading }}</h2>
-            <ul class="userlist">
-                <li  v-for="user in followingUsers" :key="user._id" class="line" @click="movetoprofile(user._id)">
-                    <img class="profilepicture" :src="user.Picture" />
-                    <p class="user">{{ user.GamerTag }}</p>
-                </li>
-            </ul>
+      <div class="popup">
+        <div class="header">
+          <h2>{{ heading }}</h2>
+          <img v-if="!closehover" @click="closePopup" id="close" class="x" src="../assets/closeoverlay.svg"
+            @mouseenter="closehover = !closehover" />
+          <img v-else @click="closePopup" id="close" class="x" src="../assets/closehover.svg"
+            @mouseout="closehover = !closehover" />
         </div>
+        <ul class="userlist" :class="{ 'more-than-six': isMoreThanSix }">
+          <li v-for="user in followingUsers" :key="user._id" class="line" @click="movetoprofile(user._id)">
+            <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }" />
+            <p class="user">{{ user.GamerTag }}</p>
+          </li>
+        </ul>
+      </div>
     </div>
-</template>
+  </template>
   
 <script>
 export default {
@@ -32,7 +34,13 @@ export default {
     data() {
         return {
             closehover: false,
+            id: this.$route.query.id,
         };
+    },
+    computed: {
+        isMoreThanSix() {
+            return this.followingUsers.length > 6;
+        }
     },
     mounted() {
         window.addEventListener("scroll", this.preventScroll);
@@ -57,38 +65,44 @@ export default {
 </script>
   
 <style>
-
 .popup {
-    position: absolute;
-    display: flex;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    flex-direction: column;
-    min-height: 350px;
-    width: 300px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--thirdcolor);
-    border: 1px solid #323244;
-    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 25px;
-    z-index: 100;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: var(--thirdcolor);
+  border: 1px solid #323244;
+  border-radius: 25px;
+  overflow-y: scroll;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--thirdcolor);
+  padding: 10px;
+  z-index: 1;
 }
 
 .x {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    cursor: pointer;
+  width: 30px;
+  cursor: pointer;
 }
 
 h2 {
-    text-align: center;
-    margin-bottom: 10px;
-    font-weight: 400;
-
+  position: sticky; 
+  top: 0;
+  text-align: center;
+  font-weight: 400;
+  background-color: var(--thirdcolor); 
+  padding: 10px; 
 }
 
 .backdrop {
@@ -102,10 +116,11 @@ h2 {
 }
 
 .profilepicture {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 20px;
+    border: 2px solid var(--white);
 }
 
 .line {
@@ -116,7 +131,11 @@ h2 {
 }
 
 .line:hover {
-    background-color: var(--pagebgcolor);
+    background-color: var(--hover);
+}
+
+.me {
+    border: 2px solid var(--main);
 }
 
 
@@ -132,9 +151,10 @@ h2 {
     background-color: var(--thirdcolor);
 }
 
-.userlist li:last-child {
-  border-radius: 0 0 15px 15px;
+.userlist.more-than-six li:last-child {
+    border-radius: 0 0 25px 25px;
 }
+
 
 </style>
   

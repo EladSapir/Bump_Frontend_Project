@@ -5,7 +5,7 @@
     <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
     <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag" :profilePicture="profilePicture" @deletepost="getPosts" />
     <div class="loadingclass" v-else>
-    <loading  />
+      <loading v-if="isloading"/>
   </div>
   </div>
 </template>

@@ -32,11 +32,8 @@
       </div>
     </nav>
   </header>
-  <div class="backdrop" v-if="isloading">
-    <div class="container">
-      <loading />
-    </div>
-  </div>
+  <loading v-if="isloading"/>
+
 </template>
   
 <script>
@@ -76,12 +73,14 @@ export default {
       }
       else {
         try {
+          this.isloading = true;
           var addr = 'https://backend-project-vzn7.onrender.com/search';
           const response = await axios.post(addr, {
             "searchQuery": this.searchQuery.trim(),
             "userId": this.userId,
           })
           this.searchResults = response.data
+          this.isloading = false;
         } catch (error) {
           console.error(error);
         }
@@ -95,8 +94,9 @@ export default {
         this.isloading = true;
         var addr = 'https://backend-project-vzn7.onrender.com/logout/' + this.userId;
         console.log('logout:' + addr);
-        const response = await axios.get(addr, {});
-        const res = response.data;
+        const response = await axios.get(addr);
+
+        var res = response.data;
         console.log("logout:" + res);
         if (res) {
           this.$router.push('/login_signup')

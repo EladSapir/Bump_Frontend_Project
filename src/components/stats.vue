@@ -12,25 +12,29 @@
       <canvas ref="chartCanvas"></canvas>
     </div>
   </div>
+  <loading v-if="isloading"/>
 </template>
 
 <script>
 import Chart from 'chart.js/auto';
 import axios from 'axios';
-
+import loading from './loading.vue'
 export default {
   name: 'Stats',
   data() {
     return {
       hours: 0,
       minutes: 0,
-      statsData: {}  // Data received from the server response
+      statsData: {},  // Data received from the server response
+      isloading: false,
     };
   },
   methods: {
     async requestfromserver(addr) {
       try {
+        this.isloading = true;
         const response = await axios.get(addr);
+        this.isloading = false;
         return response.data;
       } catch (error) {
         console.error(error);

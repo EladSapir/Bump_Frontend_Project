@@ -1,16 +1,16 @@
 <template>
     <div class="signupcontainer">
-        <div v-if="!isloading">
+        <div >
             <img v-if="!returnmouseover" id="return" src="../assets/backarrow.svg" @click="moveToLogin"
                 @mouseover="returnmouseover = !returnmouseover">
             <img v-else id="return" src="../assets/returnorange.svg" @click="moveToLogin"
                 @mouseout="returnmouseover = !returnmouseover">
         </div>
-        <div class="signheading" v-if="!isloading">
+        <div class="signheading" >
             <img id="logo" src="../../public/Logo1.svg">
             <h1>Let’s Sign Up</h1>
         </div>
-        <form class="parent" @submit.prevent="handleSubmit" v-if="!isloading">
+        <form class="parent" @submit.prevent="handleSubmit" >
             <div class="form-group div1">
                 <h3 class="title">Email</h3>
                 <input :class="{ error: !isEmailValid }" name="email" type="email" class="form-control" v-model="email"
@@ -294,7 +294,7 @@
             </div>
         </form>
 
-        <loading v-else />
+        <loading v-if="isloading"/>
 
 
     </div>

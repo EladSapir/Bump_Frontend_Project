@@ -1,6 +1,6 @@
 <template>
   <div class="logincontainer">
-    <form @submit.prevent="submitForm" v-if="!isLoading">
+    <form @submit.prevent="submitForm">
       <img id="logo" src="../../public/Logo1.svg">
       <h1>Login</h1>
       <input type="email" placeholder="Email" name="email" v-model="email" required>
@@ -13,7 +13,7 @@
       <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here</a></p>
     <span class="error">{{error}}</span>
     </form>
-    <loading v-else />
+    <loading v-if="isloading"/>
   </div>
 </template>
 

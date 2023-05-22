@@ -164,16 +164,18 @@
     <div v-if="showdelete">
         <deletecomp @closeA="colosedelete" />
     </div>
+
+    <loading v-if="isloading"/>
 </template>
   
 <script>
 import axios from 'axios';
 import deletecomp from '../components/delete.vue';
-
+import loading from './loading.vue';
 export default {
     name: 'post',
     components: {
-        deletecomp
+        deletecomp,loading
     },
     props: ['post', 'profilePicture', 'GamerTag'],
     data() {
@@ -197,7 +199,8 @@ export default {
             showedit: false,
             inputText: this.post.text,
             textareaRows: 1,
-            textareaCols: 20
+            textareaCols: 20,
+            isloading: false,
         };
     },
     watch: {
@@ -311,10 +314,12 @@ export default {
         async requestfromserver(addr, objecttopass) {
             console.log("addr:", addr);
             try {
+                this.isloading = true;
                 const response = await axios.post(addr, objecttopass);
 
                 var res = response.data;
                 console.log("res:", res);
+                this.isloading = false;
                 return res;
             } catch (error) {
                 console.error(error);

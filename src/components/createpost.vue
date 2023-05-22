@@ -18,15 +18,20 @@
             </div>
         </div>
     </div>
+    <loading v-if="isloading"/>
 </template>
   
 <script>
 var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dk9nwmeth/upload'
 var CLOUDINARY_UPLOAD_PRESET = 'auhzhahq'
 import axios from 'axios';
+import loading from './loading.vue';
 export default {
     name: 'createpost',
     props: ['profilePicture'],
+    components: {
+        loading
+    },
     data() {
         return {
             postText: '',
@@ -35,7 +40,8 @@ export default {
             photoname: ' ',
             userId: this.$route.query.id,
             textareaRows: 1,
-            textareaCols: 20
+            textareaCols: 20,
+            isloading: false,
         };
     },
     watch: {
@@ -52,7 +58,6 @@ export default {
         async uploadFile() {
             const fileInput = this.imageData;
             const file = fileInput.files[0];
-
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -80,6 +85,7 @@ export default {
                 return;
             }
             try {
+                this.isloading = true;
                 if (this.photo)
                     this.photo = await this.uploadFile();
                 console.log('photo:' + this.photo);
@@ -92,7 +98,7 @@ export default {
                     "text": this.postText,
                     "picture": this.photo,
                 });
-
+                this.isloading = false;
                 // Extract the user ID from the response
                 const res = response.data;
                 console.log("createpost:" + res);

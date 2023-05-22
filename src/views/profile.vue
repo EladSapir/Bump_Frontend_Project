@@ -59,28 +59,29 @@
                 emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
         </div>
         <div class="myposts" v-if="issaveddialog">
-            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]" :profilePicture="user.Picture"
                 :GamerTag="GamerTag" />
-            <emptymessage v-if="!posts"
+            <emptymessage v-if="!postsforsave"
                 emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
 
         </div>
         <div class="myposts" v-if="islikeddialog">
-            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]" :profilePicture="user.Picture"
                 :GamerTag="GamerTag" />
-            <emptymessage v-if="!posts"
+            <emptymessage v-if="!postsforlike"
                 emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
 
         </div>
         <div class="myposts" v-if="isstatsdialog">
             <stats />
         </div>
+        <loading v-if="isloading"/>
     </div>
 </template>
   
     
 <script>
-
+import loading from '../components/loading.vue';
 import createpost from '../components/createpost.vue';
 import navbar from "../components/navbar.vue";
 import post from '../components/post.vue';
@@ -98,7 +99,7 @@ export default {
         emptymessage,
         stats,
         followpopup,
-
+        loading
 
     },
     props: ['differentUserId'],
@@ -125,11 +126,12 @@ export default {
             openfollowers: false,
             postsforsave: [],
             postsforlike: [],
+            isloading: false,
         };
     },
     methods: {
         choosedialog(num) {
-      
+
             if (num === 1) {
                 this.post(this.differentUserId);
                 this.ispostdialog = true;
@@ -163,11 +165,13 @@ export default {
 
         },
         async requestfromserver(addr) {
+            this.isloading = true;
             console.log("addr:", addr);
             try {
                 const response = await axios.get(addr);
 
                 var res = response.data;
+                this.isloading = false;
                 console.log("res:", res);
                 return res;
             } catch (error) {
@@ -176,9 +180,10 @@ export default {
         },
         async requestfromserverpost(addr, objecttopass) {
             console.log("addr:", addr);
+            this.isloading = true;
             try {
                 const response = await axios.post(addr, objecttopass);
-
+                this.isloading = false;
                 var res = response.data;
                 console.log("res:", res);
                 return res;
@@ -380,7 +385,7 @@ html {
     padding: 5px;
 }
 
-.user-stats > div {
+.user-stats>div {
     margin-right: 20px;
 }
 

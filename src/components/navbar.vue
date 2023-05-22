@@ -8,11 +8,12 @@
       </div>
       <div class="nav-center">
         <div ref="searchContainer" class="search-container" :class="{ searched: searchResults.length }">
-          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers" @focus="isSearchFocused = true" @blur="handleSearchBlur">
-            <img src="../assets/search.svg" alt="Search" class="search-icon">
-            <ul v-if="searchResults.length" :class="['dropdown', { 'expanded': isSearchFocused }]">
-            <li v-for=" result  in  searchResults " :key=" result._id " @click="movetoprofile(result._id)">
-              <img class="searchimg" :src=" result.Picture " :class=" { me: (result._id === userId) } "
+          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @click="searchUsers" @input="searchUsers"
+            @focus="isSearchFocused = true" @blur="handleSearchBlur">
+          <img src="../assets/search.svg" alt="Search" class="search-icon">
+          <ul v-if="searchResults.length" :class="['dropdown', { 'expanded': isSearchFocused }]">
+            <li v-for=" result  in  searchResults " :key="result._id" @click="movetoprofile(result._id)">
+              <img class="searchimg" :src="result.Picture" :class="{ me: (result._id === userId) }"
                 alt="Profile Picture" />
               <p>{{ result.GamerTag }}</p>
             </li>
@@ -20,20 +21,20 @@
         </div>
       </div>
       <div class="nav-right">
-        <button class="btn" @click=" movetomatching ">Let's Bump</button>
+        <button class="btn" @click="movetomatching">Let's Bump</button>
         <div class="notidiv">
-          <img class="notiimg" src="../assets/noti_off.svg" @click=" toggleDropdown ">
-          <div class="dropdownnoti" :class=" { active: isDropNotiActive } ">
+          <img class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
+          <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
             <ul>
-              <li v-for=" notification  in  notifications " :key=" notification ">{{ notification }}</li>
+              <li v-for=" notification  in  notifications " :key="notification">{{ notification }}</li>
             </ul>
           </div>
         </div>
-        <img class="logout" src="../assets/logout.svg" alt="Logout" @click=" logout ">
+        <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
     </nav>
   </header>
-  <loading v-if=" isloading " />
+  <loading v-if="isloading" />
 </template>
   
 <script>
@@ -48,7 +49,7 @@ export default {
     return {
       searchQuery: "",
       searchResults: [],
-      notifications: ["Notification 1", "Notification 2", "Notification 3", "Notification 4", "Tomer Gay", "Elad Gay"], // need to change
+      notifications: ["Notification 1", "Notification 2", "Notification 3", "Notification 4"],
       isDropNotiActive: false,
       userId: this.$route.query.id,
       isloading: false,
@@ -69,9 +70,9 @@ export default {
   },
   methods: {
     handleSearchBlur() {
-    this.isSearchFocused = false;
-    this.closeSearchResults();
-  },
+      this.isSearchFocused = false;
+      this.cancelCloseSearchResults();
+    },
     closeSearchResults() {
       this.closeResultsTimeout = setTimeout(() => {
         this.searchResults = [];
@@ -150,8 +151,11 @@ export default {
       const isClickedInsideDropdown = event.target.closest(".dropdown");
       if (!isClickedInsideSearchContainer && !isClickedInsideDropdown) {
         this.searchResults = [];
+      } else {
+        this.cancelCloseSearchResults();
       }
     }
+
 
   }
 };

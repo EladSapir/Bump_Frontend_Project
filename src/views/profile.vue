@@ -6,44 +6,43 @@
                 <img :src="profilePicture" alt="Profile Picture" />
             </div>
             <div class="user-info">
-                <div class="userplusbtn">
+                <div class="myprofile" :class="{ 'userplusbtn': !myprofile }">
                     <h2 class="username">{{ GamerTag }}</h2>
                     <button v-if="!myprofile && !isfollowing" class="btn" @click="follow">Follow</button>
                     <button v-if="!myprofile && isfollowing" class="btn" @click="unfollow">Unfollow</button>
                 </div>
 
                 <div class="user-stats">
-                    <div class="following">
-                        <span>Following</span>
-                        <p @click="openfollowing = true">{{ numfollowing }}</p>
-                        <followpopup v-if="openfollowing" :followingUsers="following" :heading="'Following users'"
-                            @close="openfollowing = false" />
-                    </div>
                     <div class="followers">
                         <span>Followers</span>
                         <p @click="openfollowers = true">{{ numfollowers }}</p>
                         <followpopup v-if="openfollowers" :followingUsers="followers" :heading="'Followers users'"
                             @close="openfollowers = false" />
                     </div>
-
+                    <div class="following">
+                        <span>Following</span>
+                        <p @click="openfollowing = true">{{ numfollowing }}</p>
+                        <followpopup v-if="openfollowing" :followingUsers="following" :heading="'Following users'"
+                            @close="openfollowing = false" />
+                    </div>
                 </div>
             </div>
             <div class="profile-navigation">
-                <div class="navigation-item" @click="choosedialog(1)" :class="{ chosen: ispostdialog }">
-                    <span class="navigation-icon">Posts</span>
-                    <!-- Add icon for posts here -->
+                <div v-if="myprofile" class="navigation-item" @click="choosedialog(1)" :class="{ chosen: ispostdialog }">
+                    <span class="navigation-icon">Posts</span><img src="../assets/post_icon.svg" alt="post icon">
+
                 </div>
                 <div v-if="myprofile" class="navigation-item" @click="choosedialog(2)" :class="{ chosen: issaveddialog }">
-                    <span class="navigation-icon">Saved</span>
-                    <!-- Add icon for saved here -->
+                    <span class="navigation-icon">Saved</span><img src="../assets/saved_icon.svg" alt="post icon">
+
                 </div>
                 <div v-if="myprofile" class="navigation-item" @click="choosedialog(3)" :class="{ chosen: islikeddialog }">
-                    <span class="navigation-icon">Liked</span>
-                    <!-- Add icon for liked here -->
+                    <span class="navigation-icon">Bumped</span><img src="../assets/bump_icon.svg" alt="post icon">
+
                 </div>
                 <div v-if="myprofile" class="navigation-item" @click="choosedialog(4)" :class="{ chosen: isstatsdialog }">
-                    <span class="navigation-icon">Stats</span>
-                    <!-- Add icon for stats here -->
+                    <span class="navigation-icon">Stats</span><img src="../assets/stats_icon.svg" alt="post icon">
+
                 </div>
             </div>
             <div v-if="myprofile" class="profile-actions">
@@ -75,7 +74,7 @@
         <div class="myposts" v-if="isstatsdialog">
             <stats />
         </div>
-        <loading v-if="isloading"/>
+        <loading v-if="isloading" />
     </div>
 </template>
   
@@ -161,7 +160,7 @@ export default {
                 this.islikeddialog = false;
                 this.isstatsdialog = true;
             }
-            else{
+            else {
                 this.post(num);
                 this.ispostdialog = true;
                 this.issaveddialog = false;
@@ -345,17 +344,20 @@ html {
 .userplusbtn {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    align-items: start;
+}
+
+
+
+.myprofile {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5px;
 }
 
 .user-info {
-    margin-left: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
     width: 230px;
 }
 
@@ -363,24 +365,20 @@ html {
     padding: 5px 10px;
     margin-left: 10px;
     border-radius: 10px;
+    margin-top: auto;
 }
 
 .username {
     background-color: var(--background);
-
     color: var(--white);
-    font-weight: 500;
-    font-size: 28px;
-    margin: 0;
+    font-weight: 650;
+    font-size: 35px;
+    line-height: 55px;
 }
 
 .user-stats {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-
-
 }
 
 .following,
@@ -392,9 +390,6 @@ html {
     padding: 5px;
 }
 
-.user-stats>div {
-    margin-right: 20px;
-}
 
 .user-stats p {
     color: var(--white);
@@ -403,10 +398,17 @@ html {
     width: 80px;
     border-radius: 20px;
     font-size: 14px;
-    margin-top: 5px;
     text-align: center;
-    border: 3px solid var(--grey);
-    border-radius: 15px;
+    border: 2px solid var(--grey);
+    border-radius: 10px;
+}
+
+.user-stats p:hover+span {
+    background-color: var(--hover);
+    border: 2px solid var(--main);
+    cursor: pointer;
+
+
 }
 
 .user-stats span {
@@ -429,43 +431,43 @@ html {
 .profile-navigation {
     position: absolute;
     bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 120px;
     display: flex;
-    justify-content: center;
     margin: 20px 0;
 }
 
 .navigation-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
     margin: 0 10px;
     cursor: pointer;
 }
 
-.navigation-item span {
+.navigation-item {
     background-color: #1B1E29;
     border: 2px solid var(--white);
     padding: 5px 15px;
     border-radius: 12px;
     text-align: center;
     color: var(--white);
+    opacity: 0.7;
 }
 
-.navigation-item :hover {
+.navigation-item:hover {
     background-color: var(--hovercolor);
+    opacity: 1;
 }
 
-.chosen span {
+.chosen.navigation-item {
     background-color: var(--main);
+    opacity: 1;
 }
 
 .navigation-icon {
     font-size: 16px;
-    margin-top: 5px;
-    opacity: 0.8;
+    margin-right: 5px;
 }
+
 
 .myposts {
     margin-top: 40px;

@@ -64,7 +64,7 @@ export default {
 };
 </script>
   
-<style>
+<style scoped>
 .popup {
   position: absolute;
   display: flex;

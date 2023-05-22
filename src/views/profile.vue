@@ -1,6 +1,6 @@
 <template>
     <div class="profile">
-        <navbar @openProfile="post" />
+        <navbar @openProfile="choosedialog(1)" />
         <div class="user-profile">
             <div class="profile-picture">
                 <img :src="profilePicture" alt="Profile Picture" />

@@ -522,6 +522,8 @@ export default {
 
         },
         async submitForm() {
+            this.isLoading = true;
+
             try {
                 this.error = '';
                 console.log(this.imageURL);
@@ -567,7 +569,6 @@ export default {
                 if (this.day < 10) {
                     var day2 = '0' + this.day;
                 }
-                this.isLoading = true;
                 console.log(this.imageURL);
 
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {

@@ -16,13 +16,13 @@
                     <div class="followers">
                         <span>Followers</span>
                         <p @click="openfollowers = true">{{ numfollowers }}</p>
-                        <followpopup v-if="openfollowers" :followingUsers="followers" :heading="'Followers users'"
+                        <followpopup v-if="openfollowers" :followingUsers="followers" @openProfile="choosedialog" :heading="'Followers users'"
                             @close="openfollowers = false" />
                     </div>
                     <div class="following">
                         <span>Following</span>
                         <p @click="openfollowing = true">{{ numfollowing }}</p>
-                        <followpopup v-if="openfollowing" :followingUsers="following" :heading="'Following users'"
+                        <followpopup v-if="openfollowing" :followingUsers="following" @openProfile="choosedialog" :heading="'Following users'"
                             @close="openfollowing = false" />
                     </div>
                 </div>

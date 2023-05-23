@@ -1,22 +1,22 @@
 <template>
     <div class="backdrop" @click.self="closePopup">
-      <div class="popup">
-        <div class="header">
-          <h2>{{ heading }}</h2>
-          <img v-if="!closehover" @click="closePopup" id="close" class="x" src="../assets/closeoverlay.svg"
-            @mouseenter="closehover = !closehover" />
-          <img v-else @click="closePopup" id="close" class="x" src="../assets/closehover.svg"
-            @mouseout="closehover = !closehover" />
+        <div class="popup">
+            <div class="header">
+                <h2>{{ heading }}</h2>
+                <img v-if="!closehover" @click="closePopup" id="close" class="x" src="../assets/closeoverlay.svg"
+                    @mouseenter="closehover = !closehover" />
+                <img v-else @click="closePopup" id="close" class="x" src="../assets/closehover.svg"
+                    @mouseout="closehover = !closehover" />
+            </div>
+            <ul class="userlist" :class="{ 'more-than-six': isMoreThanSix }">
+                <li v-for="user in followingUsers" :key="user._id" class="line" @click="movetoprofile(user._id)">
+                    <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }" />
+                    <p class="user">{{ user.GamerTag }}</p>
+                </li>
+            </ul>
         </div>
-        <ul class="userlist" :class="{ 'more-than-six': isMoreThanSix }">
-          <li v-for="user in followingUsers" :key="user._id" class="line" @click="movetoprofile(user._id)">
-            <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }" />
-            <p class="user">{{ user.GamerTag }}</p>
-          </li>
-        </ul>
-      </div>
     </div>
-  </template>
+</template>
   
 <script>
 export default {
@@ -54,7 +54,9 @@ export default {
             this.$emit('close');
         },
         movetoprofile(id) {
-            this.$router.push({ path: '/profile', query: { id: id } });
+            this.searchResults = [];
+            this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
+            this.$emit('openProfile', id)
         },
         preventScroll(event) {
             event.preventDefault();
@@ -66,42 +68,42 @@ export default {
   
 <style scoped>
 .popup {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  height: 400px;
-  width: 300px;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  background: var(--thirdcolor);
-  border: 1px solid #323244;
-  border-radius: 25px;
-  overflow-y: scroll;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background: var(--thirdcolor);
+    border: 1px solid #323244;
+    border-radius: 25px;
+    overflow-y: scroll;
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--thirdcolor);
-  padding: 10px;
-  z-index: 1;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--thirdcolor);
+    padding: 10px;
+    z-index: 1;
 }
 
 .x {
-  width: 30px;
-  cursor: pointer;
+    width: 30px;
+    cursor: pointer;
 }
 
 h2 {
-  position: sticky; 
-  top: 0;
-  text-align: center;
-  font-weight: 400;
-  padding: 10px; 
+    position: sticky;
+    top: 0;
+    text-align: center;
+    font-weight: 400;
+    padding: 10px;
 }
 
 .backdrop {
@@ -154,7 +156,5 @@ h2 {
 .userlist.more-than-six li:last-child {
     border-radius: 0 0 25px 25px;
 }
-
-
 </style>
   

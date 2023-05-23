@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <loading v-if="isloading"/>
+    <loading v-if="isloading" />
 </template>
   
 <script>
@@ -122,8 +122,14 @@ export default {
             this.$refs.fileInput.click();
         },
         handleFileChange(event) {
-            this.imageData = document.querySelector('input[type="file"]');
-            const file = this.imageData.files[0];
+            const file = event.target.files[0];
+
+            if (file.size > MAX_FILE_SIZE) {
+                // Display an error message or perform necessary actions
+                alert("The selected file is too large.");
+                return;
+            }
+
             this.photo = file;
 
             if (file) {
@@ -136,6 +142,7 @@ export default {
             console.log('Selected file:', file);
             // You can further process or upload the file to your backend
         }
+
 
 
     }

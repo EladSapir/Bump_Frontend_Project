@@ -386,14 +386,22 @@ export default {
             this.imageURL = 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png'
         },
         handleImageChange(event) {
-            this.imageData = document.querySelector('input[type="file"]');
-            const file = this.imageData.files[0];
-            this.changeimage = true;
+            const file = event.target.files[0];
+            const maxSizeInBytes = 10 * 1024 * 1024; // 10MB
 
-            if (file) {
+            if (file && file.size <= maxSizeInBytes) {
+                // File is within size limit
+                this.imageData = URL.createObjectURL(file);
+                this.changeimage = true;
                 this.Upload_profile_image = file.name;
+            } else {
+                // File exceeds size limit
+                alert('The selected file exceeds the maximum allowed size.');
+                // Reset input value to clear the selection
+                event.target.value = '';
             }
         },
+
         deleteiamge() {
             this.imageData = "";
             this.Upload_profile_image = "Upload profile image";

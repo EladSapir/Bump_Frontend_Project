@@ -488,11 +488,10 @@ export default {
         },
         handleSubmit() {
             console.log("submit");
+            this.isLoading = true;
             if (this.validateForm()) {
                 // Submit the form data to the database
                 this.submitForm(),
-                    console.log('Form submitted successfully.');
-                // Redirect to the home page
                 this.isSubmitted = true;
             } else {
                 this.builderror();
@@ -522,13 +521,10 @@ export default {
 
         },
         async submitForm() {
-            this.isLoading = true;
 
             try {
                 this.error = '';
-                console.log(this.imageURL);
-
-                if(this.changeimg)
+                if(this.changeimage)
                 {
                     console.log("uploading image");
                     this.imageURL = await this.uploadFile();
@@ -569,8 +565,6 @@ export default {
                 if (this.day < 10) {
                     var day2 = '0' + this.day;
                 }
-                console.log(this.imageURL);
-
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
 
                     "email": this.email,
@@ -593,9 +587,13 @@ export default {
                 const userId = response.data;
                 console.log(userId);
                 if (userId === 'email already exists') {
+                    this.isLoading = false;
+
                     this.error = "Email already exists";
                 }
                 else if (userId === 'gamerTag exists') {
+                    this.isLoading = false;
+
                     this.error = "Gamer tag already exists";
                 }
                 else {
@@ -607,7 +605,6 @@ export default {
                 console.error(error);
                 // Handle the error (e.g., show an error message)
             }
-            this.isLoading = false;
         }
     }
 

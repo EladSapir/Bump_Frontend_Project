@@ -118,9 +118,8 @@ export default {
 
         var res = response.data;
         console.log("logout:" + res);
-        if (res) {
-          this.$router.push('/login_signup')
-        }
+        this.$router.push('/login_signup')
+        
       } catch (error) {
         console.error(error);
         console.log(error);

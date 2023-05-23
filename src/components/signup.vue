@@ -565,6 +565,7 @@ export default {
                 if (this.day < 10) {
                     var day2 = '0' + this.day;
                 }
+                console.log('before post request')
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
 
                     "email": this.email,

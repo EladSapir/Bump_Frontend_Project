@@ -10,7 +10,7 @@
             </div>
 
             <div class="right">
-                <p class="addunderlinewithoutpointer">Copyright © 2023 BUMP. All rights reserved. v- 1.1.1</p>
+                <p class="addunderlinewithoutpointer">Copyright © 2023 BUMP. All rights reserved. v- 2.1.1</p>
             </div>
         </div>
     </div>

@@ -4,10 +4,8 @@
     <createpost v-if="profilePicture" :profilePicture="profilePicture" @createpost="getPosts" />
     <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
     <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag" :profilePicture="profilePicture" @deletepost="getPosts" />
-    <div class="loadingclass" v-else>
-    <emptymessage v-if="!posts" emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
-      <loading v-if="isloading"/>
-  </div>
+    <emptymessage v-if="posts.length===0" emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
+    <loading v-if="isloading"/>
   </div>
 </template>
   
@@ -61,6 +59,7 @@ export default {
           this.profilePicture = res.picture;
           this.gamertag = res.gamertag;
         }
+       
       } catch (error) {
         console.error(error);
       }

@@ -111,6 +111,8 @@ export default {
     },
     async logout() {
       try {
+        this.$router.push('/login_signup')
+
         this.isloading = true;
         var addr = 'https://backend-project-vzn7.onrender.com/logout/' + this.userId;
         console.log('logout:' + addr);
@@ -118,7 +120,6 @@ export default {
 
         var res = response.data;
         console.log("logout:" + res);
-        this.$router.push('/login_signup')
         
       } catch (error) {
         console.error(error);

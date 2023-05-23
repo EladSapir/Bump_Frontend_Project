@@ -131,6 +131,7 @@ h2 {
 
 .line:hover {
     background-color: var(--hover);
+    cursor: pointer;
 }
 
 .me {

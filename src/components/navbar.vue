@@ -144,8 +144,6 @@ export default {
     },
     movetoprofile(id) {
       this.searchResults = [];
-
-      console.log('before push' + this.userId + ' dif ' + this.$route.query.id)
       this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
       this.$emit('openProfile', id)
     },

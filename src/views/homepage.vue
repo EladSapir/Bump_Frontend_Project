@@ -5,6 +5,7 @@
     <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
     <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag" :profilePicture="profilePicture" @deletepost="getPosts" />
     <div class="loadingclass" v-else>
+    <emptymessage v-if="!posts" emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
       <loading v-if="isloading"/>
   </div>
   </div>
@@ -17,13 +18,16 @@ import navbar from "../components/navbar.vue";
 import post from '../components/post.vue';
 import axios from 'axios';
 import loading from '../components/loading.vue';
+import emptymessage from '../components/emptymessage.vue';
+
 export default {
   name: "homepage",
   components: {
     navbar,
     createpost,
     post,
-    loading
+    loading,
+    emptymessage
   },
   data() {
     return {
@@ -59,7 +63,6 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        // Handle the error (e.g., show an error message)
       }
       this.isloading = false;
     },

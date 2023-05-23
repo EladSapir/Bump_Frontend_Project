@@ -14,13 +14,13 @@
                     @mouseout="edithoverpost = false" />
             </div>
             <div class="profile-picture">
-                <img :class="{ mineclass: mine }" :src="post.userProfilePicture" alt="Profile Picture" />
+                <img :class="{ mineclass: mine }" :src="post.userProfilePicture" @click="movetoprofile(post.userID)" alt="Profile Picture" />
             </div>
             <div class="post-content">
 
                 <div class="user-info">
-                    <div class="user-name">{{ post.GamerTag }}</div>
-                    <div class="post-date">{{ date() }}</div>
+                    <div class="user-name" @click="movetoprofile(post.userID)">{{ post.GamerTag }}</div>
+                    <div class="post-date">{{ date(post.date) }}</div>
 
                 </div>
                 <div v-if="!post.isShared && !showedit" class="post-text" style="white-space: pre-line">
@@ -35,16 +35,16 @@
                 <div v-if="post.isShared" class="sharedpost">
                     <div class="profile-picture">
                         <img :class="{ mineclass: post.GamerTag === post.SGamerTag }" :src="post.Spicture"
-                            alt="Profile Picture" />
+                            alt="Profile Picture" @click="movetoprofile(post.Suserid)"/>
                     </div>
 
                     <div class="post-content">
 
                         <div class="user-info">
-                            <div class="user-name">{{ post.SGamerTag }}</div>
-                            <div class="post-date">{{ post.Sdate }}</div>
+                            <div class="user-name" @click="movetoprofile(post.Suserid)">{{ post.SGamerTag }}</div>
+                            <div class="post-date">{{ date(post.Sdate) }}</div>
                         </div>
-                        <div class="post-text">
+                        <div class="post-text" style="white-space: pre-line">
                             {{ post.text }}
 
                         </div>
@@ -110,13 +110,13 @@
                             :key="comment.id" @mouseenter="commenthover = index" @mouseleave="deletehover = false">
                             <div class="comment-profile-picture" v-if="comment.Picture != 'null'">
                                 <img :class="{ mineclass: comment.userID === userId }" :src="comment.Picture"
-                                    alt="User Profile Picture" />
+                                    alt="User Profile Picture" @click="movetoprofile(comment.userID)" />
                             </div>
 
                             <div class="comment-content">
                                 <div class="user-info">
 
-                                    <div class="user-name">{{ comment.GamerTag }}</div>
+                                    <div class="user-name" @click="movetoprofile(comment.userID)" >{{ comment.GamerTag }}</div>
                                 </div>
                                 <div class="comment-text">
                                     {{ comment.text }}
@@ -145,10 +145,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div v-if="post.comments.length > 3">
                             <button v-if="showAllComments" class="allcomments" @click="toggleComments">View Less
                                 Comments</button>
@@ -172,6 +168,7 @@
 import axios from 'axios';
 import deletecomp from '../components/delete.vue';
 import loading from './loading.vue';
+
 export default {
     name: 'post',
     components: {
@@ -258,6 +255,11 @@ export default {
             else {
                 console.log("edit failed");
             }
+        },
+        movetoprofile(id) {
+            this.searchResults = [];
+            this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
+            this.$emit('openProfile', id);
         },
         sendcomment() {
             if (this.mycomment === '') {
@@ -422,8 +424,8 @@ export default {
             }
 
         },
-        date() {
-            var date = new Date(this.post.date);
+        date(date) {
+            var date = new Date(date);
             const options = {
                 year: 'numeric',
                 month: '2-digit',
@@ -431,7 +433,7 @@ export default {
                 hour: '2-digit',
                 minute: '2-digit',
                 timeZone: 'Asia/Jerusalem',
-            };   
+            };
             return date.toLocaleString('en-IL', options);
         },
     }
@@ -464,18 +466,14 @@ export default {
     display: flex;
 }
 
-/* .profile-picture{
-    margin-right: 15px;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-} */
 .profile-picture img {
     width: 60px;
     height: 60px;
     object-fit: fill;
-
+    cursor: pointer;
 }
+
+
 
 .profile-picture img {
     border-radius: 50%;
@@ -493,6 +491,11 @@ export default {
     font-weight: bold;
     margin-right: 10px;
     color: var(--white);
+}
+
+.user-name:hover {
+    cursor: pointer;
+    color: var(--main);
 }
 
 .post-date {

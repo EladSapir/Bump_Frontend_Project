@@ -107,8 +107,6 @@ export default {
                     this.postText = ''; // Clear the text box
                     this.photo = null; // Clear the photo
                     this.photoname = '';
-
-                    alert("Post created successfully")
                 }
                 else {
                     console.log("createpost failed");

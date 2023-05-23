@@ -52,20 +52,19 @@
             </div>
         </div>
         <div class="myposts" v-if="ispostdialog">
-            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
-                :GamerTag="GamerTag" />
+            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture" :GamerTag="GamerTag" @openProfile="choosedialog"/>
             <emptymessage v-if="!posts"
                 emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
         </div>
         <div class="myposts" v-if="issaveddialog">
-            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]" :profilePicture="user.Picture"  @openProfile="choosedialog"
                 :GamerTag="GamerTag" />
             <emptymessage v-if="!postsforsave"
                 emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
 
         </div>
         <div class="myposts" v-if="islikeddialog">
-            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]" :profilePicture="user.Picture"  @openProfile="choosedialog"
                 :GamerTag="GamerTag" />
             <emptymessage v-if="!postsforlike"
                 emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
@@ -272,10 +271,15 @@ export default {
             };
             this.requestfromserverpost(addr, objecttopass).then((res) => {
                 console.log("res:", res);
+                if(res.posts.length === 0) {
+                    this.posts = false;
+                }
+                else {
+                    this.posts = res.posts;
+                }
                 this.res = res;
                 this.user = res.user;
                 this.profilePicture = this.user.Picture;
-                this.posts = res.posts;
                 this.GamerTag = this.user.GamerTag;
                 this.isfollowing = res.iffollows;
                 if (res.followers && res.follows) {
@@ -288,11 +292,8 @@ export default {
         },
     },
     created() {
-
         this.post(this.differentUserId);
-
     },
-
 };
 </script>
     
@@ -397,19 +398,19 @@ html {
     padding: 5px 0;
     width: 80px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
     border: 2px solid var(--grey);
     border-radius: 10px;
+    font-weight: 500;
 }
 
-.user-stats p:hover+span {
+.user-stats p:hover {
     background-color: var(--hover);
     border: 2px solid var(--main);
     cursor: pointer;
-
-
 }
+
 
 .user-stats span {
     color: #fff;

@@ -215,6 +215,8 @@ export default {
         if (this.post.userID === this.userId) {
             this.mine = true;
         }
+        this.bumpselected=this.post.hasUserBumped
+        this.saveselected= this.post.hasUserSaved
 
     }, methods: {
         adjustTextareaSize() {
@@ -396,18 +398,25 @@ export default {
             var objecttopass = {};
             if (!this.bumpselected && !this.post.isShared) {
                 this.post.numOfBumps++;
+                this.bumpselected = true;
                 var addr = 'https://backend-project-vzn7.onrender.com/addbump';
             }
             else if (this.bumpselected && !this.post.isShared) {
                 this.post.numOfBumps--;
+                this.bumpselected = false;
+
                 var addr = 'https://backend-project-vzn7.onrender.com/removebump';
             }
             else if (!this.bumpselected && this.post.isShared) {
                 this.post.numOfBumps++;
+                this.bumpselected = true;
+
                 var addr = 'https://backend-project-vzn7.onrender.com/addbumptoshare';
             }
             else if (this.bumpselected && this.post.isShared) {
                 this.post.numOfBumps--;
+                this.bumpselected = false;
+
                 var addr = 'https://backend-project-vzn7.onrender.com/removebumpfromshare';
             }
 
@@ -416,7 +425,6 @@ export default {
                 "post": this.post._id
             }
 
-            this.bumpselected = !this.bumpselected;
             const res = this.requestfromserver(addr, objecttopass)
 
             if (!res) {

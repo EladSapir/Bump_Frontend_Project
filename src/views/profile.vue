@@ -141,14 +141,14 @@ export default {
                 this.issaveddialog = true;
                 this.islikeddialog = false;
                 this.isstatsdialog = false;
-                this.postsforsave = this.posts;
+                this.postsforsave = [];
             } else if (num === 3) {
                 this.liked();
                 this.ispostdialog = false;
                 this.issaveddialog = false;
                 this.islikeddialog = true;
                 this.isstatsdialog = false;
-                this.postsforlike = this.posts;
+                this.postsforlike = [];
             } else if (num === 4) {
                 this.ispostdialog = false;
                 this.issaveddialog = false;

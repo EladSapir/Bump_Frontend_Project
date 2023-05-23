@@ -123,7 +123,7 @@ export default {
         },
         handleFileChange(event) {
             const file = event.target.files[0];
-
+            const MAX_FILE_SIZE =  = 10 * 1024 * 1024; // 10MB
             if (file.size > MAX_FILE_SIZE) {
                 // Display an error message or perform necessary actions
                 alert("The selected file is too large.");

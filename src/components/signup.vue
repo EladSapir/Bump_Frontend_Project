@@ -524,8 +524,13 @@ export default {
         async submitForm() {
             try {
                 this.error = '';
-                this.imageURL = await this.uploadFile();
+                console.log(this.imageURL);
 
+                if(this.changeimg)
+                {
+                    console.log("uploading image");
+                    this.imageURL = await this.uploadFile();
+                }
                 console.log(this.imageURL);
                 let g = this.favoritegame;
                 let g1;
@@ -563,6 +568,8 @@ export default {
                     var day2 = '0' + this.day;
                 }
                 this.isLoading = true;
+                console.log(this.imageURL);
+
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
 
                     "email": this.email,

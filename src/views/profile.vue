@@ -3,7 +3,7 @@
         <navbar @openProfile="choosedialog" />
         <div class="user-profile">
             <div class="profile-picture">
-                <img :src="profilePicture" alt="Profile Picture" />
+                <img :src="Picture" alt="Profile Picture" />
             </div>
             <div class="user-info">
                 <div class="myprofile" :class="{ userplusbtn: !myprofile }">
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="myposts" v-if="ispostdialog">
-            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture"
                 :GamerTag="GamerTag" @openProfile="choosedialog" />
             <emptymessage v-if="!posts && mine"
                 emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
@@ -59,13 +59,13 @@
                 emptymessage="Looks like this user hasn't created any posts yet. Why not share your thoughts and ideas with the community?" />
         </div>
         <div class="myposts" v-if="issaveddialog">
-            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]" :profilePicture="profilePicture" @deletepost="choosedialog(2)"
                 @openProfile="choosedialog" :GamerTag="GamerTag" />
             <emptymessage v-if="!postsforsave"
                 emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
         </div>
         <div class="myposts" v-if="islikeddialog">
-            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]" :profilePicture="user.Picture"
+            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]" :profilePicture="profilePicture" @deletepost="choosedialog(3)"
                 @openProfile="choosedialog" :GamerTag="GamerTag" />
             <emptymessage v-if="!postsforlike"
                 emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
@@ -101,6 +101,7 @@ export default {
     props: ["differentUserId"],
     data() {
         return {
+            Picture:'',
             profilePicture:
                 "https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png",
             posts: [],
@@ -246,6 +247,7 @@ export default {
             });
         },
         post(id) {
+            this.isloading = true;
             this.myprofile = false;
             console.log("userId:" + this.userId);
             console.log("differentUserId:" + id);
@@ -262,6 +264,7 @@ export default {
                 idtocheck: this.userId,
             };
             this.requestfromserverpost(addr, objecttopass).then((res) => {
+                this.isloading = false;
                 console.log("res:", res);
                 if (res.posts.length === 0) {
                     this.posts = false;
@@ -269,10 +272,22 @@ export default {
                     this.posts = res.posts;
                 }
                 this.res = res;
+                this.Picture = res.user.Picture;
                 this.user = res.user;
-                this.profilePicture = this.user.Picture;
                 this.GamerTag = this.user.GamerTag;
                 this.isfollowing = res.iffollows;
+                console.log("profilePicture:", this.profilePicture);
+
+                if(!this.myprofile)
+                    {
+                        this.profilePicture = res.user2.Picture;
+
+                    }
+                else{
+                        this.profilePicture = this.user.Picture;
+
+                    }
+                console.log("profilePicture:", this.profilePicture);
                 if (res.followers && res.follows) {
                     this.followers = res.followers;
                     this.following = res.follows;

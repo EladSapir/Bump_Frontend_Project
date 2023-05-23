@@ -99,7 +99,7 @@
                                 <img class="profilepict" :src="profilePicture" alt="User Profile Picture" />
                             </div>
                             <div class="comment-input">
-                                <input type="text" v-model="mycomment" placeholder="Write a comment here..." />
+                                <input type="text" v-model="mycomment" @keyup.enter="sendcomment" placeholder="Write a comment here..." />
                                 <img v-if="!sendhover" class="sendicon" src="../assets/send.svg" alt="Comment Icon"
                                     @mouseenter="sendhover = true" @click="sendcomment">
                                 <img v-else class="sendicon" src="../assets/sendhover.svg" alt="Comment Icon"
@@ -244,6 +244,7 @@ export default {
 
         },
         submitPost() {
+            this.isloading = true;
             var addr = 'https://backend-project-vzn7.onrender.com/editpost';
             const objecttopass = {
                 "postid": this.post._id,
@@ -257,6 +258,7 @@ export default {
             else {
                 console.log("edit failed");
             }
+            this.isloading = false;
         },
         movetoprofile(id) {
             this.searchResults = [];
@@ -318,12 +320,12 @@ export default {
         async requestfromserver(addr, objecttopass) {
             console.log("addr:", addr);
             try {
-                this.isloading = true;
+               
                 const response = await axios.post(addr, objecttopass);
 
                 var res = response.data;
                 console.log("res:", res);
-                this.isloading = false;
+               
                 return res;
             } catch (error) {
                 console.error(error);

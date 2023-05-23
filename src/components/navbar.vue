@@ -8,7 +8,7 @@
       </div>
       <div class="nav-center">
         <div ref="searchContainer" class="search-container" :class="{ searched: searchResults.length }">
-          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @click="searchUsers" @input="searchUsers"
+          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers"
             @focus="isSearchFocused = true" @blur="handleSearchBlur">
           <img src="../assets/search.svg" alt="Search" class="search-icon">
           <ul v-if="searchResults.length" :class="['dropdown', { 'expanded': isSearchFocused }]">
@@ -40,6 +40,8 @@
 <script>
 import axios from 'axios';
 import loading from './loading.vue'
+import { debounce } from 'lodash';
+
 export default {
   name: "navbar",
   components: {
@@ -83,13 +85,14 @@ export default {
         clearTimeout(this.closeResultsTimeout);
       }
     },
-    async searchUsers() {
+    searchUsers: debounce(async function() {
       if (this.searchQuery.trim() === "") {
         this.searchResults = [];
         return;
-      }
-      else {
+      } else {
         try {
+          console.log(this.searchQuery);
+          this.searchResults = [];
           this.isloading = true;
           var addr = 'https://backend-project-vzn7.onrender.com/search';
           const response = await axios.post(addr, {
@@ -102,7 +105,7 @@ export default {
           console.error(error);
         }
       }
-    },
+    }, 300),
     toggleDropdown() {
       this.isDropNotiActive = !this.isDropNotiActive;
     },
@@ -297,8 +300,7 @@ export default {
 .dropdown.expanded {
   width: 305px;
   border: 2px solid var(--white);
-
-
+  border-top: none;
 }
 
 .dropdown li {

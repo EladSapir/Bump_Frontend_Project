@@ -67,24 +67,11 @@ export default {
               beginAtZero: true
             }
           },
-          plugins: {
-            legend: {
-              display: false,
-              position: 'top',
-              labels: {
-                color: '#FFFFFF',
-                font: {
-                  size: 14,
-                }
-              }
-            }
-          },
           elements: {
             bar: {
-
-              borderColor: '#232633',
               backgroundColor: '#E54425'
             }
+
           }
         }
       });

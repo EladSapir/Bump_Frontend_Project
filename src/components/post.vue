@@ -20,7 +20,7 @@
 
                 <div class="user-info">
                     <div class="user-name">{{ post.GamerTag }}</div>
-                    <div class="post-date">{{ post.date }}</div>
+                    <div class="post-date">{{ date() }}</div>
 
                 </div>
                 <div v-if="!post.isShared && !showedit" class="post-text" style="white-space: pre-line">
@@ -165,7 +165,7 @@
         <deletecomp @closeA="colosedelete" />
     </div>
 
-    <loading v-if="isloading"/>
+    <loading v-if="isloading" />
 </template>
   
 <script>
@@ -175,7 +175,7 @@ import loading from './loading.vue';
 export default {
     name: 'post',
     components: {
-        deletecomp,loading
+        deletecomp, loading
     },
     props: ['post', 'profilePicture', 'GamerTag'],
     data() {
@@ -421,11 +421,20 @@ export default {
                 console.log("bump failed");
             }
 
-        }
-    },
-
-
-
+        },
+        date() {
+            var date = new Date(this.post.date);
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Jerusalem',
+            };   
+            return date.toLocaleString('en-IL', options);
+        },
+    }
 }
 
 

@@ -122,6 +122,7 @@ export default {
             this.$refs.fileInput.click();
         },
         handleFileChange(event) {
+            this.imageData = document.querySelector('input[type="file"]');
             const file = event.target.files[0];
             const MAX_FILE_SIZE =  10 * 1024 * 1024; // 10MB
             if (file.size > MAX_FILE_SIZE) {

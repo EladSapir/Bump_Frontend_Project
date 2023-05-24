@@ -304,6 +304,7 @@ export default {
 </script>
 
 <style scoped>
+
 html {
     background-image: none !important;
 }
@@ -334,11 +335,9 @@ html {
 
 .profile-picture img {
     border-radius: 50%;
-    border: 3px solid var(--main);
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    background-color: var(--profile-picture-color);
 }
 
 .profile-picture {
@@ -355,6 +354,7 @@ html {
 .myprofile {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-left: 5px;
 }
 
@@ -365,10 +365,9 @@ html {
 }
 
 .btn {
-    padding: 5px 10px;
-    margin-left: 10px;
+    padding: 7px 12px;
     border-radius: 10px;
-    margin-top: auto;
+    margin-left: 20px;
 }
 
 .username {
@@ -393,6 +392,10 @@ html {
     padding: 5px;
 }
 
+.following {
+    margin-left: 15px;
+}
+
 .user-stats p {
     color: var(--white);
     background-color: none;
@@ -415,6 +418,7 @@ html {
 .user-stats span {
     color: #fff;
     font-size: 14px;
+    margin-bottom: 2px;
 }
 
 .profile-actions {
@@ -472,4 +476,5 @@ html {
     margin-top: 40px;
     padding-bottom: 50px;
 }
+
 </style>

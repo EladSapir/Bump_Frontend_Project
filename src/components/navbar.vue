@@ -93,14 +93,12 @@ export default {
         try {
           console.log(this.searchQuery);
           this.searchResults = [];
-          this.isloading = true;
           var addr = 'https://backend-project-vzn7.onrender.com/search';
           const response = await axios.post(addr, {
             "searchQuery": this.searchQuery.trim(),
             "userId": this.userId,
           })
           this.searchResults = response.data
-          this.isloading = false;
         } catch (error) {
           console.error(error);
         }

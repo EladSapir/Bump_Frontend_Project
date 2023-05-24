@@ -27,10 +27,10 @@
   --grey:#ffffff4d;
   --hover: #ffffff1a;
 }
-html{
+
+html {
   background-color: var(--pagebgcolor);
   background-image: url(./assets/bgr.png);
-  /* mix-blend-mode: hard-light; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -76,7 +76,7 @@ p {
 
 }
 
-span{
+span {
   font-size:  .8125rem;
   color: var(--white);
   margin: 0;

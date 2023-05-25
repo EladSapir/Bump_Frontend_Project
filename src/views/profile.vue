@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="allcontent">
-                <div class="intro">
+                <div class="intro" :class="{ withoutnav: iseditmodeon }">
                     <div class="introcontent">
                         <h2>Intro</h2>
                         <h3>Favorite Games</h3>
@@ -125,6 +125,12 @@
                         <stats />
                     </div>
                 </div>
+
+                <div class="content" v-else>
+                    <div class="editprofile">
+                        <editprofile @updateprofile="updateprofile" />
+                    </div>
+                </div>
             </div>
         </div>
         <loading v-if="isloading" />
@@ -141,6 +147,7 @@ import axios from "axios";
 import emptymessage from "../components/emptymessage";
 import stats from "../components/stats.vue";
 import followpopup from "../components/followpopup.vue";
+import editprofile from "../components/editprofile.vue";
 
 export default {
     name: "profile",
@@ -152,6 +159,7 @@ export default {
         stats,
         followpopup,
         loading,
+        editprofile,
     },
     props: ["differentUserId"],
     data() {
@@ -184,6 +192,10 @@ export default {
         };
     },
     methods: {
+        updateprofile() {
+            this.iseditmodeon = false;
+            this.post(this.userId)
+        },
         choosedialog(num) {
             if (num === 1) {
                 this.post(this.differentUserId);
@@ -383,7 +395,6 @@ html {
     padding-top: 25px;
     background-color: var(--background);
     border: 1px solid var(--stroke);
-    z-index: 1;
 }
 
 .profile-picture img {
@@ -500,7 +511,7 @@ html {
 }
 
 .navigation-item:first-child {
-    margin-left: 90px;
+    margin-left: 105px;
 }
 
 .navigation-item {
@@ -527,6 +538,7 @@ html {
     font-size: 16px;
     margin-right: 5px;
 }
+
 
 .myposts {
     padding-bottom: 50px;
@@ -559,9 +571,13 @@ html {
     overflow-y: auto;
 }
 
+.withoutnav {
+    margin-top: 30px;
+}
+
 .introcontent {
-    margin-left: 105px;
-    margin-right: 80px;
+    margin-left: 120px;
+    margin-right: 30px;
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -570,7 +586,7 @@ html {
     border: 1px solid var(--stroke);
     border-radius: 15px;
     z-index: 0;
-    padding: 0 15px ;
+    padding: 15px;
 }
 
 .introcontent h2 {

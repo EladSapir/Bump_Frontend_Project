@@ -1,6 +1,7 @@
 <template>
     <div class="profile">
         <navbar @openProfile="choosedialog" />
+
         <div class="user-profile">
             <div class="profile-picture">
                 <img :src="Picture" alt="Profile Picture" />
@@ -31,7 +32,15 @@
                     </div>
                 </div>
             </div>
-            <div class="profile-navigation">
+
+
+            <div v-if="myprofile" class="profile-actions" @click="iseditmodeon = true">
+                <img v-if="!edithover" src="../assets/edit_square.svg" alt="edit profile" @mouseenter="edithover = true" />
+                <img v-else src="../assets/edit_square_hover.svg" alt="edit profile" @mouseout="edithover = false" />
+            </div>
+        </div>
+        <div class="profilecontent">
+            <div v-if="!iseditmodeon" class="profile-navigation">
                 <div v-if="myprofile" class="navigation-item" @click="choosedialog(1)" :class="{ chosen: ispostdialog }">
                     <span class="navigation-icon">Posts</span><img src="../assets/post_icon.svg" alt="post icon" />
                 </div>
@@ -45,35 +54,81 @@
                     <span class="navigation-icon">Stats</span><img src="../assets/stats_icon.svg" alt="post icon" />
                 </div>
             </div>
-            <div v-if="myprofile" class="profile-actions">
-                <img v-if="!edithover" src="../assets/edit_square.svg" alt="edit profile" @mouseenter="edithover = true" />
-                <img v-else src="../assets/edit_square_hover.svg" alt="edit profile" @mouseout="edithover = false" />
+            <div class="allcontent">
+                <div class="intro">
+                    <div class="introcontent">
+                        <h2>Intro</h2>
+                        <h3>Favorite Games</h3>
+                        <div class="favoritegamedetails">
+                            <div class="league game">
+                                <div class="gameimage">
+                                    <img src="../assets/lol.svg" alt="game image" />
+                                </div>
+                                <div class="gamedetails">
+                                    <p> <img src="../assets/south_america.svg"> Europe Nordic & East </p>
+                                    <p> <img src="../assets/extension.svg"> Support </p>
+                                    <p> <img src="../assets/sports_esports.svg"> 5 vs 5 Ranked Draft </p>
+                                    <p> <img src="../assets/military_tech.svg"> Bronze </p>
+                                </div>
+                            </div>
+                            <div class="rocket game">
+                                <div class="gameimage">
+                                    <img src="../assets/rocket.svg" alt="game image" />
+                                </div>
+                                <div class="gamedetails">
+                                    <p> <img src="../assets/south_america.svg"> Europe Nordic & East </p>
+                                    <p> <img src="../assets/military_tech.svg"> Support </p>
+                                    <p> <img src="../assets/sports_esports.svg"> 5 vs 5 Ranked Draft </p>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="valorant game">
+                                <div class="gameimage">
+                                    <img src="../assets/valorant.svg" alt="game image" />
+                                </div>
+                                <div class="gamedetails">
+                                    <p> <img src="../assets/south_america.svg"> Europe Nordic & East </p>
+                                    <p> <img src="../assets/extension.svg"> Support </p>
+                                    <p> <img src="../assets/military_tech.svg"> 5 vs 5 Ranked Draft </p>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="content" v-if="!iseditmodeon">
+                    <div class="myposts" v-if="ispostdialog">
+                        <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture"
+                            :GamerTag="GamerTag" @openProfile="choosedialog" />
+                        <emptymessage v-if="!posts && mine"
+                            emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
+                        <emptymessage v-if="!posts && !mine"
+                            emptymessage="Looks like this user hasn't created any posts yet. Why not share your thoughts and ideas with the community?" />
+                    </div>
+                    <div class="myposts" v-if="issaveddialog">
+                        <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]"
+                            :profilePicture="profilePicture" @deletepost="choosedialog(2)" @openProfile="choosedialog"
+                            :GamerTag="GamerTag" />
+                        <emptymessage v-if="!postsforsave"
+                            emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
+                    </div>
+                    <div class="myposts" v-if="islikeddialog">
+                        <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]"
+                            :profilePicture="profilePicture" @deletepost="choosedialog(3)" @openProfile="choosedialog"
+                            :GamerTag="GamerTag" />
+                        <emptymessage v-if="!postsforlike"
+                            emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
+                    </div>
+                    <div class="myposts" v-if="isstatsdialog">
+                        <stats />
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="myposts" v-if="ispostdialog">
-            <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture"
-                :GamerTag="GamerTag" @openProfile="choosedialog" />
-            <emptymessage v-if="!posts && mine"
-                emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
-            <emptymessage v-if="!posts && !mine"
-                emptymessage="Looks like this user hasn't created any posts yet. Why not share your thoughts and ideas with the community?" />
-        </div>
-        <div class="myposts" v-if="issaveddialog">
-            <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]" :profilePicture="profilePicture" @deletepost="choosedialog(2)"
-                @openProfile="choosedialog" :GamerTag="GamerTag" />
-            <emptymessage v-if="!postsforsave"
-                emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
-        </div>
-        <div class="myposts" v-if="islikeddialog">
-            <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]" :profilePicture="profilePicture" @deletepost="choosedialog(3)"
-                @openProfile="choosedialog" :GamerTag="GamerTag" />
-            <emptymessage v-if="!postsforlike"
-                emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
-        </div>
-        <div class="myposts" v-if="isstatsdialog">
-            <stats />
-        </div>
         <loading v-if="isloading" />
+
     </div>
 </template>
 
@@ -101,7 +156,8 @@ export default {
     props: ["differentUserId"],
     data() {
         return {
-            Picture:'',
+            iseditmodeon: false,
+            Picture: '',
             profilePicture:
                 "https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png",
             posts: [],
@@ -278,15 +334,14 @@ export default {
                 this.isfollowing = res.iffollows;
                 console.log("profilePicture:", this.profilePicture);
 
-                if(!this.myprofile)
-                    {
-                        this.profilePicture = res.user2.Picture;
+                if (!this.myprofile) {
+                    this.profilePicture = res.user2.Picture;
 
-                    }
-                else{
-                        this.profilePicture = this.user.Picture;
+                }
+                else {
+                    this.profilePicture = this.user.Picture;
 
-                    }
+                }
                 console.log("profilePicture:", this.profilePicture);
                 if (res.followers && res.follows) {
                     this.followers = res.followers;
@@ -304,25 +359,23 @@ export default {
 </script>
 
 <style scoped>
-
 html {
     background-image: none !important;
 }
 
 .profile {
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     background-color: var(--pagebgcolor);
-    height: 100vh;
     width: 100vw;
-    margin-top: 80px;
+    min-height: 100vh;
     padding-bottom: 30px;
 }
 
+
+
 .user-profile {
-    position: sticky;
     display: flex;
     align-items: center;
     width: 100%;
@@ -354,7 +407,6 @@ html {
 .myprofile {
     display: flex;
     flex-direction: row;
-    align-items: center;
     margin-left: 5px;
 }
 
@@ -424,7 +476,7 @@ html {
 .profile-actions {
     position: absolute;
     right: 40px;
-    top: 20px;
+    top: 100px;
 }
 
 .profile-actions img {
@@ -433,11 +485,11 @@ html {
 }
 
 .profile-navigation {
-    position: absolute;
-    bottom: -40px;
-    left: 120px;
+    position: sticky;
+    width: 100%;
+    top: 90px;
     display: flex;
-    margin: 20px 0;
+    margin: 20px;
 }
 
 .navigation-item {
@@ -445,6 +497,10 @@ html {
     align-items: center;
     margin: 0 10px;
     cursor: pointer;
+}
+
+.navigation-item:first-child {
+    margin-left: 90px;
 }
 
 .navigation-item {
@@ -473,8 +529,124 @@ html {
 }
 
 .myposts {
-    margin-top: 40px;
     padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 0;
 }
 
+.allcontent {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
+
+.profilecontent {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    z-index: 0;
+    align-items: start;
+}
+
+.intro {
+    position: sticky;
+    top: 150px;
+    height: fit-content;
+    overflow-y: auto;
+}
+
+.introcontent {
+    margin-left: 105px;
+    margin-right: 80px;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    border: 1px solid var(--stroke);
+    border-radius: 15px;
+    z-index: 0;
+    padding: 0 15px ;
+}
+
+.introcontent h2 {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 25px;
+    letter-spacing: -0.01em;
+    margin: 0;
+    margin-top: 15px;
+    margin-left: 15px;
+
+}
+
+.introcontent h3 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    margin: 0;
+    margin: 15px;
+
+}
+
+.favoritegamedetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.game {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid var(--stroke);
+    padding: 15px;
+
+}
+
+.game:last-child {
+    border-bottom: none;
+}
+
+.gamedetails {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+.gameimage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--stroke);
+    width: 116.87px;
+    height: 60.1px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.gamedetails p {
+    width: max-content;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.gamedetails p img {
+    margin-right: 5px;
+    width: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 100px;
+}
 </style>

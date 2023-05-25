@@ -454,12 +454,12 @@ export default {
 
 <style scoped>
 .post-container {
-    margin-top: 30px;
     width: calc(100vw - 50vw);
     background-color: var(--background);
     position: relative;
     border: 1px solid var(--stroke);
     border-radius: 15px;
+    margin-bottom: 30px;
     /* Add any desired styling for the post container */
 }
 

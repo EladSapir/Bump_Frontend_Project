@@ -153,6 +153,8 @@ export default {
 <style scoped>
 .post-container {
     margin-top: 40px;
+    margin-bottom: 40px;
+    
     display: flex;
     align-items: flex-start;
     width: calc(100vw - 52.4vw);

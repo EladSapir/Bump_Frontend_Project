@@ -637,8 +637,8 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 30px 60px;
-    background: #2c394bd7;
-    border: 1px solid #323244;
+    background: var(--LLS);    
+    border: 1px solid var(--stroke);
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
     border-radius: 25px;
 }

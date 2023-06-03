@@ -15,6 +15,7 @@
   --misc: #00BAFF;
   --pagebgcolor: #161823;
   --footer: #e545258f;
+  --LLS: #161823d3;
   --secondarycolor: #33415B;
   --thirdcolor: #232633;
   --warning: #FFB300;

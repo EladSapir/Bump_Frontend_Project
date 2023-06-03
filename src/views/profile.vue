@@ -544,7 +544,7 @@ html {
     padding-bottom: 50px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     margin-top: 0;
 }
 
@@ -552,7 +552,7 @@ html {
     flex: 1;
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
 }
 
 
@@ -561,7 +561,7 @@ html {
     flex-direction: column;
     position: sticky;
     z-index: 0;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .intro {

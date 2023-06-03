@@ -18,9 +18,7 @@
   <div v-if="showTerms">
     <terms @closeT="toggleTerms" />
   </div>
-  <div class="land">
     <Footer @openA="toggleAbout" @openT="toggleTerms" />
-  </div>
 </template>
 
 <script>
@@ -63,16 +61,15 @@ export default {
 </script>
 <style scoped>
 .box {
+  background-image: url(../assets/bgr.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  width: 100%;
+  position: absolute;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-}
-
-.land {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  height: 100%;
 }
 </style>

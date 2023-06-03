@@ -32,13 +32,10 @@
     <div v-if="showTerms">
       <terms @closeT="toggleTerms" />
     </div>
-  <div class="land">
-    <Footer @openA="toggleAbout" @openT="toggleTerms" />
-  </div>
+  <Footer @openA="toggleAbout" @openT="toggleTerms" />
 </template>
 
 <script>
-// @ is an alias to /src
 import Footer from '../components/footer.vue'
 import about from '../components/about.vue'
 import terms from '../components/terms.vue'
@@ -71,6 +68,11 @@ export default {
 </script>
 <style scoped>
 .box {
+  background-image: url(../assets/bgr.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -78,8 +80,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-
+  height: 100%;
 }
 
 .home {
@@ -151,12 +152,6 @@ h2 {
 
 #let {
   padding: 10px 60px;
-}
-
-.land {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
 }
 
 </style>

@@ -164,13 +164,13 @@ export default {
 <style scoped>
 .main-header {
   background-color: var(--pagebgcolor);
-  color: #fff;
+  color: var(--white);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 80px;
   width: 100%;
-  border: 1px solid var(--stroke);
+  border-bottom: 2px solid var(--stroke);
   position: fixed;
   top: 0;
   left: 0;

@@ -14,6 +14,7 @@
   --main: #E54425;
   --misc: #00BAFF;
   --pagebgcolor: #161823;
+  --footer: #e545258f;
   --secondarycolor: #33415B;
   --thirdcolor: #232633;
   --warning: #FFB300;
@@ -30,10 +31,8 @@
 
 html {
   background-color: var(--pagebgcolor);
-  background-image: url(./assets/bgr.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 100vw;
+  background-size: auto;
 }
 
 html,

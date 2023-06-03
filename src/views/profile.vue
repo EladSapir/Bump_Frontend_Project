@@ -73,7 +73,7 @@
                             </div>
                             <div class="rocket game">
                                 <div class="gameimage">
-                                    <img src="../assets/rocket.svg" alt="game image" />
+                                    <img src="../assets/rocket.svg" height="50px" width="50px" alt="game image" />
                                 </div>
                                 <div class="gamedetails">
                                     <p> <img src="../assets/south_america.svg"> Europe Nordic & East </p>

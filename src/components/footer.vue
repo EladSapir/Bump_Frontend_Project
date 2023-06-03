@@ -1,7 +1,5 @@
 <template>
     <div class="main-container">
-        <div class="content">
-        </div>
         <div class="footer">
             <div class="left">
                 <p class="addunderline" @click="openAbout">About</p>
@@ -10,7 +8,7 @@
             </div>
 
             <div class="right">
-                <p class="addunderlinewithoutpointer">Copyright © 2023 BUMP. All rights reserved. v- 4.2.3</p>
+                <p class="addunderlinewithoutpointer">Copyright © 2023 BUMP. All rights reserved.</p>
             </div>
         </div>
     </div>
@@ -34,10 +32,9 @@ export default {
 .main-container {
     display: flex;
     flex-direction: column;
-}
-
-.content {
-    flex: 1;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 p {
@@ -47,12 +44,14 @@ p {
 .footer {
     display: flex;
     justify-content: space-between;
-    background: #2c394ba8;
+    background: var(--pagebgcolor);
     border-radius: 25px 25px 0px 0px;
+    border-top: 1px solid var(--footer);
     padding: 10px 50px;
     box-sizing: border-box;
     margin-top: auto;
     flex-shrink: 0;
+    width: 100%;
 }
 
 .left {

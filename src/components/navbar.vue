@@ -235,7 +235,6 @@ export default {
   border: none;
   background-color: var(--thirdcolor);
   border-radius: 15px;
-  padding: 10px 40px 10px 15px;
   color: var(--white);
   border: 2px solid var(--stroke);
   font-family: var(--mainfont);
@@ -243,8 +242,8 @@ export default {
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.5px;
-  width: 150px;
-  height: 20px;
+  width: 200px;
+  height: 40px;
   transition: all 0.2s ease;
 }
 
@@ -276,7 +275,7 @@ export default {
   position: absolute;
   display: none;
   left: 0;
-  width: 205px;
+  width: 215px;
   background-color: var(--thirdcolor);
   border-radius: 0 0 15px 15px;
   list-style: none;
@@ -294,7 +293,7 @@ export default {
 }
 
 .dropdown.expanded {
-  width: 305px;
+  width: 265px;
   border: 2px solid var(--white);
   border-top: none;
 }

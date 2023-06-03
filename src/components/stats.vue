@@ -95,7 +95,6 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: row;
-  margin-top: 10px;
 }
 
 .card {
@@ -160,5 +159,27 @@ p {
   color: var(--white);
   font-size: 14px;
 }
+
+@media screen and (max-width: 1550px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .displaybanner {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 50px; 
+       margin-left: 30px;
+  }
+
+  .card {
+    width: 100%;
+    margin-left: 30px;
+
+  }
+}
+  
+
 </style>
   

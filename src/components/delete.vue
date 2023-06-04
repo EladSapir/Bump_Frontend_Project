@@ -23,12 +23,12 @@ export default {
             deleteornot: false
         }
     },
-        mounted() {
-    window.addEventListener("scroll", this.preventScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.preventScroll);
-  },
+    mounted() {
+        window.addEventListener("scroll", this.preventScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener("scroll", this.preventScroll);
+    },
     methods: {
         deletandclose() {
             this.deleteornot = true
@@ -39,12 +39,12 @@ export default {
                 console.log("delete" + this.deleteornot)
             }
             window.removeEventListener("scroll", this.preventScroll);
-            this.$emit('closeA',this.deleteornot)
+            this.$emit('closeA', this.deleteornot)
         },
         preventScroll(event) {
-      event.preventDefault();
-      window.scrollTo(0, 0);
-    },
+            event.preventDefault();
+            window.scrollTo(0, 0);
+        },
     }
 }
 

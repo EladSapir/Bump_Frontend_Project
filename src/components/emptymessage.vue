@@ -1,5 +1,5 @@
 <template>
-    <div class="container" :class="{home: ishome}">
+    <div class="container" :class="{ home: ishome }">
         <h2>Nothing here<img src="../assets/emoji.svg" alt=""></h2>
         <p>{{ emptymessage }}</p>
     </div>

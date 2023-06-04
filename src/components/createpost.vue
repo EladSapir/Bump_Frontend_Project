@@ -124,7 +124,7 @@ export default {
         handleFileChange(event) {
             this.imageData = document.querySelector('input[type="file"]');
             const file = event.target.files[0];
-            const MAX_FILE_SIZE =  10 * 1024 * 1024; // 10MB
+            const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
             if (file.size > MAX_FILE_SIZE) {
                 // Display an error message or perform necessary actions
                 alert("The selected file is too large.");
@@ -154,7 +154,7 @@ export default {
 .post-container {
     margin-top: 40px;
     margin-bottom: 40px;
-    
+
     display: flex;
     align-items: flex-start;
     width: calc(100vw - 52.4vw);

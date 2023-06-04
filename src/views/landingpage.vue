@@ -9,29 +9,31 @@
       </div>
       <div class="Features">
         <div class="fet">
-          <img src="../assets/icon_user_.svg" >
+          <img src="../assets/icon_user_.svg">
           <h2>Create a Gaming Profile</h2>
           <p>Create a gaming profile and showcase your skills, experience, and favorite games to the community.</p>
         </div>
         <div class="fet">
           <img src="../assets/icon_peoples_two_.svg">
           <h2>Find Partners to Play With</h2>
-          <p>Find and connect with like-minded gamers based on your favorite games, skill level, and other criteria. Expand your gaming circle and discover new players to play with.</p>
+          <p>Find and connect with like-minded gamers based on your favorite games, skill level, and other criteria.
+            Expand your gaming circle and discover new players to play with.</p>
         </div>
         <div class="fet">
           <img src="../assets/icon_muscle_.svg">
           <h2>Collaborate and Improve </h2>
-          <p>Collaborate with other gamers, learn from their experiences, and improve your own skills. Play together, share tips and tricks, and enhance your gaming experience.</p>
+          <p>Collaborate with other gamers, learn from their experiences, and improve your own skills. Play together,
+            share tips and tricks, and enhance your gaming experience.</p>
         </div>
       </div>
     </div>
   </div>
-    <div v-if="showAbout">
-      <about @closeA="toggleAbout" />
-    </div>
-    <div v-if="showTerms">
-      <terms @closeT="toggleTerms" />
-    </div>
+  <div v-if="showAbout">
+    <about @closeA="toggleAbout" />
+  </div>
+  <div v-if="showTerms">
+    <terms @closeT="toggleTerms" />
+  </div>
   <Footer @openA="toggleAbout" @openT="toggleTerms" />
 </template>
 
@@ -108,7 +110,7 @@ export default {
 
 .fet {
   color: var(--white);
-  width:400px;
+  width: 400px;
   padding: 10px;
 }
 
@@ -152,5 +154,4 @@ h2 {
 #let {
   padding: 10px 60px;
 }
-
 </style>

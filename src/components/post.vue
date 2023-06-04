@@ -14,7 +14,8 @@
                     @mouseout="edithoverpost = false" />
             </div>
             <div class="profile-picture">
-                <img :class="{ mineclass: mine }" :src="post.userProfilePicture" @click="movetoprofile(post.userID)" alt="Profile Picture" />
+                <img :class="{ mineclass: mine }" :src="post.userProfilePicture" @click="movetoprofile(post.userID)"
+                    alt="Profile Picture" />
             </div>
             <div class="post-content">
 
@@ -35,7 +36,7 @@
                 <div v-if="post.isShared" class="sharedpost">
                     <div class="profile-picture">
                         <img :class="{ mineclass: post.GamerTag === post.SGamerTag }" :src="post.Spicture"
-                            alt="Profile Picture" @click="movetoprofile(post.Suserid)"/>
+                            alt="Profile Picture" @click="movetoprofile(post.Suserid)" />
                     </div>
 
                     <div class="post-content">
@@ -99,7 +100,8 @@
                                 <img class="profilepict" :src="profilePicture" alt="User Profile Picture" />
                             </div>
                             <div class="comment-input">
-                                <input type="text" v-model="mycomment" @keyup.enter="sendcomment" placeholder="Write a comment here..." />
+                                <input type="text" v-model="mycomment" @keyup.enter="sendcomment"
+                                    placeholder="Write a comment here..." />
                                 <img v-if="!sendhover" class="sendicon" src="../assets/send.svg" alt="Comment Icon"
                                     @mouseenter="sendhover = true" @click="sendcomment">
                                 <img v-else class="sendicon" src="../assets/sendhover.svg" alt="Comment Icon"
@@ -116,7 +118,8 @@
                             <div class="comment-content">
                                 <div class="user-info">
 
-                                    <div class="user-name" @click="movetoprofile(comment.userID)" >{{ comment.GamerTag }}</div>
+                                    <div class="user-name" @click="movetoprofile(comment.userID)">{{ comment.GamerTag }}
+                                    </div>
                                 </div>
                                 <div class="comment-text">
                                     {{ comment.text }}
@@ -215,8 +218,8 @@ export default {
         if (this.post.userID === this.userId) {
             this.mine = true;
         }
-        this.bumpselected=this.post.hasUserBumped
-        this.saveselected= this.post.hasUserSaved
+        this.bumpselected = this.post.hasUserBumped
+        this.saveselected = this.post.hasUserSaved
 
     }, methods: {
         adjustTextareaSize() {
@@ -320,12 +323,12 @@ export default {
         async requestfromserver(addr, objecttopass) {
             console.log("addr:", addr);
             try {
-               
+
                 const response = await axios.post(addr, objecttopass);
 
                 var res = response.data;
                 console.log("res:", res);
-               
+
                 return res;
             } catch (error) {
                 console.error(error);
@@ -874,5 +877,4 @@ textarea {
     background-color: var(--main);
     color: var(--white);
     cursor: pointer;
-}
-</style>
+}</style>

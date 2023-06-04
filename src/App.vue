@@ -180,4 +180,5 @@ option {
   font-size: 16px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.5);
-}</style>
+}
+</style>

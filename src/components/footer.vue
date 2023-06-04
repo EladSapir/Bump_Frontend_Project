@@ -78,5 +78,4 @@ p {
     padding-left: 30px;
     justify-content: flex-end;
 }
-
 </style>

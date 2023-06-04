@@ -18,7 +18,7 @@
   <div v-if="showTerms">
     <terms @closeT="toggleTerms" />
   </div>
-    <Footer @openA="toggleAbout" @openT="toggleTerms" />
+  <Footer @openA="toggleAbout" @openT="toggleTerms" />
 </template>
 
 <script>
@@ -33,7 +33,7 @@ export default {
     Footer,
     signup,
     login,
-    about,terms
+    about, terms
   },
   data() {
     return {

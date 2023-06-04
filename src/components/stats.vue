@@ -12,7 +12,7 @@
       <canvas ref="chartCanvas"></canvas>
     </div>
   </div>
-  <loading v-if="isloading"/>
+  <loading v-if="isloading" />
 </template>
 
 <script>
@@ -169,8 +169,8 @@ p {
   .displaybanner {
     width: 100%;
     margin-right: 0;
-    margin-bottom: 50px; 
-       margin-left: 30px;
+    margin-bottom: 50px;
+    margin-left: 30px;
   }
 
   .card {
@@ -179,7 +179,5 @@ p {
 
   }
 }
-  
-
 </style>
   

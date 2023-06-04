@@ -85,7 +85,7 @@ export default {
         clearTimeout(this.closeResultsTimeout);
       }
     },
-    searchUsers: debounce(async function() {
+    searchUsers: debounce(async function () {
       if (this.searchQuery.trim() === "") {
         this.searchResults = [];
         return;
@@ -118,7 +118,7 @@ export default {
 
         var res = response.data;
         console.log("logout:" + res);
-        
+
       } catch (error) {
         console.error(error);
         console.log(error);

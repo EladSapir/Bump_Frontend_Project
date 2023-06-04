@@ -9,8 +9,8 @@
             <p>After deleting your account you wont be able to access it and all your data will be deleted.
                 Please confirm your action by typing your password here</p>
             <div class="password-container">
-                <input :type="passwordFieldType" name="password" class="form-control"
-                    v-model="password" placeholder="Notyourtypical123" required>
+                <input :type="passwordFieldType" name="password" class="form-control" v-model="password"
+                    placeholder="Notyourtypical123" required>
                 <img src="../assets/eye-slash-solid.svg" @click="switchVisibility" class="eye" v-if="show" id="eyeslash">
                 <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
             </div>
@@ -149,16 +149,17 @@ export default {
 
 }
 
-input{
-    width:350px;
+input {
+    width: 350px;
 }
+
 .deletebtn {
     background-color: transparent;
     border: none;
     font-weight: 200;
     font-size: 16px;
     transition: 0.5s;
-    padding:0;
+    padding: 0;
     margin-right: 30px;
 }
 

@@ -3,9 +3,12 @@
     <navbar />
     <createpost v-if="profilePicture" :profilePicture="profilePicture" @createpost="getPosts" />
     <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
-    <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag" :profilePicture="profilePicture" @deletepost="getPosts" />
-    <emptymessage v-if="posts.length===0" emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" ishome="true" />
-    <loading v-if="isloading"/>
+    <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag"
+      :profilePicture="profilePicture" @deletepost="getPosts" />
+    <emptymessage v-if="posts.length === 0"
+      emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?"
+      ishome="true" />
+    <loading v-if="isloading" />
   </div>
 </template>
   
@@ -37,7 +40,7 @@ export default {
 
     };
   },
-  methods:{
+  methods: {
     async getPosts() { // need to implement 
       try {
         this.isloading = true;
@@ -46,7 +49,7 @@ export default {
         const response = await axios.get(addr, {
 
         });
-        
+
         // Extract the user ID from the response
         const res = response.data;
         console.log("homepage:" + res);
@@ -59,7 +62,7 @@ export default {
           this.profilePicture = res.picture;
           this.gamertag = res.gamertag;
         }
-       
+
       } catch (error) {
         console.error(error);
       }
@@ -70,8 +73,8 @@ export default {
     this.userId = this.$route.query.id;
     console.log('homepage:' + this.userId);
     this.getPosts()
-    
-    
+
+
   },
 
 };
@@ -83,10 +86,11 @@ html {
 
 }
 
-.loadingclass{
+.loadingclass {
   width: calc(100vw - 52.4vw);
 
 }
+
 .homepage {
   display: flex;
   flex-direction: column;
@@ -97,6 +101,5 @@ html {
   width: 100vw;
   margin-top: 80px;
   padding-bottom: 30px;
-}
-</style>
+}</style>
 

@@ -390,18 +390,19 @@ export default {
             const file = this.imageData.files[0];
             const maxSizeInBytes = 10 * 1024 * 1024; // 10MB
             if (file && file.size <= maxSizeInBytes) {
-            this.changeimage = true;
+                this.changeimage = true;
 
-            if (file) {
-                this.Upload_profile_image = file.name;
+                if (file) {
+                    this.Upload_profile_image = file.name;
+                }
             }
-        }
-         else {
-            // File exceeds size limit
-            alert('The selected file exceeds the maximum allowed size.');
-            // Reset input value to clear the selection
-            event.target.value = '';
-        }},
+            else {
+                // File exceeds size limit
+                alert('The selected file exceeds the maximum allowed size.');
+                // Reset input value to clear the selection
+                event.target.value = '';
+            }
+        },
         deleteiamge() {
             this.imageData = "";
             this.Upload_profile_image = "Upload profile image";
@@ -637,7 +638,7 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 30px 60px;
-    background: var(--LLS);    
+    background: var(--LLS);
     border: 1px solid var(--stroke);
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
     border-radius: 25px;

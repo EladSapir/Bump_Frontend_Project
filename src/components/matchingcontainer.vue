@@ -1,5 +1,6 @@
 <template>
     <div class="matchingcontainer">
+        <h2>Bumping Settings</h2>
         <div class="gamesselectrow">
             <div class="gamebox">
                 <img src="../assets/lol.svg" alt="Rocket League" class="gameicon" />
@@ -14,21 +15,42 @@
         <div class="playerinforow">
             <div class="div1">
                 <p>Match Info</p>
-                <select >
+                <select>
                     <option>Region</option>
                 </select>
             </div>
             <div class="div2">
                 <p>Player Info</p>
-                <input type="text" placeholder="Role" />
+                <select>
+                    <option>Region</option>
+                </select>
             </div>
             <div class="div3">
-                <input type="text" placeholder="Mode" />
+                <select>
+                    <option>Region</option>
+                </select>
             </div>
             <div class="div4">
-                <input type="text" placeholder="" />
+                <select>
+                    <option>Region</option>
+                </select>
             </div>
         </div>
+        <div class="propertiesrow">
+            <div class="div1">
+                <p>Country</p>
+                <select>
+                    <option>Region</option>
+                </select>
+            </div>
+            <div class="div2">
+                <p>Language</p>
+                <select>
+                    <option>Region</option>
+                </select>
+            </div>
+        </div>
+        <button class="btn">Find Partner</button>
     </div>
 </template>
   
@@ -62,7 +84,6 @@ export default {
     position: absolute;
     background-color: var(--background);
     border: 1px solid var(--stroke);
-    width: 500px;
     border-radius: 10px;
     padding: 20px;
     flex-direction: column;
@@ -73,12 +94,10 @@ export default {
     left: 50%;
 }
 
-.gamesselectrow {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 50px;
-    width: 100%;
+h2 {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .gamebox {
@@ -88,15 +107,16 @@ export default {
     justify-content: center;
     width: 120px;
     height: 75px;
-    border: 3px solid var(--stroke);
+    border: 2px solid var(--stroke);
     border-radius: 15px;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .gamebox:hover {
-    background-color: var(--stroke);
+    border: 2px solid var(--main);
 }
+
 
 .gameicon {
     width: 50px;
@@ -108,12 +128,35 @@ export default {
     height: 60px;
 }
 
+p {
+    margin-bottom: 5px;
+}
+
+.gamesselectrow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .playerinforow {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+    border-bottom: 1px solid var(--stroke);
+    margin-bottom: 25px;
+}
+
+.propertiesrow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
 }
 
 .div1 {
@@ -130,6 +173,10 @@ export default {
 
 .div4 {
     grid-area: 2 / 2 / 3 / 3;
+}
+
+select {
+    width: 270px;
 }
 </style>
   

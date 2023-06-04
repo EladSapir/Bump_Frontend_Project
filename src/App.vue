@@ -1,6 +1,5 @@
 <template>
   <router-view />
-
 </template>
 
 <style>
@@ -23,10 +22,9 @@
   --stroke: #ffffff10;
   --hovercolor: #FF6A4D;
   --mainfont: 'Poppins', sans-serif;
-  --inputcolor: #ecf0f3;
-  --textinput:rgba(0, 0, 0, 0.5);
+  --textinput: rgba(0, 0, 0, 0.5);
   --black: #000000;
-  --grey:#ffffff4d;
+  --grey: #ffffff4d;
   --hover: #ffffff1a;
 }
 
@@ -72,12 +70,12 @@ p {
   font-weight: 400;
   margin: 0;
 
-  
+
 
 }
 
 span {
-  font-size:  .8125rem;
+  font-size: .8125rem;
   color: var(--white);
   margin: 0;
 
@@ -91,26 +89,30 @@ span {
 
 
 input {
-  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px var(--white);
-  background: var(--inputcolor);
+  background: var(--white);
   border-radius: 15px;
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   font-size: 16px;
   display: block;
   width: 455px;
   height: 55px;
-  border: none;
+  border: 1px solid var(--white);
   color: var(--black);
-  padding:0;
-  padding-left:15px;
+  padding: 0;
+  padding-left: 15px;
+}
+
+input:hover,
+input:focus {
+  background: var(--white);
+  border: 1px solid var(--main);
 }
 
 
-
 select {
-  background: var(--inputcolor) url("assets/dropdownarrow.svg") no-repeat;
-  background-position: right 15px center; /* Move the arrow to the right */
+  background: var(--white) url("assets/dropdownarrow.svg") no-repeat;
+  background-position: right 15px center;
+  /* Move the arrow to the right */
   height: 45px;
   width: 430px;
   border-radius: 15px;
@@ -119,15 +121,21 @@ select {
   border: none;
   color: var(--black);
   padding-left: 15px;
-  appearance: none; /* Hide the default arrow */
-  -webkit-appearance: none; /* For Safari */
-  -moz-appearance: none; /* For Firefox */
+  appearance: none;
+  /* Hide the default arrow */
+  -webkit-appearance: none;
+  /* For Safari */
+  -moz-appearance: none;
+  /* For Firefox */
 }
 
-select:hover{
-  background: var(--inputcolor) url("assets/dropdownarrowhover.svg") no-repeat;
+select:hover,
+select:focus {
+  background: var(--white) url("assets/dropdownarrowhover.svg") no-repeat;
+  border: 1px solid var(--main);
   background-position: right 15px center;
 }
+
 
 
 
@@ -172,5 +180,4 @@ option {
   font-size: 16px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.5);
-}
-</style>
+}</style>

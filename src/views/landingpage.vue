@@ -87,7 +87,6 @@ export default {
   box-sizing: border-box;
   background: var(--LLS);
   border: 1px solid var(--stroke);
-  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   text-align: center;
   width: 90%;

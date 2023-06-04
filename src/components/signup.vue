@@ -714,7 +714,7 @@ button[type="submit"] {
     position: relative;
     overflow: hidden;
     display: inline-flex;
-    background-color: var(--inputcolor);
+    background-color: var(--white);
     height: 45px;
     border-radius: 15px;
     outline: none;

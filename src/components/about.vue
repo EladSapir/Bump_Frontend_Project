@@ -55,9 +55,8 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #2C394B;
-    border: 1px solid #323244;
-    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
+    background: var(--LLS);
+    border: 1px solid var(--stroke);
     border-radius: 25px;
 }
 

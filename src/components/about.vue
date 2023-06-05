@@ -31,8 +31,6 @@ export default {
             closehover: true
         }
     },
-    props:
-        ['showAbout'],
     methods: {
         closeAbout() {
             this.$emit('closeA')

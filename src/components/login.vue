@@ -19,8 +19,8 @@
       <p>Not a member yet? <a class="regislink" @click="moveTosignUp">Register here</a></p>
       <span class="error">{{ error }}</span>
     </form>
-    <loading v-if="isloading" />
   </div>
+  <loading v-if="isloading" />
 </template>
 
 
@@ -40,7 +40,7 @@ export default {
       show: true,
       passwordFieldType: "password",
       error: ' ',
-      isLoading: false,
+      isloading: false,
       returnmouseover: false,
     }
   },
@@ -59,7 +59,7 @@ export default {
     },
     async submitForm() {
       try {
-        this.isLoading = true;
+        this.isloading = true;
         const response = await axios.post('https://backend-project-vzn7.onrender.com/login', {
           email: this.email,
           password: this.password
@@ -71,12 +71,12 @@ export default {
         if (userId === "already logged in") {
           console.log(userId);
           this.error = response.data;
-          this.isLoading = false;
+          this.isloading = false;
 
         }
         else if (userId === "email/password not right") {
           this.error = response.data;
-          this.isLoading = false;
+          this.isloading = false;
 
         }
         else {

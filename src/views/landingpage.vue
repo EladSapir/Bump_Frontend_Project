@@ -28,62 +28,20 @@
       </div>
     </div>
   </div>
-  <div v-if="showAbout">
-    <about @closeA="toggleAbout" />
-  </div>
-  <div v-if="showTerms">
-    <terms @closeT="toggleTerms" />
-  </div>
-  <Footer @openA="toggleAbout" @openT="toggleTerms" />
+
 </template>
 
-<script>
-import Footer from '../components/footer.vue'
-import about from '../components/about.vue'
-import terms from '../components/terms.vue'
 
-export default {
-  name: 'landingpage',
-  components: {
-    Footer,
-    about,
-    terms
-  },
-  data() {
-    return {
-      showAbout: false,
-      showTerms: false
-    }
-  },
-  methods: {
-    toggleAbout() {
-      this.showAbout = !this.showAbout
-      this.showTerms = false;
-
-    },
-    toggleTerms() {
-      this.showTerms = !this.showTerms
-      this.showAbout = false;
-    }
-  }
-}
-</script>
 <style scoped>
 .box {
   background-image: url(../assets/bgr.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -53%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  width: 100vw;
+  height: calc(100vh - 50px);
 }
+
 
 .home {
   box-sizing: border-box;
@@ -94,6 +52,10 @@ export default {
   width: 90%;
   padding: 5px 20px;
   padding-bottom: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -53%);
 }
 
 .Features {

@@ -18,7 +18,7 @@
   <div v-if="showTerms">
     <terms @closeT="toggleTerms" />
   </div>
-  <Footer @openA="toggleAbout" @openT="toggleTerms" />
+
 </template>
 
 <script>
@@ -32,27 +32,14 @@ export default {
   components: {
     Footer,
     signup,
-    login,
-    about, terms
+    login
   },
   data() {
     return {
       isLogin: false,
-      showAbout: false,
-      showTerms: false
     }
   },
   methods: {
-    toggleAbout() {
-      this.showAbout = !this.showAbout
-      this.showTerms = false;
-      console.log(this.showAbout)
-    },
-    toggleTerms() {
-      this.showTerms = !this.showTerms
-      this.showAbout = false;
-      console.log(this.showTerms)
-    },
     toggleLogin() {
       this.isLogin = !this.isLogin
     }
@@ -66,10 +53,9 @@ export default {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: calc(100vh - 50px);
 }
 </style>

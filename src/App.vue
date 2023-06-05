@@ -1,6 +1,20 @@
 <template>
-  <router-view />
+
+    <router-view />
+    <Footer />
+
 </template>
+
+<script>
+import Footer from './components/footer.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Footer,
+  },
+}
+</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
@@ -28,18 +42,20 @@
   --hover: #ffffff1a;
 }
 
-html {
-  background-color: var(--pagebgcolor);
-  width: 100vw;
-  background-size: auto;
+*{
+  margin: 0;
+  padding: 0;
+ 
+  font-family: 'Poppins';
 }
 
-html,
 body {
-  font-family: 'Poppins';
+  background: var(--background);
   height: 100%;
-  margin: 0;
 }
+
+
+
 
 h1 {
   color: var(--white);

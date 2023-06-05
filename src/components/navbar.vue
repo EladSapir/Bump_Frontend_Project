@@ -22,14 +22,23 @@
       </div>
       <div class="nav-right">
         <button class="btn" @click="movetomatching">Let's Bump</button>
+
         <div class="notidiv">
-          <img class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
+          <img v-if="notifications.length === 0" class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
+          <img v-else class="notiimg" src="../assets/closed.svg" @click="toggleDropdown">
           <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
+            <div class="triangle"></div>  
+            <div class="triangle1"></div>
+            <h3>Notifications</h3>
             <ul>
-              <li v-for=" notification  in  notifications " :key="notification">{{ notification }}</li>
+              <li v-for="notification in notifications" :key="notification">
+                <img class="notiimg" src="../assets/bumpnofi.svg" alt="Notification" />
+              {{ notification }}</li>
             </ul>
           </div>
         </div>
+
+
         <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
     </nav>
@@ -362,23 +371,7 @@ export default {
 
 }
 
-.notidiv {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px;
-}
 
-.notiimg {
-  margin-right: 20px;
-  height: 30px;
-  width: 30px;
-}
-
-.notiimg:hover {
-  cursor: pointer;
-}
 
 .logout {
   height: 30px;
@@ -405,27 +398,110 @@ export default {
   padding: 8px 20px;
 }
 
+
+.notidiv {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.notiimg {
+  margin-right: 20px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
 .dropdownnoti {
   display: none;
   position: absolute;
   top: 100%;
-  margin-top: 10px;
+  margin-top: 15px;
   background-color: var(--pagebgcolor);
   min-width: 250px;
   max-height: 200px;
-  overflow-y: scroll;
   border: 1px solid var(--stroke);
   padding: 5px;
   border-radius: 5px;
   border: 3px solid var(--stroke);
-  margin-right: 250px;
+  margin-right: 240px;
+  padding: 10px;
 }
+
 
 .dropdownnoti.active {
   display: block;
 }
 
-.container {
+.dropdownnoti .triangle {
+  position: absolute;
+  top: -15px;
+  right: 5px; /* Adjust the left value to center the triangle */
+  width: 26px;
+  height: 16px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: var(--stroke);
+  z-index: -1;
+}
+
+
+.dropdownnoti .triangle1 {
+  position: absolute;
+  top: -12px;
+  right: 8px; /* Adjust the left value to center the triangle */
+  width: 20px;
+  height: 15px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: var(--pagebgcolor);
+}
+
+.dropdownnoti h3 {
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  font-family: var(--mainfont);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.dropdownnoti ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.dropdownnoti li {
+  color: var(--white);
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownnoti li:hover {
+  background-color: var(--hover);
+  cursor: pointer;
+}
+
+.dropdownnoti li:last-child {
+  border-radius: 0 0 15px 15px;
+}
+
+.dropdownnoti li img {
+  margin-right: 10px;
+}
+
+
+
+
+
+/* .container {
   position: absolute;
   box-sizing: border-box;
   display: flex;
@@ -450,6 +526,6 @@ export default {
   background: rgba(0, 0, 0, 0.692);
   width: 100%;
   height: 100%;
-}
+} */
 </style>
   

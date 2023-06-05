@@ -380,7 +380,6 @@ html {
     display: flex;
     flex-direction: column;
     background-color: var(--pagebgcolor);
-    width: 100vw;
     min-height: 100vh;
     padding-bottom: 30px;
 }
@@ -390,7 +389,6 @@ html {
 .user-profile {
     display: flex;
     align-items: center;
-    width: 100%;
     padding: 25px;
     padding-top: 25px;
     background-color: var(--background);
@@ -418,13 +416,13 @@ html {
 .myprofile {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-left: 5px;
 }
 
 .user-info {
     display: flex;
     flex-direction: column;
-    width: 230px;
 }
 
 .btn {
@@ -497,7 +495,6 @@ html {
 
 .profile-navigation {
     position: sticky;
-    width: 100%;
     top: 90px;
     display: flex;
     margin: 20px;

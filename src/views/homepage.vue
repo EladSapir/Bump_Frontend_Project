@@ -97,7 +97,7 @@ html {
   align-items: center;
   justify-content: flex-start;
   background-color: var(--pagebgcolor);
-  height: 100vh;
+  height: calc(100vh - 130px);
   width: 100vw;
   margin-top: 80px;
   padding-bottom: 30px;

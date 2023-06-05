@@ -11,7 +11,6 @@
       </div>
     </div>
   </div>
-  <Foooter />
 </template>
 
 <script>
@@ -19,14 +18,12 @@ import matchingcontainer from '../components/matchingcontainer.vue';
 import axios from 'axios';
 import loading from '../components/loading.vue';
 import navbar from "../components/navbar.vue";
-import Foooter from "../components/footer.vue";
 
 export default {
   components: {
     matchingcontainer,
     loading,
     navbar,
-    Foooter
   },
   methods: {
     // Other methods

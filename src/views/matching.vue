@@ -33,5 +33,13 @@ export default {
   },
 }
 </script>
-  
-<style scoped></style>
+
+<style scoped>
+
+.main-container{
+  background-color: var(--pagebgcolor);
+  height: calc(100vh - 50px);
+  width: 100vw;
+}
+
+</style>

@@ -60,8 +60,8 @@ p {
     left: 0;
     width: 100%;
     height: 50px;
-    background: var(--pagebgcolor);
-    /* border-radius: 25px 25px 0px 0px; */
+    background: var(--background);
+    border-radius: 25px 25px 0px 0px;
     border-top: 1px solid var(--footer);
     padding: 10px 50px;
     box-sizing: border-box;

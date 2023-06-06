@@ -50,7 +50,8 @@
                 </select>
             </div>
         </div>
-        <button class="btn">Find Partner</button>
+
+
     </div>
 </template>
   
@@ -63,6 +64,8 @@ export default {
     data() {
         return {
             selectedCountry: 'United States',
+            userID: '',
+            res: '',
             selectedLanguage: 'English',
             selectedGame: '',
             countries: ['United States', 'Canada', 'United Kingdom', 'Australia', /* Add more countries */],
@@ -75,23 +78,29 @@ export default {
             // Logic to find matching profiles based on selected parameters
         },
     },
+    created() {
+        this.userID = this.$route.query.id;
+        console.log("userID:", this.userID);
+        let addr='https://backend-project-vzn7.onrender.com/matchingpage/'+this.userID;
+        
+
+
+    
+    },
+
 }
 </script>
   
 <style scoped>
 .matchingcontainer {
     display: flex;
-    position: absolute;
-    background-color: var(--background);
+    background-color: var(--thirdcolor);
     border: 1px solid var(--stroke);
     border-radius: 10px;
     padding: 20px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transform: translateY(-50%) translateX(-50%);
-    top: 50%;
-    left: 50%;
 }
 
 h2 {

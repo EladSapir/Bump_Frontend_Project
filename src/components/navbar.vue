@@ -25,7 +25,7 @@
 
         <div class="notidiv">
           <img v-if="notifications.length === 0" class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
-          <img v-else class="notiimg" src="../assets/closed.svg" @click="toggleDropdown">
+          <img v-else class="notiimg" src="../assets/closed.svg" @blur="isDropNotiActive=!isDropNotiActive" @click="toggleDropdown">
           <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
             <div class="triangle"></div>  
             <div class="triangle1"></div>

@@ -1,27 +1,19 @@
 <template>
   <navbar />
   <div class="main-container">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="matching-container">
-            <matchingcontainer :userId="userId" />
-          </div>
-        </div>
-      </div>
-    </div>
+      <matchingsettings />
   </div>
 </template>
 
 <script>
-import matchingcontainer from '../components/matchingcontainer.vue';
+import matchingsettings from '../components/matchingsettings.vue';
 import axios from 'axios';
 import loading from '../components/loading.vue';
 import navbar from "../components/navbar.vue";
 
 export default {
   components: {
-    matchingcontainer,
+    matchingsettings,
     loading,
     navbar,
   },

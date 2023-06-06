@@ -56,7 +56,7 @@
             </div>
             <div class="allcontent">
                 <div class="intro" :class="{ withoutnav: iseditmodeon }">
-                    <div class="introcontent">
+                    <div class="introcontent" v-if="!iseditmodeon">
                         <h2>Intro</h2>
                         <h3>Favorite Games</h3>
                         <div class="favoritegamedetails">
@@ -95,6 +95,11 @@
                             </div>
                         </div>
                     </div>
+                    <div v-else>
+                        <editgames />
+            
+                    </div>
+
                 </div>
 
 
@@ -122,7 +127,7 @@
                             emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
                     </div>
                     <div class="myposts" v-if="isstatsdialog">
-                        <stats />
+                        <stats :user="user" />
                     </div>
                 </div>
 
@@ -148,6 +153,7 @@ import emptymessage from "../components/emptymessage";
 import stats from "../components/stats.vue";
 import followpopup from "../components/followpopup.vue";
 import editprofile from "../components/editprofile.vue";
+import editgames from '../components/editgames'
 
 export default {
     name: "profile",
@@ -160,11 +166,12 @@ export default {
         followpopup,
         loading,
         editprofile,
+        editgames,
     },
     props: ["differentUserId"],
     data() {
         return {
-            iseditmodeon: false,
+            iseditmodeon: true,
             Picture: '',
             profilePicture:
                 "https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png",
@@ -389,6 +396,7 @@ html {
 .user-profile {
     display: flex;
     align-items: center;
+    width: 100%;
     padding: 25px;
     padding-top: 25px;
     background-color: var(--background);
@@ -495,6 +503,7 @@ html {
 
 .profile-navigation {
     position: sticky;
+    width: 100%;
     top: 90px;
     display: flex;
     margin: 20px;

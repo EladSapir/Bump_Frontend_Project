@@ -154,7 +154,7 @@ export default {
 }
 
 input {
-    width: 350px;
+    width: 300px;
     height: 51px;
     border: 2px solid var(--white);
 
@@ -193,6 +193,7 @@ input {
     padding-top: 12px;
     height: 43px;
     cursor: pointer;
+    width: 320px;
 }
 
 .btn:hover {
@@ -211,11 +212,10 @@ input {
     margin-right: 20px;
     display: flex;
     flex-direction: column;
-    width: 370px;
+    width: 320px;
 }
 
 .deletebtn {
-    width: 370px;
     height: 55px;
     padding: 0;
     margin: 0;

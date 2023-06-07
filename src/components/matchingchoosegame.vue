@@ -2,78 +2,79 @@
     <div class="matchingcontainer">
         <h2>Choose Game</h2>
         <div class="gamesselectrow">
-            <div class="gamebox" @click="chosenGame=''; game='lol'">
-                <img v-if="res.VAL===null" src="../assets/leagueBW.svg" alt="lol" class="gameicon" />
-                <img v-else src="../assets/lol.svg" alt="lol" class="gameicon"   />
+            <div class="gamebox"  :class="{selected: selectedlol}" @click="changechoice(1)">
+                <img :class="{BW: !selectedlol}" src="../assets/lol.svg" alt="lol" class="gameicon" />
 
             </div>
-            <div class="gamebox" @click="chosenGame=''; game='rocket'">
-                <img  v-if="res.VAL===null" src="../assets/rocketBW.svg" alt="Rocket League" class="gameiconRL" />
-                <img v-else src="../assets/rocket.svg" alt="Rocket League" class="gameicon"  />
+            <div class="gamebox" :class="{selected: selectedrocket}" @click="changechoice(2)">
+                <img :class="{BW: !selectedrocket}" src="../assets/rocket.svg" alt="Rocket League" class="gameicon" />
 
             </div>
-            <div class="gamebox"  @click="chosenGame=res.VAL; game='valorant'" >
-                <img   v-if="res.VAL===null" src="../assets/valorantBW.svg" alt="valorant" class="gameicon" />
-                <img v-else src="../assets/valorant.svg" alt="valorant" class="gameicon"  />
+            <div class="gamebox" :class="{selected: selectedvalorant}" @click="changechoice(3)">
+                <img :class="{BW: !selectedvalorant}" src="../assets/valorant.svg" alt="valorant" class="gameicon" />
 
             </div>
         </div>
-        <div class="playerinforow" v-if="rocket && game==='lol'">
+        <div class="playerinforow" v-if="selectedlol" >
             <div class="div1">
                 <p class="title">Match Info</p>
                 <div class="setting">
-                    <p>{{chosenGame.Region}}</p>
+                    <p>{{LOL.Region}}</p>
                 </div>
             </div>
             <div class="div2">
                 <p class="title">Player Info</p>
                 <div class="setting">
-                    <p>{{chosenGame.Role}}</p>
+                    <p>{{LOL.Role}}</p>
                 </div>
             </div>
             <div class="div3">
                 <div class="setting">
-                    <p>{{chosenGame.Mode}}</p>
+                    <p>{{LOL.Mode}}</p>
                 </div>
             </div>
             <div class="div4">
                 <div class="setting">
-                    <p>{{chosenGame.Mode}}</p>
+                    <p>{{LOL.Rank}}</p>
                 </div>
             </div>
         </div>
 
-        <div class="playerinforow" v-if="game ==='valorant' || game=== 'rocket'">
+        <div class="playerinforow" v-if="selectedvalorant || selectedrocket">
             <div class="div1">
                 <p class="title">Match Info</p>
                 <div class="setting">
-                    <p v-if="game==='valorant'">{{chosenGame.Server}}</p>
+                    <p v-if="selectedvalorant">{{VAL.Server}}</p>
+                    <p v-else>{{RL.Region}}</p>
                 </div>
             </div>
             <div class="div2">
                 <p class="title">Player Info</p>
                 <div class="setting">
-                    <p>{{chosenGame.Role}}</p>
+                    <p v-if="selectedvalorant">{{VAL.Role}}</p>
+                    <p v-else>{{RL.Mode}}</p>
                 </div>
             </div>
             <div class="div5">
                 <div class="setting">
-                    <p>{{chosenGame.Rank}}</p>
+                    <p v-if="selectedvalorant">{{VAL.Rank}}</p>
+                    <p v-else>{{RL.Rank}}</p>
                 </div>
             </div>
         </div>
+
 
         <div class="propertiesrow">
             <div class="div1">
                 <p class="title">Country</p>
                 <div class="setting">
-                    <p>{{res.Country}}</p>
+                    <p>{{ country }}</p>
                 </div>
             </div>
             <div class="div2">
                 <p class="title">Language</p>
                 <div class="setting">
-                    <p>{{res.Language}}</p>
+                    <p>{{language}}</p>
                 </div>
             </div>
         </div>
@@ -90,19 +91,20 @@ export default {
     },
     data() {
         return {
-            VAL: null,
-            rocket: true,
-            lol: null,
-            chosenGame: '',
-            game: 'lol',
-            selectedCountry: 'United States',
-            userID: '',
-            res: '',
-            selectedLanguage: 'English',
-            selectedGame: '',
-            countries: ['United States', 'Canada', 'United Kingdom', 'Australia', /* Add more countries */],
-            languages: ['English', 'Spanish', 'French', 'German', /* Add more languages */],
-            games: ['League of Legends', 'Rocket League', 'Valorant', /* Add more games */],
+            VAL: { Server: 'N/A', Role: 'N/A', Rank: 'N/A' },
+            RL: { Region: 'N/A', Mode: 'N/A', Rank: 'N/A' },
+            LOL: { Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' },
+            selectedvalorant: false,
+            selectedlol: true,
+            selectedrocket: false,
+            region: "N/A",
+            role: "N/A",
+            rank: "N/A",
+            mode: "N/A",
+            server: "N/A",
+            country: "N/A",
+            language: "N/A",
+
         };
     },
     methods: {
@@ -123,26 +125,87 @@ export default {
                 console.error(error);
             }
         },
+        changechoice(i) {
+            if (i === 1) {
+                this.selectedlol = true;
+                this.selectedrocket = false;
+                this.selectedvalorant = false;
+                if (this.LOL) {
+                    this.region = this.LOL.Region;
+                    this.role = this.LOL.Role;
+                    this.rank = this.LOL.Rank;
+                    this.mode = this.LOL.Mode;
+                }
+                else {
+                    this.region = "N/A";
+                    this.role = "N/A";
+                    this.rank = "N/A";
+                    this.mode = "N/A";
+                }
+            }
+            else if (i === 2) {
+                this.selectedlol = false;
+                this.selectedrocket = true;
+                this.selectedvalorant = false;
+                if (this.RL) {
+                    this.region = this.RL.Region;
+                    this.rank = this.RL.Rank;
+                    this.mode = this.RL.Mode;
+                }
+                else {
+                    this.region = "N/A";
+                    this.rank = "N/A";
+                    this.mode = "N/A";
+                }
+            }
+            else if (i === 3) {
+                this.selectedlol = false;
+                this.selectedrocket = false;
+                this.selectedvalorant = true;
+                if (this.VAL) {
+                    this.server = this.VAL.Server;
+                    this.role = this.VAL.Role;
+                    this.rank = this.VAL.Rank;
+                }
+                else {
+                    this.server = "N/A";
+                    this.role = "N/A";
+                    this.rank = "N/A";
+                }
+            }
+
+        }
     },
     async created() {
         this.userID = this.$route.query.id;
         console.log("userID:", this.userID);
         let addr='https://backend-project-vzn7.onrender.com/matchingpage/'+this.userID;
-        this.res =await this.requestfromserver(addr);
-        console.log("res:", this.res);
-        this.chosenGame=this.res.VAL;
-        console.log("chosenGame:", this.chosenGame);
-        this.game='lol'
-        if(this.res.VAL!=null){
-            this.VAL=true;
+        var res =await this.requestfromserver(addr);
+        this.country = res.Country;
+        this.language = res.Language;
+        if (res.LOL) {
+            this.LOL = res.LOL;
+            this.region = this.LOL.Region;
+            this.role = this.LOL.Role;
+            this.rank = this.LOL.Rank;
+            this.mode = this.LOL.Mode;
         }
-        if(this.res.rocket!=null){
-            this.rocket=true;
+        else {
+            this.LOL = { Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' };
         }
-        if(this.res.lol!=null){
-            this.lol=true;
+        if (res.RL) {
+            this.RL = res.RL;
         }
-    
+        else {
+            this.RL = { Region: 'N/A', Mode: 'N/A', Rank: 'N/A' };
+        }
+        if (res.VAL) {
+            this.VAL = res.VAL;
+        }
+        else {
+            this.VAL = { Server: 'N/A', Role: 'N/A', Rank: 'N/A' };
+        }     
+       
     },
 
 }
@@ -181,6 +244,13 @@ h2 {
 
 .gamebox:hover {
     border: 2px solid var(--main);
+    background-color: var(--background);
+
+}
+
+.selected {
+    border: 2px solid var(--main);
+    background-color: var(--pagebgcolor);
 }
 
 
@@ -267,6 +337,16 @@ p {
 
 .div5 .setting {
     width: 550px;
+}
+
+.BW {
+    filter: grayscale(100%);
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.BW:hover {
+    filter: grayscale(0%);
 }
 </style>
   

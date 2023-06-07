@@ -64,7 +64,8 @@ export default {
             gamerTag: '',
             isConfirmPasswordValid: true,
             isPasswordValid: true,
-            deleteaccount: false
+            deleteaccount: false,
+            userId: "",
         };
     },
 
@@ -114,11 +115,44 @@ export default {
                 this.passwordFieldTypec = "password";
             }
         },
-        updateprofile() {
-            this.PasswordValidation()
+        async requestfromserverpost(addr, objecttopass) {
+            console.log("addr:", addr);
+            this.isloading = true;
+            try {
+                const response = await axios.post(addr, objecttopass);
+                this.isloading = false;
+                var res = response.data;
+                console.log("res:", res);
+                return res;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async updateprofile() {
+            this.userId = this.$route.query.id;
+            this.isPasswordValid = true;
+            this.isConfirmPasswordValid = true;
+            this.error = "";
+            if (this.password != "") {
+                this.PasswordValidation()
+            }
+
             this.ConfirmPasswordValidation()
             if (this.isPasswordValid && this.isConfirmPasswordValid) {
                 console.log("update profile:" + "gamerT: " + this.gamerTag + "pass: " + this.password + "Cpass: " + this.confirmPassword)
+                var data = {
+                    userID: this.userId,
+                    newPass: this.password,
+                    gamerTag: this.gamerTag,
+                    game1: "",
+                    game2: "",
+                    game3: "",
+                    game4: "",
+                    game5: "",
+                };
+                var addr = "https://backend-project-vzn7.onrender.com/editprofile";
+                await this.requestfromserverpost(addr, data);
+
                 this.$emit('updateprofile')
             }
             else {

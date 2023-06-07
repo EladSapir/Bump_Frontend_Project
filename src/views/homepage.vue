@@ -2,12 +2,12 @@
   <div class="homepage">
     <navbar />
     <createpost v-if="profilePicture" :profilePicture="profilePicture" @createpost="getPosts" />
-    <!-- <post v-for="posto in posts" :key="posto.id" :posto="posto" /> -->
-    <post v-if="!isloading" v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag"
+    <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag"
       :profilePicture="profilePicture" @deletepost="getPosts" />
     <emptymessage v-if="posts.length === 0"
       emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?"
       ishome="true" />
+      <div class="empty"></div>
     <loading v-if="isloading" />
   </div>
 </template>
@@ -97,9 +97,15 @@ html {
   align-items: center;
   justify-content: flex-start;
   background-color: var(--pagebgcolor);
-  height: calc(100vh - 160px);
+  height: 100%;
   width: 100vw;
   margin-top: 80px;
   padding-bottom: 30px;
-}</style>
+}
+
+.empty {
+  content: "";
+  height: calc(100vh - 150px);
+}
+</style>
 

@@ -48,7 +48,7 @@
             <div class="form-group di10">
                 <h3 class="title">Favorite Game</h3>
                 <select :class="{ firstoption: !favoritegame }" class="form-control" v-model="favoritegame" required>
-                    <option value="">Choose game here</option>
+                    <option disabled selected value="">Choose game here</option>
                     <option value="Rocket League">Rocket League</option>
                     <option value="League of Legends">League of Legends</option>
                     <option value="Valorant">Valorant</option>
@@ -59,7 +59,7 @@
                 <div class="matchinfo">
                     <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !region }"
                         class="form-control region" v-model="region" required>
-                        <option value="">Region</option>
+                        <option value="" disabled selected>Region</option>
                         <option v-if="favoritegame === 'Rocket League'" value="America">America</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Europe">Europe</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Oceania">Oceania</option>
@@ -74,7 +74,7 @@
                     </select>
                     <select v-if="(favoritegame === 'Valorant')" :class="{ firstoption: !server }"
                         class="form-control server" v-model="server" required>
-                        <option value="">Server</option>
+                        <option value="" disabled selected>Server</option>
                         <option value="Brazil">Brazil</option>
                         <option value="North America">North America</option>
                         <option value="LATAM">LATAM</option>
@@ -84,7 +84,7 @@
                     </select>
                     <select v-if="!(favoritegame === 'Valorant')" :class="{ firstoption: !mode }"
                         class="form-control mode last" v-model="mode" required>
-                        <option value="">Mode</option>
+                        <option value="" disabled selected>Mode</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Solo">Ranked - Solo</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Duo">Ranked - Duo</option>
                         <option v-if="favoritegame === 'Rocket League'" value="Ranked - Trio">Ranked - Trio</option>
@@ -108,7 +108,7 @@
 
                     <select v-if="!(favoritegame === 'Rocket League')" :class="{ firstoption: !role }"
                         class="form-control role" v-model="role" required>
-                        <option value="">Role</option>
+                        <option value="" disabled selected>Role</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Top">Top</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Mid">Mid</option>
                         <option v-if="favoritegame === 'League of Legends'" value="ADC">ADC</option>
@@ -123,7 +123,7 @@
 
                     <select :class="[{ firstoption: !rank }, { rank: !(favoritegame === 'Rocket League') }]"
                         class="form-control last" v-model="rank" required>
-                        <option value="" selected>Rank</option>
+                        <option value="" disabled selected>Rank</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Unranked">Unranked</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Iron">Iron</option>
                         <option v-if="favoritegame === 'League of Legends'" value="Bronze">Bronze</option>
@@ -244,7 +244,7 @@
                         <span>*optional</span>
                     </div>
                     <select class="form-control country " :class="{ firstoption: state === ' ' }" v-model="state">
-                        <option value=" ">Select a country</option>
+                        <option value=" " disabled selected>Select a country</option>
                         <option value="Israel">Israel</option>
                         <option value="United States">United States</option>
                         <option value="United Kingdom">United Kingdom</option>
@@ -268,7 +268,7 @@
                     </div>
                     <select class="form-control language last" :class="{ firstoption: language === ' ' }"
                         v-model="language">
-                        <option value=" ">Select a language</option>
+                        <option value=" " disabled selected>Select a language</option>
                         <option value="Hebrew">Hebrew</option>
                         <option value="English">English</option>
                         <option value="Spanish">Spanish</option>

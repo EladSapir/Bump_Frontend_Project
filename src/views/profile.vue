@@ -60,36 +60,36 @@
                         <h2>Intro</h2>
                         <h3>Favorite Games</h3>
                         <div class="favoritegamedetails">
-                            <div class="league game">
+                            <div class="league game" v-if="LOL.Region!='N/A'">
                                 <div class="gameimage">
                                     <img src="../assets/lol.svg" alt="game image" />
                                 </div>
                                 <div class="gamedetails">
-                                    <p> <img src="../assets/south_america.svg"> Europe Nordic & East </p>
-                                    <p> <img src="../assets/extension.svg"> Support </p>
-                                    <p> <img src="../assets/sports_esports.svg"> 5 vs 5 Ranked Draft </p>
-                                    <p> <img src="../assets/military_tech.svg"> Bronze </p>
+                                    <p> <img src="../assets/south_america.svg"> {{LOL.Region}} </p>
+                                    <p> <img src="../assets/extension.svg"> {{LOL.Mode}} </p>
+                                    <p> <img src="../assets/sports_esports.svg"> {{ LOL.Role }} </p>
+                                    <p> <img src="../assets/military_tech.svg"> {{ LOL.Rank }} </p>
                                 </div>
                             </div>
-                            <div class="rocket game">
+                            <div class="rocket game" v-if="RL.Region!='N/A'">
                                 <div class="gameimage">
-                                    <img src="../assets/rocket.svg" height="50px" width="50px" alt="game image" />
+                                    <img src="../assets/rocket.svg" alt="game image" />
                                 </div>
                                 <div class="gamedetails">
-                                    <p> <img src="../assets/south_america.svg"> Europe Nordic & East </p>
-                                    <p> <img src="../assets/military_tech.svg"> Support </p>
-                                    <p> <img src="../assets/sports_esports.svg"> 5 vs 5 Ranked Draft </p>
+                                    <p> <img src="../assets/south_america.svg"> {{ RL.Region }} </p>
+                                    <p> <img src="../assets/military_tech.svg"> {{ RL.Mode }} </p>
+                                    <p> <img src="../assets/sports_esports.svg"> {{ RL.Rank }}</p>
                                     <p></p>
                                 </div>
                             </div>
-                            <div class="valorant game">
+                            <div class="valorant game" v-if="VAL.Server!='N/A'">
                                 <div class="gameimage">
                                     <img src="../assets/valorant.svg" alt="game image" />
                                 </div>
                                 <div class="gamedetails">
-                                    <p> <img src="../assets/south_america.svg"> Europe Nordic & East </p>
-                                    <p> <img src="../assets/extension.svg"> Support </p>
-                                    <p> <img src="../assets/military_tech.svg"> 5 vs 5 Ranked Draft </p>
+                                    <p> <img src="../assets/south_america.svg"> {{ VAL.Server }} </p>
+                                    <p> <img src="../assets/extension.svg"> {{VAL.Role}} </p>
+                                    <p> <img src="../assets/military_tech.svg"> {{VAL.Rank}} </p>
                                     <p></p>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                             emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
                     </div>
                     <div class="myposts" v-if="isstatsdialog">
-                        <stats :user="user" />
+                        <stats />
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@ export default {
     props: ["differentUserId"],
     data() {
         return {
-            iseditmodeon: true,
+            iseditmodeon: false,
             Picture: '',
             profilePicture:
                 "https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png",
@@ -196,6 +196,11 @@ export default {
             postsforsave: [],
             postsforlike: [],
             isloading: false,
+            VAL: {Server: 'N/A', Role: 'N/A', Rank: 'N/A'},
+            RL: {Region: 'N/A', Mode: 'N/A', Rank: 'N/A'},
+            LOL: {Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' },
+
+
         };
     },
     methods: {
@@ -368,6 +373,26 @@ export default {
                     this.numfollowers = this.followers.length;
                     this.numfollowing = this.following.length;
                 }
+                if(res.VAL){
+                    this.VAL = res.VAL;
+                }
+                else{
+                    this.VAL = {Server: 'N/A', Role: 'N/A', Rank: 'N/A'};
+                }
+                if(res.RL){
+                    this.RL = res.RL;
+                }
+                else{
+                    this.RL = {Region: 'N/A', Mode: 'N/A', Rank: 'N/A'};
+                }
+
+                if(res.LOL){
+                    this.LOL = res.LOL;
+                }
+                else{
+                    this.LOL = {Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A'};
+                }
+           
             });
         },
     },
@@ -583,9 +608,8 @@ html {
 }
 
 .introcontent {
-    margin-left: 120px;
+    margin-left: 150px;
     margin-right: 30px;
-    width: fit-content;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -611,7 +635,6 @@ html {
     font-weight: 600;
     font-size: 18px;
     line-height: 27px;
-    margin: 0;
     margin: 15px;
 
 }
@@ -644,13 +667,14 @@ html {
     align-items: center;
     justify-content: center;
     background: var(--stroke);
-    width: 116.87px;
+    padding:0 30px;
     height: 60.1px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     margin-right: 15px;
 }
+
 
 .gamedetails p {
     width: max-content;
@@ -665,7 +689,6 @@ html {
     margin-right: 5px;
     width: 20px;
     height: 20px;
-    fill: blue;
 }
 
 .content {
@@ -674,4 +697,9 @@ html {
     margin-left: 20px;
     margin-right: 100px;
 }
+
+
+
+
+
 </style>

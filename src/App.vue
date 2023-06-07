@@ -138,6 +138,7 @@ select {
   color: var(--black);
   padding-left: 15px;
   appearance: none;
+  cursor: pointer;
   /* Hide the default arrow */
   -webkit-appearance: none;
   /* For Safari */

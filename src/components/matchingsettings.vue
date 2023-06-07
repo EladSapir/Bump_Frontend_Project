@@ -3,10 +3,9 @@
         <h2>Bumping Setup</h2>
         <div class="settingcontainer">
             <matchingchoosegame />
-            <matchingcontainer />
-         
+            <matchingcontainer ref="matchingcontainer" @partners="handlepartners" />
         </div>
-        <button class="btn">Find Partner</button>
+        <button class="btn" @click="handleclick">Find Partner</button>
     </div>
 </template>
 
@@ -25,7 +24,13 @@ export default {
         matchingchoosegame,
     },
     methods: {
-        // Other methods
+        handleclick(){
+            this.$refs.matchingcontainer.findPartner();
+        },
+        handlepartners(partners){
+            console.log(partners);
+            this.$emit('match', partners);
+        }
     },
     created() {
         this.userId = this.$route.query.id;

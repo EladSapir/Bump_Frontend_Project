@@ -5,8 +5,7 @@
         <div class="favoritegamedetails">
             <div class="league game">
                 <div class="gameimage">
-                    <img v-if="selectedlol" src="../assets/lol.svg" alt="game image" />
-                    <img v-if="!selectedlol" src="../assets/leagueBW.svg" alt="game image" />
+                    <img :class="{ BW : !selectedlol }"  class="gamelogo"  src="../assets/lol.svg" alt="game image" />
                 </div>
                 <div class="gamedetails">
                     <p> <img src="../assets/south_america.svg">
@@ -291,8 +290,17 @@ export default {
     width: 20px;
     height: 20px;
     fill: blue;
+    
 }
 
+.BW {
+    filter: grayscale(100%);
+    transition: 0.4s;
+    cursor: pointer;
+} 
 
+.BW:hover {
+    filter: grayscale(0%);
+}
 
 </style>

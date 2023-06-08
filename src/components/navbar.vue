@@ -39,10 +39,14 @@
                   <h2 class="h2noti">New Bump</h2>
                   <p class="gamertagnoti">By {{ notification.GamerTag }}</p>
                 </div>
-                <p class="discordnoti" @click="copyText(notification.Discord)">{{ notification.Discord }} <img class="copy"
-                    src="../assets/content_copy.svg" /></p>
+                <p class="discordnoti" @mouseenter="notification.enablecopy = true"
+                  @mouseleave="notification.enablecopy = false" @click="copyText(notification.Discord)">
+                  {{ notification.Discord }}
+                  <img v-if="notification.enablecopy" class="copy" src="../assets/content_copy.svg" />
+                </p>
                 <p class="timenoti">{{ date(notification.updatedAt) }}</p>
               </li>
+
             </ul>
           </div>
         </div>
@@ -77,6 +81,7 @@ export default {
       defaultProfilePicture: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1619629599/ProfilePictures/default_profile_picture.png',
       closeResultsTimeout: null,
       isSearchFocused: false,
+      enablecopy: false,
     };
   },
   mounted() {
@@ -619,11 +624,11 @@ export default {
 
 .copy:hover {
   transform: scale(1.1);
-  filter: brightness(1.2);
+
 }
 
 .copy:active {
-  transform: scale(calc(1.1 * 0.9));
+  transform: scale(calc(0.1));
 }
 </style>
   

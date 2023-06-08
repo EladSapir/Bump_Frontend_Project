@@ -2,40 +2,40 @@
     <div class="matchingcontainer">
         <h2>Choose Game</h2>
         <div class="gamesselectrow">
-            <div class="gamebox"  :class="{selected: selectedlol}" @click="changechoice(1)">
-                <img :class="{BW: !selectedlol}" src="../assets/lol.svg" alt="lol" class="gameicon" />
+            <div class="gamebox" :class="{ selected: selectedlol }" @click="changechoice(1)">
+                <img :class="{ BW: !selectedlol }" src="../assets/lol.svg" alt="lol" class="gameicon" />
 
             </div>
-            <div class="gamebox" :class="{selected: selectedrocket}" @click="changechoice(2)">
-                <img :class="{BW: !selectedrocket}" src="../assets/rocket.svg" alt="Rocket League" class="gameicon" />
+            <div class="gamebox" :class="{ selected: selectedrocket }" @click="changechoice(2)">
+                <img :class="{ BW: !selectedrocket }" src="../assets/rocket.svg" alt="Rocket League" class="gameicon" />
 
             </div>
-            <div class="gamebox" :class="{selected: selectedvalorant}" @click="changechoice(3)">
-                <img :class="{BW: !selectedvalorant}" src="../assets/valorant.svg" alt="valorant" class="gameicon" />
+            <div class="gamebox" :class="{ selected: selectedvalorant }" @click="changechoice(3)">
+                <img :class="{ BW: !selectedvalorant }" src="../assets/valorant.svg" alt="valorant" class="gameicon" />
 
             </div>
         </div>
-        <div class="playerinforow" v-if="selectedlol" >
+        <div class="playerinforow" v-if="selectedlol">
             <div class="div1">
                 <p class="title">Match Info</p>
                 <div class="setting">
-                    <p>{{LOL.Region}}</p>
+                    <p>{{ LOL.Region }}</p>
                 </div>
             </div>
             <div class="div2">
                 <p class="title">Player Info</p>
                 <div class="setting">
-                    <p>{{LOL.Role}}</p>
+                    <p>{{ LOL.Role }}</p>
                 </div>
             </div>
             <div class="div3">
                 <div class="setting">
-                    <p>{{LOL.Mode}}</p>
+                    <p>{{ LOL.Mode }}</p>
                 </div>
             </div>
             <div class="div4">
                 <div class="setting">
-                    <p>{{LOL.Rank}}</p>
+                    <p>{{ LOL.Rank }}</p>
                 </div>
             </div>
         </div>
@@ -44,21 +44,21 @@
             <div class="div1">
                 <p class="title">Match Info</p>
                 <div class="setting">
-                    <p v-if="selectedvalorant">{{VAL.Server}}</p>
-                    <p v-else>{{RL.Region}}</p>
+                    <p v-if="selectedvalorant">{{ VAL.Server }}</p>
+                    <p v-else>{{ RL.Region }}</p>
                 </div>
             </div>
             <div class="div2">
                 <p class="title">Player Info</p>
                 <div class="setting">
-                    <p v-if="selectedvalorant">{{VAL.Role}}</p>
-                    <p v-else>{{RL.Mode}}</p>
+                    <p v-if="selectedvalorant">{{ VAL.Role }}</p>
+                    <p v-else>{{ RL.Mode }}</p>
                 </div>
             </div>
             <div class="div5">
                 <div class="setting">
-                    <p v-if="selectedvalorant">{{VAL.Rank}}</p>
-                    <p v-else>{{RL.Rank}}</p>
+                    <p v-if="selectedvalorant">{{ VAL.Rank }}</p>
+                    <p v-else>{{ RL.Rank }}</p>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
             <div class="div2">
                 <p class="title">Language</p>
                 <div class="setting">
-                    <p>{{language}}</p>
+                    <p>{{ language }}</p>
                 </div>
             </div>
         </div>
@@ -179,8 +179,8 @@ export default {
     async created() {
         this.userID = this.$route.query.id;
         console.log("userID:", this.userID);
-        let addr='https://backend-project-vzn7.onrender.com/matchingpage/'+this.userID;
-        var res =await this.requestfromserver(addr);
+        let addr = 'https://backend-project-vzn7.onrender.com/matchingpage/' + this.userID;
+        var res = await this.requestfromserver(addr);
         this.country = res.Country;
         this.language = res.Language;
         if (res.LOL) {
@@ -204,8 +204,8 @@ export default {
         }
         else {
             this.VAL = { Server: 'N/A', Role: 'N/A', Rank: 'N/A' };
-        }     
-       
+        }
+
     },
 
 }
@@ -265,8 +265,8 @@ h2 {
 }
 
 p {
-   color: var(--text);
-   font-size: 16px;
+    color: var(--text);
+    font-size: 16px;
 }
 
 .title {
@@ -318,7 +318,7 @@ p {
     grid-area: 2 / 2 / 3 / 3;
 }
 
-.div5{
+.div5 {
     grid-area: 2 / 1 / 3 / 3;
 }
 

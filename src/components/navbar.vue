@@ -25,15 +25,22 @@
 
         <div class="notidiv">
           <img v-if="notifications.length === 0" class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
-          <img v-else class="notiimg" src="../assets/closed.svg" @blur="isDropNotiActive=!isDropNotiActive" @click="toggleDropdown">
+          <img v-else class="notiimg" src="../assets/closed.svg" @blur="isDropNotiActive = !isDropNotiActive"
+            @click="toggleDropdown">
           <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
-            <div class="triangle"></div>  
+            <div class="triangle"></div>
             <div class="triangle1"></div>
             <h3>Notifications</h3>
             <ul>
+              <loading v-if="isloading" />
               <li v-for="notification in notifications" :key="notification">
-                <img class="notiimg" src="../assets/bumpnofi.svg" alt="Notification" />
-              {{ notification }}</li>
+                <img class="notipicture" :src="notification.Picture" alt="Profile Picture" />
+                <div class="bumpgamertagnoti">
+                  <h2 class="h2noti">New Bump</h2>
+                  <p class="gamertagnoti">By {{ notification.GamerTag }}</p>
+                </div>
+                <p class="discordnoti" @click="copyText(notification.Discord)">{{ notification.Discord }}</p>
+              </li>
             </ul>
           </div>
         </div>
@@ -60,7 +67,7 @@ export default {
     return {
       searchQuery: "",
       searchResults: [],
-      notifications: ["Notification 1", "Notification 2", "Notification 3", "Notification 4"],
+      notifications: [],
       isDropNotiActive: false,
       userId: this.$route.query.id,
       isloading: false,
@@ -78,6 +85,9 @@ export default {
   beforeDestroy() {
     window.removeEventListener("beforeunload", this.handleBeforeUnload);
     window.removeEventListener("click", this.clickOutsideListener);
+  },
+  created() {
+    this.getNotifications();
   },
   methods: {
     handleSearchBlur() {
@@ -114,7 +124,12 @@ export default {
       }
     }, 300),
     toggleDropdown() {
+      this.isloading = true;
       this.isDropNotiActive = !this.isDropNotiActive;
+      if (this.isDropNotiActive) {
+        this.getNotifications();
+      }
+      this.isloading = false;
     },
     async logout() {
       try {
@@ -162,9 +177,21 @@ export default {
       } else {
         this.cancelCloseSearchResults();
       }
+    },
+    copyText(text) {
+      navigator.clipboard.writeText(text);
+    },
+    async getNotifications() {
+      var addr = `https://backend-project-vzn7.onrender.com/getnotifications/${this.userId}`;
+      console.log('getNotifications:' + addr)
+      try {
+        const response = await axios.get(addr);
+        this.notifications = response.data;
+        console.log(this.notifications)
+      } catch (error) {
+        console.error('Error occurred during the GET request:', error);
+      }
     }
-
-
   }
 };
 
@@ -371,8 +398,6 @@ export default {
 
 }
 
-
-
 .logout {
   height: 30px;
   width: 30px;
@@ -420,14 +445,26 @@ export default {
   top: 100%;
   margin-top: 15px;
   background-color: var(--pagebgcolor);
-  min-width: 250px;
-  max-height: 200px;
-  border: 1px solid var(--stroke);
-  padding: 5px;
+  width: 350px;
   border-radius: 5px;
   border: 3px solid var(--stroke);
-  margin-right: 240px;
-  padding: 10px;
+  margin-right: 333px;
+  padding-top: 10px;
+  opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  /* Keeps the final state after animation ends */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 
@@ -438,7 +475,7 @@ export default {
 .dropdownnoti .triangle {
   position: absolute;
   top: -15px;
-  right: 5px; /* Adjust the left value to center the triangle */
+  right: 5px;
   width: 26px;
   height: 16px;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -446,11 +483,10 @@ export default {
   z-index: -1;
 }
 
-
 .dropdownnoti .triangle1 {
   position: absolute;
   top: -12px;
-  right: 8px; /* Adjust the left value to center the triangle */
+  right: 8px;
   width: 20px;
   height: 15px;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -465,67 +501,88 @@ export default {
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.5px;
-  margin-bottom: 10px;
+  margin-left: 10px;
+  padding-bottom: 5px;
+  font-size: 20px;
 }
 
 .dropdownnoti ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 150px;
+  max-height: 310px;
   overflow-y: auto;
 }
 
 .dropdownnoti li {
   color: var(--white);
-  cursor: pointer;
   padding: 5px;
   display: flex;
+  gap: 15px;
   align-items: center;
 }
 
 .dropdownnoti li:hover {
   background-color: var(--hover);
+}
+
+.h2noti {
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  font-family: var(--mainfont);
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.gamertagnoti {
+  margin: 0;
+  padding: 0;
+  color: var(--grey);
+  font-family: var(--mainfont);
+  font-weight: 300;
+}
+
+.discordnoti {
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  font-family: var(--mainfont);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  margin-left: 10px;
+  padding-bottom: 5px;
+}
+
+.discordnoti {
+  display: inline-block;
   cursor: pointer;
+  padding: 5px;
+  border-radius: 10px;
 }
 
-.dropdownnoti li:last-child {
-  border-radius: 0 0 15px 15px;
+.discordnoti:hover {
+  background-color: var(--thirdcolor);
 }
 
-.dropdownnoti li img {
-  margin-right: 10px;
+.discordnoti:active {
+  background-color: var(--pagebgcolor);
 }
 
-
-
-
-
-/* .container {
-  position: absolute;
-  box-sizing: border-box;
+.bumpgamertagnoti {
   display: flex;
   flex-direction: column;
-  padding: 30px;
-  height: 60%;
-  width: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--pagebgcolor);
-  border: 1px solid #323244;
-  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 25px;
-  z-index: 10;
+  justify-content: center;
+  align-items: flex-start;
+  white-space: nowrap;
 }
 
-.backdrop {
-  z-index: 10;
-  top: 0;
-  position: fixed;
-  background: rgba(0, 0, 0, 0.692);
-  width: 100%;
-  height: 100%;
-} */
+.notipicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+}
 </style>
   

@@ -40,6 +40,7 @@
                   <p class="gamertagnoti">By {{ notification.GamerTag }}</p>
                 </div>
                 <p class="discordnoti" @click="copyText(notification.Discord)">{{ notification.Discord }}</p>
+                <p class="timenoti">{{ date(notification.updatedAt) }}</p>
               </li>
             </ul>
           </div>
@@ -191,7 +192,19 @@ export default {
       } catch (error) {
         console.error('Error occurred during the GET request:', error);
       }
-    }
+    },
+    date(date) {
+            var date = new Date(date);
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Jerusalem',
+            };
+            return date.toLocaleString('en-IL', options);
+        }
   }
 };
 
@@ -454,7 +467,6 @@ export default {
   animation-name: fadeIn;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
-  /* Keeps the final state after animation ends */
 }
 
 @keyframes fadeIn {
@@ -515,11 +527,22 @@ export default {
 }
 
 .dropdownnoti li {
+  position: relative;
   color: var(--white);
   padding: 5px;
   display: flex;
   gap: 15px;
   align-items: center;
+}
+
+.timenoti {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: var(--grey);
+  font-family: var(--mainfont);
+  font-weight: 300;
+  font-size: 9px;
 }
 
 .dropdownnoti li:hover {
@@ -584,5 +607,6 @@ export default {
   border-radius: 50%;
   border: 2px solid var(--white);
 }
+
 </style>
   

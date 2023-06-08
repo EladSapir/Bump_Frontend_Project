@@ -29,7 +29,7 @@ export default {
             }
 
             // Remove the swiped card from the stack
-            this.cards = this.cards.filter(card => card.id !== cardId);
+            this.partners.splice(cardId, 1);
         },
     },
     mounted(){

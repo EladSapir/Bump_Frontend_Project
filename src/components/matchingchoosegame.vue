@@ -2,17 +2,23 @@
     <div class="matchingcontainer">
         <h2>Your Game Settings</h2>
         <div class="gamesselectrow">
-            <div class="gamebox" :class="{ selected: selectedlol }" @click="changechoice(1)">
-                <img :class="{ BW: !selectedlol }" src="../assets/lol.svg" alt="lol" class="gameicon" />
-
+            <div class="gameboxandedit">
+                <div class="gamebox" :class="{ selected: selectedlol }" @click="changechoice(1)">
+                    <img :class="{ BW: !selectedlol }" src="../assets/lol.svg" alt="lol" class="gameicon" />
+                </div>
+                <span @click="movetomyprofile"> Edit Your Settings</span>
             </div>
-            <div class="gamebox" :class="{ selected: selectedrocket }" @click="changechoice(2)">
-                <img :class="{ BW: !selectedrocket }" src="../assets/rocket.svg" alt="Rocket League" class="gameicon" />
-
+            <div class="gameboxandedit">
+                <div class="gamebox" :class="{ selected: selectedrocket }" @click="changechoice(2)">
+                    <img :class="{ BW: !selectedrocket }" src="../assets/rocket.svg" alt="Rocket League" class="gameicon" />
+                </div>
+                <span @click="movetomyprofile"> Edit Your Settings</span>
             </div>
-            <div class="gamebox" :class="{ selected: selectedvalorant }" @click="changechoice(3)">
-                <img :class="{ BW: !selectedvalorant }" src="../assets/valorant.svg" alt="valorant" class="gameicon" />
-
+            <div class="gameboxandedit">
+                <div class="gamebox" :class="{ selected: selectedvalorant }" @click="changechoice(3)">
+                    <img :class="{ BW: !selectedvalorant }" src="../assets/valorant.svg" alt="valorant" class="gameicon" />
+                </div>
+                <span @click="movetomyprofile"> Edit Your Settings</span>
             </div>
         </div>
         <div class="playerinforow" v-if="selectedlol">
@@ -171,6 +177,9 @@ export default {
                 }
             }
 
+        },
+        movetomyprofile() { // need to fix
+            this.$router.push({ name: 'profile', query: { id: this.userID }, params: { differentUserId: this.userID } });
         }
     },
     async created() {
@@ -244,6 +253,32 @@ h2 {
     background-color: var(--background);
 
 }
+
+.gameboxandedit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameboxandedit span {
+    font-size: 13px;
+    margin-top: 2px;
+    color: var(--white);
+    font-weight: 200;
+    text-align: center;
+    width: 120px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.gameboxandedit span:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--main);
+
+}
+
+
 
 .selected {
     border: 2px solid var(--main);
@@ -333,7 +368,7 @@ p {
 }
 
 .div5 .setting {
-    width: 550px;
+    width: 520px;
 }
 
 .BW {

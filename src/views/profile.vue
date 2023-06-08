@@ -60,18 +60,18 @@
                         <h2>Intro</h2>
                         <h3>Favorite Games</h3>
                         <div class="favoritegamedetails">
-                            <div class="league game" v-if="LOL.Region!='N/A'">
+                            <div class="league game" v-if="LOL.Region != 'N/A'">
                                 <div class="gameimage">
                                     <img src="../assets/lol.svg" alt="game image" />
                                 </div>
                                 <div class="gamedetails">
-                                    <p> <img src="../assets/south_america.svg"> {{LOL.Region}} </p>
-                                    <p> <img src="../assets/extension.svg"> {{LOL.Mode}} </p>
+                                    <p> <img src="../assets/south_america.svg"> {{ LOL.Region }} </p>
+                                    <p> <img src="../assets/extension.svg"> {{ LOL.Mode }} </p>
                                     <p> <img src="../assets/sports_esports.svg"> {{ LOL.Role }} </p>
                                     <p> <img src="../assets/military_tech.svg"> {{ LOL.Rank }} </p>
                                 </div>
                             </div>
-                            <div class="rocket game" v-if="RL.Region!='N/A'">
+                            <div class="rocket game" v-if="RL.Region != 'N/A'">
                                 <div class="gameimage">
                                     <img src="../assets/rocket.svg" alt="game image" />
                                 </div>
@@ -82,14 +82,14 @@
                                     <p></p>
                                 </div>
                             </div>
-                            <div class="valorant game" v-if="VAL.Server!='N/A'">
+                            <div class="valorant game" v-if="VAL.Server != 'N/A'">
                                 <div class="gameimage">
                                     <img src="../assets/valorant.svg" alt="game image" />
                                 </div>
                                 <div class="gamedetails">
                                     <p> <img src="../assets/south_america.svg"> {{ VAL.Server }} </p>
-                                    <p> <img src="../assets/extension.svg"> {{VAL.Role}} </p>
-                                    <p> <img src="../assets/military_tech.svg"> {{VAL.Rank}} </p>
+                                    <p> <img src="../assets/extension.svg"> {{ VAL.Role }} </p>
+                                    <p> <img src="../assets/military_tech.svg"> {{ VAL.Rank }} </p>
                                     <p></p>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                     </div>
                     <div v-else>
                         <editgames />
-            
+
                     </div>
 
                 </div>
@@ -196,10 +196,10 @@ export default {
             postsforsave: [],
             postsforlike: [],
             isloading: false,
-            VAL: {Server: 'N/A', Role: 'N/A', Rank: 'N/A'},
-            RL: {Region: 'N/A', Mode: 'N/A', Rank: 'N/A'},
-            LOL: {Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' },
-
+            VAL: { Server: 'N/A', Role: 'N/A', Rank: 'N/A' },
+            RL: { Region: 'N/A', Mode: 'N/A', Rank: 'N/A' },
+            LOL: { Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' },
+            difuser: this.$route.query.id,
 
         };
     },
@@ -209,6 +209,7 @@ export default {
             this.post(this.userId)
         },
         choosedialog(num) {
+            this.iseditmodeon = false;
             if (num === 1) {
                 this.post(this.differentUserId);
                 this.ispostdialog = true;
@@ -330,7 +331,6 @@ export default {
             this.isloading = true;
             this.myprofile = false;
             console.log("userId:" + this.userId);
-            console.log("differentUserId:" + id);
             if (id === this.userId) {
                 this.myprofile = true;
                 console.log("same user");
@@ -373,30 +373,36 @@ export default {
                     this.numfollowers = this.followers.length;
                     this.numfollowing = this.following.length;
                 }
-                if(res.VAL){
+                if (res.VAL) {
                     this.VAL = res.VAL;
                 }
-                else{
-                    this.VAL = {Server: 'N/A', Role: 'N/A', Rank: 'N/A'};
+                else {
+                    this.VAL = { Server: 'N/A', Role: 'N/A', Rank: 'N/A' };
                 }
-                if(res.RL){
+                if (res.RL) {
                     this.RL = res.RL;
                 }
-                else{
-                    this.RL = {Region: 'N/A', Mode: 'N/A', Rank: 'N/A'};
+                else {
+                    this.RL = { Region: 'N/A', Mode: 'N/A', Rank: 'N/A' };
                 }
 
-                if(res.LOL){
+                if (res.LOL) {
                     this.LOL = res.LOL;
                 }
-                else{
-                    this.LOL = {Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A'};
+                else {
+                    this.LOL = { Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' };
                 }
-           
+
             });
         },
     },
     created() {
+        console.log("12313");
+
+        if (this.differentUserId === undefined) {
+            console.log("undefined");
+            this.differentUserId = this.$route.query.id;
+        }
         this.post(this.differentUserId);
     },
 };
@@ -608,7 +614,7 @@ html {
 }
 
 .introcontent {
-    margin-left: 150px;
+    margin-left: 125px;
     margin-right: 30px;
     height: fit-content;
     display: flex;
@@ -667,7 +673,7 @@ html {
     align-items: center;
     justify-content: center;
     background: var(--stroke);
-    padding:0 30px;
+    padding: 0 30px;
     height: 60.1px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
@@ -697,9 +703,4 @@ html {
     margin-left: 20px;
     margin-right: 100px;
 }
-
-
-
-
-
 </style>

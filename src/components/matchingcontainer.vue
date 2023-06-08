@@ -386,7 +386,7 @@ export default {
                 }
             }
 
-        }
+        },
     },
     async created() {
         this.userID = this.$route.query.id;

@@ -7,8 +7,8 @@
     <emptymessage v-if="posts.length === 0"
       emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?"
       ishome="true" />
-      <div class="empty"></div>
-    <loading v-if="isloading" />
+      <div class="empty" v-if="posts.length === 0"></div>
+    <loading v-if="isloading"  />
   </div>
 </template>
   

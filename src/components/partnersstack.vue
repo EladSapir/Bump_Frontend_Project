@@ -1,7 +1,8 @@
 <template>
     <div class="stack">
         <transition-group name="card-stack" tag="div" class="card-stack">
-            <Card v-for="(card, index) in cards" :key="card.id" :card="card" :index="index" @swipe="handleSwipe" />
+            <Card v-for="(partner, index) in partners" :key="index" :card="partner" :index="index" @swipe="handleSwipe" />
+          
         </transition-group>
     </div>
 </template>
@@ -10,32 +11,31 @@
 import Card from '../components/partner.vue';
 
 export default {
+    props:['partners'],
     components: {
         Card,
     },
     data() {
         return {
-            cards: [
-                { id: 1, content: 'Card 1' },
-                { id: 2, content: 'Card 2' },
-                { id: 3, content: 'Card 3' },
-                { id: 4, content: 'Card 4' },
-            ],
         };
     },
     methods: {
         handleSwipe(direction, cardId) {
             // Handle the swipe action (e.g., update data, perform an API request, etc.)
             if (direction === 'right') {
-                // Handle 'yes' action
+               console.log('swiped right');
             } else if (direction === 'left') {
-                // Handle 'no' action
+                console.log('swiped left');
             }
 
             // Remove the swiped card from the stack
-            this.cards = this.cards.filter(card => card.id !== cardId);
+            this.partners.splice(cardId, 1);
         },
     },
+    mounted(){
+        console.log("partners from stack: ",this.partners);
+    },
+    
 };
 </script>
   

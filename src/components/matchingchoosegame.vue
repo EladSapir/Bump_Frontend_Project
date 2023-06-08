@@ -1,6 +1,6 @@
 <template>
     <div class="matchingcontainer">
-        <h2>Choose Game</h2>
+        <h2>Your Game Settings</h2>
         <div class="gamesselectrow">
             <div class="gamebox" :class="{ selected: selectedlol }" @click="changechoice(1)">
                 <img :class="{ BW: !selectedlol }" src="../assets/lol.svg" alt="lol" class="gameicon" />
@@ -108,9 +108,6 @@ export default {
         };
     },
     methods: {
-        findPartner() {
-            // Logic to find matching profiles based on selected parameters
-        },
         async requestfromserver(addr) {
             this.isloading = true;
             console.log("addr:", addr);
@@ -323,7 +320,7 @@ p {
 }
 
 .setting {
-    width: 254px;
+    width: 239px;
     height: 43px;
     border: 1px solid var(--stroke);
     background-color: var(--white);

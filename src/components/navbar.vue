@@ -39,7 +39,8 @@
                   <h2 class="h2noti">New Bump</h2>
                   <p class="gamertagnoti">By {{ notification.GamerTag }}</p>
                 </div>
-                <p class="discordnoti" @click="copyText(notification.Discord)">{{ notification.Discord }}</p>
+                <p class="discordnoti" @click="copyText(notification.Discord)">{{ notification.Discord }} <img class="copy"
+                    src="../assets/content_copy.svg" /></p>
                 <p class="timenoti">{{ date(notification.updatedAt) }}</p>
               </li>
             </ul>
@@ -194,17 +195,17 @@ export default {
       }
     },
     date(date) {
-            var date = new Date(date);
-            const options = {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                timeZone: 'Asia/Jerusalem',
-            };
-            return date.toLocaleString('en-IL', options);
-        }
+      var date = new Date(date);
+      const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Jerusalem',
+      };
+      return date.toLocaleString('en-IL', options);
+    }
   }
 };
 
@@ -531,7 +532,7 @@ export default {
   color: var(--white);
   padding: 5px;
   display: flex;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
 }
 
@@ -579,19 +580,19 @@ export default {
 }
 
 .discordnoti {
-  display: inline-block;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--grey);
+  transition: 0.3s ease, color 0.3s ease;
+  cursor: default;
+  padding: 0;
 }
 
 .discordnoti:hover {
-  background-color: var(--thirdcolor);
+  color: var(--white);
 }
 
-.discordnoti:active {
-  background-color: var(--pagebgcolor);
-}
 
 .bumpgamertagnoti {
   display: flex;
@@ -608,5 +609,21 @@ export default {
   border: 2px solid var(--white);
 }
 
+.copy {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  filter: grayscale(100%);
+  transition: transform 0.3s ease;
+}
+
+.copy:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.copy:active {
+  transform: scale(calc(1.1 * 0.9));
+}
 </style>
   

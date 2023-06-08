@@ -10,12 +10,6 @@
                         id="eyeslash">
                     <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>
                 </div>
-
-                <div>
-                    <h3>Gamer Tag</h3>
-                    <input type="text" v-model="gamerTag" placeholder="Thebestgamer1234">
-                </div>
-
                 <div class="password-container ">
                     <h3>Confirm Password</h3>
                     <input :class="{ error: !isConfirmPasswordValid }" :type="passwordFieldTypec" v-model="confirmPassword"
@@ -23,6 +17,51 @@
                     <img src="../assets/eye-slash-solid.svg" class="eye" @click="switchVisibilityConfirm" v-if="showc"
                         id="eyeslash">
                     <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibilityConfirm" v-else>
+                </div>
+
+                <div class="div1">
+                <h3 class="title">Country</h3>
+                <div class="setting">
+                    <select v-model="country">
+                        <option value="" disabled selected>Select a country</option>
+                        <option value="Israel">Israel</option>
+                        <option value="United States">United States</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="China">China</option>
+                        <option value="India">India</option>
+                    </select>
+                </div>
+            </div>
+            <div class="div2">
+                <h3 class="title">Language</h3>
+                <div class="setting">
+                    <select v-model="language">
+                        <option value="" disabled selected>Select a language</option>
+                        <option value="Hebrew">Hebrew</option>
+                        <option value="English">English</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Hindi">Hindi</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                    <h3>Gamer Tag</h3>
+                    <input type="text" v-model="gamerTag" placeholder="Thebestgamer1234">
                 </div>
 
                 <div class="btn" @click="updateprofile">Update</div>
@@ -66,6 +105,8 @@ export default {
             isPasswordValid: true,
             deleteaccount: false,
             userId: "",
+            country: "",
+            language: "",
         };
     },
 
@@ -139,16 +180,18 @@ export default {
 
             this.ConfirmPasswordValidation()
             if (this.isPasswordValid && this.isConfirmPasswordValid) {
-                console.log("update profile:" + "gamerT: " + this.gamerTag + "pass: " + this.password + "Cpass: " + this.confirmPassword)
+                console.log("user id:" + this.userId + " password:" + this.password + " gamer tag:" + this.gamerTag + " country:" + this.country + " language:" + this.language)
                 var data = {
                     userID: this.userId,
                     newPass: this.password,
                     gamerTag: this.gamerTag,
-                    game1: "",
-                    game2: "",
-                    game3: "",
-                    game4: "",
-                    game5: "",
+                    country: this.country,
+                    language: this.language,
+                    game1: -1,
+                    game2: -1,
+                    game3: -1,
+                    game4: -1,
+                    game5: -1,
                 };
                 var addr = "https://backend-project-vzn7.onrender.com/editprofile";
                 await this.requestfromserverpost(addr, data);
@@ -192,6 +235,12 @@ input {
     height: 51px;
     border: 2px solid var(--white);
 
+}
+
+.setting select{
+    border: 2px solid var(--white);
+    width: 318px;
+    height: 51px;
 }
 
 .errormsg {

@@ -1,14 +1,80 @@
 <template>
     <div class="card" :class="swipeDirection" @mousedown="startSwipe" @touchstart="startSwipe">
         <div class="header">
-            <img class="profile-photo" :src="card.profilePhoto" alt="Profile Photo" />
+            <img class="profile-photo" :src="profilePhoto" alt="Profile Photo" />
             <div class="info">
-                <div class="gamertag">{{ card.gamertag }}</div>
-                <img class="game-logo" :src="card.gameLogo" alt="Game Logo" />
+                <h3 class="gamertag">{{ gamertag }}</h3>
+                <div class="game-logo-container">
+                    <img v-if="game === 'VAL'" class="game-logo" src="../assets/valorant.svg" alt="Game Logo" />
+                    <img v-if="game === 'LOL'" class="game-logo" src="../assets/lol.svg" alt="Game Logo" />
+                    <img v-if="game === 'RL'" class="game-logo" src="../assets/rocket.svg" alt="Game Logo" />
+                </div>
             </div>
         </div>
         <div class="information-section">
-            <!-- Information section content -->
+            <div class="playerinforow" v-if="game === 'LOL'">
+                <div class="div1">
+                    <p class="title">Match Info</p>
+                    <div class="setting">
+                        <p>{{ LOL.Region }}</p>
+                    </div>
+                </div>
+                <div class="div2">
+                    <p class="title">Player Info</p>
+                    <div class="setting">
+                        <p>{{ LOL.Role }}</p>
+                    </div>
+                </div>
+                <div class="div3">
+                    <div class="setting">
+                        <p>{{ LOL.Mode }}</p>
+                    </div>
+                </div>
+                <div class="div4">
+                    <div class="setting">
+                        <p>{{ LOL.Rank }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="playerinforow" v-if="game === 'VAL' || game === 'RL'">
+                <div class="div1">
+                    <p class="title">Match Info</p>
+                    <div class="setting">
+                        <p v-if="game === 'VAL'">{{ VAL.Server }}</p>
+                        <p v-else>{{ RL.Region }}</p>
+                    </div>
+                </div>
+                <div class="div2">
+                    <p class="title">Player Info</p>
+                    <div class="setting">
+                        <p v-if="game === 'VAL'">{{ VAL.Role }}</p>
+                        <p v-else>{{ RL.Mode }}</p>
+                    </div>
+                </div>
+                <div class="div5">
+                    <div class="setting">
+                        <p v-if="game === 'VAL'">{{ VAL.Rank }}</p>
+                        <p v-else>{{ RL.Rank }}</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="propertiesrow">
+                <div class="div1">
+                    <p class="title">Country</p>
+                    <div class="setting">
+                        <p>{{ country }}</p>
+                    </div>
+                </div>
+                <div class="div2">
+                    <p class="title">Language</p>
+                    <div class="setting">
+                        <p>{{ language }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="buttons">
             <button class="button-x">X</button>
@@ -18,6 +84,7 @@
 </template>
   
 <script>
+import axios from 'axios';
 export default {
     props: {
         card: {
@@ -34,6 +101,15 @@ export default {
             startX: 0,
             deltaX: 0,
             swipeDirection: '',
+            country: 'country',
+            language: 'language',
+            VAL: { Server: 'N/A', Role: 'N/A', Rank: 'N/A' },
+            RL: { Region: 'N/A', Mode: 'N/A', Rank: 'N/A' },
+            LOL: { Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' },
+            gamertag: 'gamertag',
+            profilePhoto: '',
+            gander: '',
+            game: '',
         };
     },
     methods: {
@@ -72,6 +148,46 @@ export default {
             this.deltaX = 0;
             this.swipeDirection = '';
         },
+        async requestfromserver(addr) {
+            this.isloading = true;
+            console.log("addr:", addr);
+            try {
+                const response = await axios.get(addr);
+
+                var res = response.data;
+                this.isloading = false;
+                console.log("res:", res);
+                return res;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    },
+    async created() {
+
+        console.log("card:", this.card);
+        let addr1 = 'https://backend-project-vzn7.onrender.com/matchingpage/' + this.card;
+        var res1 = await this.requestfromserver(addr1);
+        let addr2 = 'https://backend-project-vzn7.onrender.com/userdetails/' + this.card;
+        var res2 = await this.requestfromserver(addr2);
+        this.country = res1.Country;
+        this.language = res1.Language;
+        if (res1.LOL) {
+            this.LOL = res1.LOL;
+            this.game = "LOL";
+        }
+        else if (res1.RL) {
+            this.RL = res1.RL;
+            this.game = "RL";
+        }
+        else if (res1.VAL) {
+            this.VAL = res1.VAL;
+            this.game = "VAL";
+        }
+        this.gamertag = res2.GamerTag;
+        this.profilePhoto = res2.Picture;
+        this.gander = res2.Gender;
+
     },
 };
 </script>
@@ -79,12 +195,18 @@ export default {
 <style scoped>
 .card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 300px;
     height: 400px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--background);
+    opacity: 0.8;
+    border: 1px solid var(--stroke);
+    box-shadow: 0px 12px 20px var(--shadow);
+    border-radius: 25px;
     overflow: hidden;
+    padding: 20px;
 }
 
 .header {
@@ -94,8 +216,8 @@ export default {
 }
 
 .profile-photo {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -105,18 +227,33 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-left: 10px;
 }
 
 .gamertag {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    margin-left: 10px;
+    margin-right: 50px;
 }
 
 .game-logo {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
+}
+
+.game-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 75px;
+    border: 2px solid var(--main);
+    background-color: var(--pagebgcolor);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .information-section {
@@ -127,15 +264,16 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    gap: 20px;
 }
 
 .button-x {
     color: white;
     background-color: red;
     border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 16px;
+    border-radius: 15px;
+    padding: 5px 55px;
+    font-size: 40px;
     cursor: pointer;
 }
 
@@ -143,10 +281,85 @@ export default {
     color: white;
     background-color: green;
     border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 16px;
+    border-radius: 15px;
+    padding: 5px 55px;
+    font-size: 40px;
     cursor: pointer;
+}
+
+.button-x:hover {
+    background-color: #e72d0c;
+}
+
+.button-v:hover {
+    background-color: #2bac04;
+}
+
+
+.div1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.div2 {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.div3 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.div4 {
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+.div5 {
+    grid-area: 2 / 1 / 3 / 3;
+}
+
+.setting {
+    width: 140px;
+    height: 33px;
+    border: 1px solid var(--stroke);
+    background-color: var(--white);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.div5 .setting {
+    width: 100%;
+}
+
+.setting p {
+    color: var(--textcolor);
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.setting:hover {
+    border: 1px solid var(--main);
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.playerinforow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.propertiesrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
 }
 </style>
   

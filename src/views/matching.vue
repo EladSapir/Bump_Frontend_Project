@@ -2,7 +2,7 @@
   <navbar />
   <div class="main-container">
       <matchingsettings v-if="matchingsettings" @match="startmatch"/>
-      <partnersstack v-else/>
+      <partnersstack :partners="partners" v-else/>
   </div>
 </template>
 
@@ -16,7 +16,9 @@ export default {
   name: 'matching',
   data() {
     return {
-      matchingsettings: false,
+      matchingsettings: true,
+      partners: [],
+      emptystack: false,
     }
   },
   components: {
@@ -27,7 +29,13 @@ export default {
   },
   methods: {
     startmatch(partners){
+      this.partners=partners;
+      if(this.partners.length==0){
+        this.emptystack=true;
+
+      }
       this.matchingsettings=false;
+    
       console.log("partners from match: ",partners);
     }
   },

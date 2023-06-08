@@ -1,6 +1,6 @@
 <template>
     <div class="matchingcontainer">
-        <h2>Choose Game</h2>
+        <h2>Find Your Perfect Match</h2>
         <div class="gamesselectrow">
             <div class="gamebox" :class="{ selected: selectedlol }" @click="changechoice(1)">
                 <img :class="{ BW: !selectedlol }" src="../assets/lol.svg" alt="lol" class="gameicon" />
@@ -165,7 +165,7 @@
             <div class="div1">
                 <p class="title">Country</p>
                 <div class="setting">
-                    <select>
+                    <select v-model="country">
                         <option value=" " disabled selected>Select a country</option>
                         <option value="Israel">Israel</option>
                         <option value="United States">United States</option>
@@ -185,7 +185,7 @@
             <div class="div2">
                 <p class="title">Language</p>
                 <div class="setting">
-                    <select>
+                    <select v-model="language">
                         <option value=" " disabled selected>Select a language</option>
                         <option value="Hebrew">Hebrew</option>
                         <option value="English">English</option>
@@ -237,6 +237,7 @@ export default {
     },
     methods: {
         async findPartner() {
+            this.userID = this.$route.query.id;
             var game1;
             var game2;
             var game3;
@@ -291,10 +292,11 @@ export default {
                     break;
             }
             var addr = 'https://backend-project-vzn7.onrender.com/submitmatchingdetails';
+            console.log("userID:" + this.userID + "language:" + this.language + "country:" + this.country);
             var data = {
                 userId: this.userID,
-                language1: 'Hebrew',
-                country1: 'Israel',
+                language1: '',
+                country1: '',
                 language2: this.language,
                 country2: this.country,
                 game1: game1,

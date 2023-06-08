@@ -40,6 +40,7 @@ export default {
   --black: #000000;
   --grey: #ffffff4d;
   --hover: #ffffff1a;
+  --shadow: rgba(0, 0, 0, 0.25);
 }
 
 *{

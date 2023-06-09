@@ -206,10 +206,13 @@
 
 
     </div>
+    <loading v-if="isloading" />
+
 </template>
   
 <script>
 import axios from 'axios';
+import loading from '../components/loading.vue';
 export default {
     name: 'matchingcontainer',
     components: {
@@ -227,16 +230,18 @@ export default {
             rank: "N/A",
             mode: "N/A",
             server: "N/A",
-            country: "N/A",
-            language: "N/A",
+            country: " ",
+            language: " ",
             userID: '',
             country1: '',
             language1: '',
+            isloading: false,
 
         };
     },
     methods: {
         async findPartner() {
+            this.isloading = true;
             this.userID = this.$route.query.id;
             var game1;
             var game2;
@@ -312,7 +317,6 @@ export default {
         },
         async requestfromserverpost(addr, objecttopass) {
             console.log("addr:", addr);
-            this.isloading = true;
             try {
                 const response = await axios.post(addr, objecttopass);
                 this.isloading = false;

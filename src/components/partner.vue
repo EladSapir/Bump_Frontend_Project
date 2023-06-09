@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="swipeDirection" @mousedown="startSwipe" @touchstart="startSwipe" ref="card">
+    <div class="card" :class="swipeDirection" @mousedown="startSwipe" @touchstart="startSwipe" ref="card">
         <div class="header">
             <img class="profile-photo" :src="profilePhoto" alt="Profile Photo" />
             <div class="info">
@@ -108,62 +108,62 @@ export default {
             RL: { Region: 'N/A', Mode: 'N/A', Rank: 'N/A' },
             LOL: { Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' },
             gamertag: 'gamertag',
-            profilePhoto: '',
+            profilePhoto: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png',
             gander: '',
             game: '',
         };
     },
     methods: {
         startSwipe(event) {
-      this.startX = event.clientX || event.touches[0].clientX;
-      document.addEventListener('mousemove', this.handleSwipe);
-      document.addEventListener('touchmove', this.handleSwipe);
-      document.addEventListener('mouseup', this.endSwipe);
-      document.addEventListener('touchend', this.endSwipe);
-    },
-    handleSwipe(event) {
-      const currentX = event.clientX || event.touches[0].clientX;
-      this.deltaX = currentX - this.startX;
+            this.startX = event.clientX || event.touches[0].clientX;
+            document.addEventListener('mousemove', this.handleSwipe);
+            document.addEventListener('touchmove', this.handleSwipe);
+            document.addEventListener('mouseup', this.endSwipe);
+            document.addEventListener('touchend', this.endSwipe);
+        },
+        handleSwipe(event) {
+            const currentX = event.clientX || event.touches[0].clientX;
+            this.deltaX = currentX - this.startX;
 
-      // Determine the swipe direction based on the deltaX value
-      if (this.deltaX > 0) {
-        this.swipeDirection = 'right';
-      } else if (this.deltaX < 0) {
-        this.swipeDirection = 'left';
-      } else {
-        this.swipeDirection = '';
-      }
+            // Determine the swipe direction based on the deltaX value
+            if (this.deltaX > 0) {
+                this.swipeDirection = 'right';
+            } else if (this.deltaX < 0) {
+                this.swipeDirection = 'left';
+            } else {
+                this.swipeDirection = '';
+            }
 
-      // Calculate the opacity and transform values based on the swipe distance
-      const opacity = 1 - Math.abs(this.deltaX / 300);
-      const translateX = `${this.deltaX}px`;
+            // Calculate the opacity and transform values based on the swipe distance
+            const opacity = 1 - Math.abs(this.deltaX / 300);
+            const translateX = `${this.deltaX}px`;
 
-      // Apply the transition style to animate the card movement
-      this.transitionDuration = '0s'; // Reset transition duration
-      requestAnimationFrame(() => {
-        // Use requestAnimationFrame to ensure smooth animation
-        this.$refs.card.style.opacity = opacity;
-        this.$refs.card.style.transform = `translateX(${translateX})`;
-      });
-    },
-    endSwipe() {
-      document.removeEventListener('mousemove', this.handleSwipe);
-      document.removeEventListener('touchmove', this.handleSwipe);
-      document.removeEventListener('mouseup', this.endSwipe);
-      document.removeEventListener('touchend', this.endSwipe);
+            // Apply the transition style to animate the card movement
+            this.transitionDuration = '0s'; // Reset transition duration
+            requestAnimationFrame(() => {
+                // Use requestAnimationFrame to ensure smooth animation
+                this.$refs.card.style.opacity = opacity;
+                this.$refs.card.style.transform = `translateX(${translateX})`;
+            });
+        },
+        endSwipe() {
+            document.removeEventListener('mousemove', this.handleSwipe);
+            document.removeEventListener('touchmove', this.handleSwipe);
+            document.removeEventListener('mouseup', this.endSwipe);
+            document.removeEventListener('touchend', this.endSwipe);
 
-      // Emit the swipe event with the direction and card ID
-      if (this.swipeDirection !== '') {
-        this.$emit('swipe', this.swipeDirection, this.card.id);
-      }
+            // Emit the swipe event with the direction and card ID
+            if (this.swipeDirection !== '') {
+                this.$emit('swipe', this.swipeDirection, this.index, this.card);
+            }
 
-      // Reset the card position and transition duration
-      this.deltaX = 0;
-      this.swipeDirection = '';
-      this.transitionDuration = '0.5s'; // Set transition duration for smooth reset
-      this.$refs.card.style.opacity = '1';
-      this.$refs.card.style.transform = 'translateX(0)';
-    },
+            // Reset the card position and transition duration
+            this.deltaX = 0;
+            this.swipeDirection = '';
+            this.transitionDuration = '0.5s'; // Set transition duration for smooth reset
+            this.$refs.card.style.opacity = '1';
+            this.$refs.card.style.transform = 'translateX(0)';
+        },
         async requestfromserver(addr) {
             this.isloading = true;
             console.log("addr:", addr);
@@ -179,10 +179,10 @@ export default {
             }
         },
         swipeleft() {
-            this.$emit('swipe', 'left', this.index);
+            this.$emit('swipe', 'left', this.index, this.card);
         },
         swiperight() {
-            this.$emit('swipe', 'right', this.index);
+            this.$emit('swipe', 'right', this.index, this.card);
         },
     },
     async created() {
@@ -223,13 +223,25 @@ export default {
     width: 300px;
     height: 400px;
     background-color: var(--background);
-    opacity: 0.8;
     border: 1px solid var(--stroke);
-    box-shadow: 0px 12px 20px var(--shadow);
+    box-shadow: 0px 12px 10px var(--shadow);
     border-radius: 25px;
     overflow: hidden;
     padding: 20px;
+    z-index: 1;
 }
+
+.card.left {
+    transform: translateX(-100px) rotate(-30deg);
+    opacity: 0;
+}
+
+.card.right {
+    transform: translateX(100px) rotate(30deg);
+    opacity: 0;
+}
+
+
 
 .header {
     display: flex;
@@ -274,7 +286,6 @@ export default {
     border: 2px solid var(--main);
     background-color: var(--pagebgcolor);
     border-radius: 15px;
-    cursor: pointer;
     transition: 0.2s;
 }
 
@@ -341,7 +352,7 @@ export default {
 .setting {
     width: 140px;
     height: 33px;
-    border: 1px solid var(--stroke);
+    border: 0.8px solid var(--white);
     background-color: var(--white);
     border-radius: 8px;
     display: flex;

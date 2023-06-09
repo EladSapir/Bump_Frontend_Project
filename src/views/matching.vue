@@ -1,8 +1,11 @@
 <template>
   <navbar />
   <div class="main-container">
-      <matchingsettings v-if="matchingsettings" @match="startmatch"/>
-      <partnersstack :partners="partners" v-else/>
+    <matchingsettings v-if="matchingsettings" @match="startmatch" />
+    <partnersstack :partners="partners" @matchfound="matchfound" v-if="!foundmatch && !matchingsettings" />
+    <div class="matchfound" v-if="foundmatch">
+      <match @close="foundmatch = false" />
+    </div>
   </div>
 </template>
 
@@ -11,6 +14,7 @@ import matchingsettings from '../components/matchingsettings.vue';
 import loading from '../components/loading.vue';
 import navbar from "../components/navbar.vue";
 import partnersstack from "../components/partnersstack.vue";
+import match from "../components/match.vue";
 
 export default {
   name: 'matching',
@@ -19,6 +23,7 @@ export default {
       matchingsettings: true,
       partners: [],
       emptystack: false,
+      foundmatch: false,
     }
   },
   components: {
@@ -26,17 +31,21 @@ export default {
     loading,
     navbar,
     partnersstack,
+    match
   },
   methods: {
-    startmatch(partners){
-      this.partners=partners;
-      if(this.partners.length==0){
-        this.emptystack=true;
+    startmatch(partners) {
+      this.partners = partners;
+      if (this.partners.length == 0) {
+        this.emptystack = true;
 
       }
-      this.matchingsettings=false;
-    
-      console.log("partners from match: ",partners);
+      this.matchingsettings = false;
+
+      console.log("partners from match: ", partners);
+    },
+    matchfound() {
+      this.foundmatch = true;
     }
   },
   created() {
@@ -46,11 +55,9 @@ export default {
 </script>
 
 <style scoped>
-
-.main-container{
+.main-container {
   background-color: var(--pagebgcolor);
   height: calc(100vh - 50px);
   width: 100vw;
 }
-
 </style>

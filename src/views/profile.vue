@@ -420,6 +420,7 @@ html {
     background-color: var(--pagebgcolor);
     min-height: 100vh;
     padding-bottom: 30px;
+    width:100%;
 }
 
 
@@ -427,7 +428,6 @@ html {
 .user-profile {
     display: flex;
     align-items: center;
-    width: 100%;
     padding: 25px;
     padding-top: 25px;
     background-color: var(--background);
@@ -534,7 +534,6 @@ html {
 
 .profile-navigation {
     position: sticky;
-    width: 100%;
     top: 90px;
     display: flex;
     margin: 20px;
@@ -586,6 +585,7 @@ html {
 }
 
 .allcontent {
+    width:100%;
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -673,7 +673,7 @@ html {
     align-items: center;
     justify-content: center;
     background: var(--stroke);
-    padding: 0 30px;
+    padding: 0 20px;
     height: 60.1px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);

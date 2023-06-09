@@ -493,7 +493,7 @@ p {
     justify-content: center;
     gap: 50px;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 42px;
 }
 
 .playerinforow {

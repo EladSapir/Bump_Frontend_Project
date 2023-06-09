@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" :class="{ 'fade-in': fadeIn }">
         <h2>Bumping Setup</h2>
         <div class="settingcontainer">
             <matchingchoosegame />
@@ -13,57 +13,72 @@
 import axios from 'axios';
 import matchingcontainer from '../components/matchingcontainer.vue';
 import matchingchoosegame from '../components/matchingchoosegame';
+
 export default {
     data() {
         return {
             res: '',
-        }
+            fadeIn: false,
+        };
     },
     components: {
         matchingcontainer,
         matchingchoosegame,
     },
     methods: {
-        handleclick(){
+        handleclick() {
             this.$refs.matchingcontainer.findPartner();
         },
-        handlepartners(partners){
+        handlepartners(partners) {
             console.log(partners);
             this.$emit('match', partners);
-        }
+        },
     },
     created() {
         this.userId = this.$route.query.id;
     },
-}
+    mounted() {
+        setTimeout(() => {
+            this.fadeIn = true;
+        }, 100);
+    },
+};
 </script>
 
 <style scoped>
 .container {
-    position:relative;
+    margin-top: 80px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    margin-top: 78px;
     background-color: var(--background);
     width: fit-content;
     height: fit-content;
     padding: 30px 100px;
+    opacity: 0;
+    border-radius: 25px;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 h2 {
-    font-weight: 600;
-    font-size: 35px;
-    line-height: 40px;
-    text-align: center;
-    letter-spacing: -0.01em;
+    margin-bottom: 35px;
+    font-weight: 300;
+    text-transform: uppercase;
     color: var(--main);
-    margin-bottom: 30px;
-
+    font-size: 58px;
+    line-height: 54px;
+    text-shadow: 2px 5px 0 var(--hover);
 }
 
 .settingcontainer {
@@ -73,12 +88,27 @@ h2 {
     align-items: center;
     width: 100%;
     height: 100%;
-    gap:30px;
+    gap: 30px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
 }
 
-.btn{
+.container.fade-in .settingcontainer {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.btn {
     margin-top: 30px;
     padding: 10px 80px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
 }
 
+.container.fade-in .btn {
+    opacity: 1;
+    transform: translateY(0);
+}
 </style>

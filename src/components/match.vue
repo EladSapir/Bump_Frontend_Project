@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div v-if="show" class="container">
-            <img src="../assets/matchgif.gif">
+            <img loop src="../assets/matchgif.gif" >
             <button class="btn"  @click="close"> {{ confirmtxt[Math.floor(Math.random() * confirmtxt.length)] }} </button>
         </div>
     </transition>
@@ -14,7 +14,7 @@ export default {
         return {
             closehover: true,
             show: false,
-            confirmtxt:['Great!', 'Awesome!', 'Nice!', 'Cool!', 'Amazing!', 'Fantastic!', 'Wonderful!', 'Inc']
+            confirmtxt:['Great!', 'Awesome!', 'Nice!', 'Cool!', 'Amazing!', 'Fantastic!', 'Wonderful!', 'Incredible!', 'Unbelievable!', 'Super!', 'Excellent!', 'Perfect!', 'Good!', 'Spectacular!', 'Stupendous!', 'Terrific!', 'Tremendous!', 'Phenomenal!', 'Astonishing!', 'Extraordinary!', 'Stunning!', 'Impressive!', 'Mind-blowing!']
         }
     },
     methods: {
@@ -58,9 +58,8 @@ export default {
 }
 
 .container img {
-    width: 80%;
-    height: 80%;
-    border-radius: 25px;
+    width: 100%;
+    height: 100%;
 }
 
 .btn {

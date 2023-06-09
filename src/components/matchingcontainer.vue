@@ -216,6 +216,7 @@ import loading from '../components/loading.vue';
 export default {
     name: 'matchingcontainer',
     components: {
+        loading,
     },
     data() {
         return {
@@ -241,7 +242,6 @@ export default {
     },
     methods: {
         async findPartner() {
-            this.isloading = true;
             this.userID = this.$route.query.id;
             var game1;
             var game2;
@@ -328,7 +328,6 @@ export default {
             }
         },
         async requestfromserver(addr) {
-            this.isloading = true;
             console.log("addr:", addr);
             try {
                 const response = await axios.get(addr);
@@ -393,6 +392,7 @@ export default {
         },
     },
     async created() {
+        this.isloading = true;
         this.userID = this.$route.query.id;
         console.log("userID:", this.userID);
         let addr = 'https://backend-project-vzn7.onrender.com/matchingpage/' + this.userID;
@@ -423,6 +423,7 @@ export default {
         }
         this.language1 = res.Language;
         this.country1 = res.Country;
+        this.isloading = false;
     },
 
 }

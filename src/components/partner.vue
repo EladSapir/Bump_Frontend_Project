@@ -1,4 +1,5 @@
 <template>
+
     <div class="card" :class="swipeDirection" @mousedown="startSwipe" @touchstart="startSwipe" ref="card">
         <div class="header">
             <img class="profile-photo" :src="profilePhoto" alt="Profile Photo" />
@@ -85,6 +86,8 @@
   
 <script>
 import axios from 'axios';
+import loading from '../components/loading.vue';
+
 export default {
     props: {
         card: {
@@ -95,6 +98,9 @@ export default {
             type: Number,
             required: true,
         },
+    },
+    components: {
+        loading,
     },
     data() {
         return {
@@ -111,6 +117,7 @@ export default {
             profilePhoto: 'https://res.cloudinary.com/dk9nwmeth/image/upload/v1684156458/Profile_Pic_Default_tgudip.png',
             gander: '',
             game: '',
+            isloading: false,
         };
     },
     methods: {
@@ -186,7 +193,6 @@ export default {
         },
     },
     async created() {
-
         console.log("card:", this.card);
         let addr1 = 'https://backend-project-vzn7.onrender.com/matchingpage/' + this.card;
         var res1 = await this.requestfromserver(addr1);
@@ -209,7 +215,6 @@ export default {
         this.gamertag = res2.GamerTag;
         this.profilePhoto = res2.Picture;
         this.gander = res2.Gender;
-
     },
 };
 </script>

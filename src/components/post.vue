@@ -247,6 +247,9 @@ export default {
 
         },
         submitPost() {
+            if (this.inputText === '') {
+                return;
+            }
             this.isloading = true;
             var addr = 'https://backend-project-vzn7.onrender.com/editpost';
             const objecttopass = {

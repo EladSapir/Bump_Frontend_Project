@@ -7,29 +7,33 @@
         </div>
         <button class="btn" @click="handleclick">Find Partner</button>
     </div>
+    <loading v-if="isloading" />
 </template>
 
 <script>
-import axios from 'axios';
 import matchingcontainer from '../components/matchingcontainer.vue';
 import matchingchoosegame from '../components/matchingchoosegame';
-
+import loading from '../components/loading.vue';
 export default {
     data() {
         return {
             res: '',
             fadeIn: false,
+            isloading: false,
         };
     },
     components: {
         matchingcontainer,
         matchingchoosegame,
+        loading,
     },
     methods: {
         handleclick() {
+            this.isloading = true;
             this.$refs.matchingcontainer.findPartner();
         },
         handlepartners(partners) {
+            this.isloading = false;
             console.log(partners);
             this.$emit('match', partners);
         },

@@ -11,6 +11,7 @@
   </div>
 </template>
 
+
 <style scoped>
 .hollow-dots-spinner,
 .hollow-dots-spinner * {

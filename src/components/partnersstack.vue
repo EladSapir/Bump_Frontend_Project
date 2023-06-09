@@ -57,6 +57,23 @@ export default {
             this.partners.splice(cardId, 1);
 
         },
+
+        shufflePartners() {
+            let currentIndex = this.partners.length;
+            let temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle
+            while (currentIndex !== 0) {
+                // Pick a remaining element
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // Swap it with the current element
+                temporaryValue = this.partners[currentIndex];
+                this.partners[currentIndex] = this.partners[randomIndex];
+                this.partners[randomIndex] = temporaryValue;
+            }
+        },
         async requestfromserverpost(addr, objecttopass) {
             console.log("addr:", addr);
             this.isloading = true;
@@ -69,10 +86,12 @@ export default {
             } catch (error) {
                 console.error(error);
             }
-        },
+        }
+
     },
     mounted() {
         console.log("partners from stack: ", this.partners);
+        this.shufflePartners();
     },
 
 };

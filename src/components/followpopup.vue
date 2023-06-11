@@ -9,11 +9,11 @@
                     @mouseout="closehover = !closehover" />
             </div>
             <ul class="userlist" :class="{ 'more-than-six': isMoreThanSix }">
-                <li v-for="user in followingUsers" :key="user._id" class="line" @click="movetoprofile(user._id)">
+                <li v-for="user in followingUsers" :key="user._id" class="line" @click.self="movetoprofile(user._id)">
                     <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }" />
                     <p class="user">{{ user.GamerTag }}</p>
-                    <button class="follow" v-if="isfollowing">Follow</button>
-                    <button class="follow" v-else>Unfollow</button>
+                    <button class="follow" v-if="isfollowing && myprofile" @click="follow(user)">Follow</button>
+                    <button class="follow" v-if="!isfollowing && myprofile" @click="unfollow(user)">Unfollow</button>
                 </li>
             </ul>
         </div>
@@ -21,16 +21,23 @@
 </template>
   
 <script>
+import axios from 'axios';
 export default {
     props: {
         followingUsers: {
             type: Array,
             required: true,
             default: () => [],
+
         },
         heading: {
             type: String,
             required: false,
+        },
+        myprofile: {
+            type: Boolean,
+            required: false,
+            default: false,
         },
     },
     data() {
@@ -66,6 +73,48 @@ export default {
         preventScroll(event) {
             event.preventDefault();
             window.scrollTo(0, 0);
+        },
+        follow(user) {
+            console.log("follow:", user);
+
+            var addr = "https://backend-project-vzn7.onrender.com/follows";
+            var objecttopass = {
+                id1: this.id,
+                id2: user,
+            };
+            this.requestfromserverpost(addr, objecttopass).then((res) => {
+                console.log("res:", res);
+                if (res) {
+                    window.location.reload();
+
+                }
+            });
+        },
+        unfollow(user) {
+            console.log("follow:", user);
+            var addr = "https://backend-project-vzn7.onrender.com/unfollow";
+            var objecttopass = {
+                id1: this.id,
+                id2: user,
+            };
+            this.requestfromserverpost(addr, objecttopass).then((res) => {
+                console.log("res:", res);
+                window.location.reload();
+
+            });
+        },
+        async requestfromserverpost(addr, objecttopass) {
+            console.log("addr:", addr);
+            this.isloading = true;
+            try {
+                const response = await axios.post(addr, objecttopass);
+                this.isloading = false;
+                var res = response.data;
+                console.log("res:", res);
+                return res;
+            } catch (error) {
+                console.error(error);
+            }
         },
     },
 };

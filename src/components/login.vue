@@ -74,8 +74,8 @@ export default {
           this.isloading = false;
 
         }
-        else if (userId === "email/password not valid") {
-          this.error = response.data;
+        else if (userId === "email/password not right") {
+          this.error ='email/password not valid';
           this.isloading = false;
 
         }

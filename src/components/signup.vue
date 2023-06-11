@@ -293,11 +293,8 @@
                 <button type="submit" class="btn">Submit</button>
             </div>
         </form>
-
-        <loading v-if="isloading" />
-
-
     </div>
+    <loading v-if="isLoading" />
 </template>
     
     
@@ -315,7 +312,6 @@ export default {
     },
     data() {
         return {
-            isloading: false,
             uploadhover: true,
             transgendermouseover: false,
             femalemouseover: false,
@@ -342,7 +338,6 @@ export default {
             state: ' ',
             language: ' ',
             Upload_profile_image: 'Upload profile image',
-            isSubmitted: false,
             isEmailValid: true,
             isPasswordValid: true,
             isConfirmPasswordValid: true,
@@ -353,6 +348,7 @@ export default {
             passwordFieldTypec: "password",
             changeimage: false,
             error: '',
+            isLoading: false,
         }
     },
     methods: {
@@ -500,8 +496,8 @@ export default {
             this.isLoading = true;
             if (this.validateForm()) {
                 // Submit the form data to the database
-                this.submitForm(),
-                    this.isSubmitted = true;
+                this.submitForm();
+
             } else {
                 this.builderror();
             }
@@ -530,7 +526,6 @@ export default {
 
         },
         async submitForm() {
-
             try {
                 this.error = '';
                 if (this.changeimage) {
@@ -581,7 +576,6 @@ export default {
                 }
                 console.log('before post request')
                 const response = await axios.post('https://backend-project-vzn7.onrender.com/register', {
-
                     "email": this.email,
                     "gamertag": this.gamerTag,
                     "password": this.password,
@@ -597,18 +591,15 @@ export default {
                     "country": this.state,
                     "picture": this.imageURL,
                 });
-
                 // Extract the user ID from the response
                 const userId = response.data;
                 console.log(userId);
                 if (userId === 'email already exists') {
                     this.isLoading = false;
-
                     this.error = "Email already exists";
                 }
                 else if (userId === 'gamerTag exists') {
                     this.isLoading = false;
-
                     this.error = "Gamer tag already exists";
                 }
                 else {

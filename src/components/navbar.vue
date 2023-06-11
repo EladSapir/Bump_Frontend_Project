@@ -24,7 +24,7 @@
         <button class="btn" @click="movetomatching">Let's Bump</button>
 
         <div class="notidiv">
-          <img v-if="notifications.length === 0" class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
+          <img v-if="notifications === false || notifications.length === 0" class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
           <img v-else class="notiimg" src="../assets/closed.svg" @blur="isDropNotiActive = !isDropNotiActive"
             @click="toggleDropdown">
           <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
@@ -55,7 +55,6 @@
       </div>
     </nav>
   </header>
-  <loading v-if="isloading" />
 </template>
   
 <script>
@@ -130,12 +129,10 @@ export default {
       }
     }, 300),
     toggleDropdown() {
-      this.isloading = true;
       this.isDropNotiActive = !this.isDropNotiActive;
       if (this.isDropNotiActive) {
         this.getNotifications();
       }
-      this.isloading = false;
     },
     async logout() {
       try {

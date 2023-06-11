@@ -111,12 +111,11 @@ export default {
                 else {
                     console.log("createpost failed");
                 }
-
+                window.location.reload();
             } catch (error) {
                 console.error(error);
                 // Handle the error (e.g., show an error message)
             }
-
         },
         openFilePicker() {
             this.$refs.fileInput.click();

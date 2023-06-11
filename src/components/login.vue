@@ -64,7 +64,7 @@ export default {
           email: this.email,
           password: this.password
         });
-
+        console.log(response.data);
         // Extract the user ID from the response
         const userId = response.data;
 

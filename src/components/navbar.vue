@@ -8,7 +8,7 @@
       </div>
       <div class="nav-center">
         <div ref="searchContainer" class="search-container" :class="{ searched: searchResults.length }">
-          <input type="text" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers"
+          <input type="text" name="search" placeholder="Search" class="search" v-model="searchQuery" @input="searchUsers"
             @focus="isSearchFocused = true" @blur="handleSearchBlur">
           <img src="../assets/search.svg" alt="Search" class="search-icon">
           <ul v-if="searchResults.length" :class="['dropdown', { 'expanded': isSearchFocused }]">
@@ -39,11 +39,12 @@
                   <p class="gamertagnoti">By {{ notification.GamerTag }}</p>
                 </div>
                 <div class="discordandcopydiv" @mouseenter="notification.enablecopy = true"
-                    @mouseleave="notification.enablecopy = false">
+                  @mouseleave="notification.enablecopy = false">
                   <p class="discordnoti">
                     {{ notification.Discord }}
                   </p>
-                  <img v-if="notification.enablecopy" @click="copyText(notification.Discord)" class="copy" src="../assets/content_copy.svg" />
+                  <img v-if="notification.enablecopy" @click="copyText(notification.Discord)" class="copy"
+                    src="../assets/content_copy.svg" />
                 </div>
                 <p class="timenoti">{{ date(notification.updatedAt) }}</p>
               </li>

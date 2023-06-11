@@ -9,7 +9,7 @@
             <p>After deleting your account you wont be able to access it and all your data will be deleted.
                 Please confirm your action by typing your password here</p>
             <div class="password-container">
-                <input :type="passwordFieldType" name="password" class="form-control" v-model="password"
+                <input :type="passwordFieldType" name="randpass" class="form-control" v-model="password"
                     placeholder="Notyourtypical123" required>
                 <img src="../assets/eye-slash-solid.svg" @click="switchVisibility" class="eye" v-if="show" id="eyeslash">
                 <img src="../assets/eye-solid.svg" class="eye" id="eye" @click="switchVisibility" v-else>

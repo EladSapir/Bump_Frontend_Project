@@ -20,46 +20,46 @@
                 </div>
 
                 <div class="div1">
-                <h3 class="title">Country</h3>
-                <div class="setting">
-                    <select v-model="country">
-                        <option value="" disabled selected>Select a country</option>
-                        <option value="Israel">Israel</option>
-                        <option value="United States">United States</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Germany">Germany</option>
-                        <option value="France">France</option>
-                        <option value="Spain">Spain</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Japan">Japan</option>
-                        <option value="China">China</option>
-                        <option value="India">India</option>
-                    </select>
+                    <h3 class="title">Country</h3>
+                    <div class="setting">
+                        <select v-model="country">
+                            <option value="" disabled selected>Select a country</option>
+                            <option value="Israel">Israel</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="France">France</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="China">China</option>
+                            <option value="India">India</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="div2">
-                <h3 class="title">Language</h3>
-                <div class="setting">
-                    <select v-model="language">
-                        <option value="" disabled selected>Select a language</option>
-                        <option value="Hebrew">Hebrew</option>
-                        <option value="English">English</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="French">French</option>
-                        <option value="German">German</option>
-                        <option value="Italian">Italian</option>
-                        <option value="Japanese">Japanese</option>
-                        <option value="Chinese">Chinese</option>
-                        <option value="Arabic">Arabic</option>
-                        <option value="Russian">Russian</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Hindi">Hindi</option>
-                    </select>
+                <div class="div2">
+                    <h3 class="title">Language</h3>
+                    <div class="setting">
+                        <select v-model="language">
+                            <option value="" disabled selected>Select a language</option>
+                            <option value="Hebrew">Hebrew</option>
+                            <option value="English">English</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="French">French</option>
+                            <option value="German">German</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Japanese">Japanese</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Arabic">Arabic</option>
+                            <option value="Russian">Russian</option>
+                            <option value="Portuguese">Portuguese</option>
+                            <option value="Hindi">Hindi</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div>
+                <div>
                     <h3>Gamer Tag</h3>
                     <input type="text" v-model="gamerTag" placeholder="Thebestgamer1234">
                 </div>
@@ -81,15 +81,18 @@
         <deleteaccount @closeA="deleteA" v-if="deleteaccount" />
 
     </div>
+    <loading v-if="isloading" />
 </template>
 
 <script>
 import deleteaccount from "./deleteaccount.vue";
 import axios from "axios";
+import loading from "./loading.vue";
 export default {
     name: "editprofile",
     components: {
-        deleteaccount
+        deleteaccount,
+        loading,
     },
     data() {
         return {
@@ -107,14 +110,20 @@ export default {
             userId: "",
             country: "",
             language: "",
+            isloading: false,
         };
     },
 
     methods: {
-        deleteA(deleteornot) {
+        async deleteA(deleteornot) {
+            this.userId = this.$route.query.id;
+            console.log("user id:" + this.userId)
             this.deleteaccount = false
             if (deleteornot) {
                 console.log("delete account")
+                var addr = "https://backend-project-vzn7.onrender.com/removeuser/" + this.userId;
+                this.requestfromserver(addr);
+                await this.$router.push({ path: "/" });
             }
         },
         PasswordValidation() {
@@ -163,6 +172,20 @@ export default {
                 const response = await axios.post(addr, objecttopass);
                 this.isloading = false;
                 var res = response.data;
+                console.log("res:", res);
+                return res;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async requestfromserver(addr) {
+            this.isloading = true;
+            console.log("addr:", addr);
+            try {
+                const response = await axios.get(addr);
+
+                var res = response.data;
+                this.isloading = false;
                 console.log("res:", res);
                 return res;
             } catch (error) {
@@ -237,7 +260,7 @@ input {
 
 }
 
-.setting select{
+.setting select {
     border: 2px solid var(--white);
     width: 318px;
     height: 51px;

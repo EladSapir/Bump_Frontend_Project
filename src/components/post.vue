@@ -307,7 +307,7 @@ export default {
             }
 
         },
-        pressonshare() {
+        async pressonshare() {
             var addr = 'https://backend-project-vzn7.onrender.com/sharepost';
             const objecttopass = {
                 "user": this.userId,
@@ -315,10 +315,10 @@ export default {
             }
             console.log("pressonshare:", objecttopass);
             this.isloading = true;
-            var res = this.requestfromserver(addr, objecttopass)
+            var res = await this.requestfromserver(addr, objecttopass)
             this.isloading = false;
             if (res) {
-                this.$emit('deletepost');
+                window.location.reload();
             }
             else {
                 console.log("share failed");

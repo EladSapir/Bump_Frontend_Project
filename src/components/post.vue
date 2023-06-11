@@ -177,7 +177,7 @@ export default {
     components: {
         deletecomp, loading
     },
-    props: ['post', 'profilePicture', 'GamerTag'],
+    props: ['post', 'profilePicture', 'GamerTag', 'myGamerTag'],
     data() {
         return {
             mycomment: '',
@@ -293,7 +293,7 @@ export default {
                 const newcomment = {
                     "_id": res,
                     "userID": this.userId,
-                    "GamerTag": this.GamerTag,
+                    "GamerTag": this.myGamerTag,
                     "text": this.mycomment,
                     "Picture": this.profilePicture,
                     "date": "2021-05-01T00:00:00.000Z"

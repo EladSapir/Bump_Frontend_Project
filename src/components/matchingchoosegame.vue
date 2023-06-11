@@ -174,11 +174,11 @@ export default {
                     this.server = "N/A";
                     this.role = "N/A";
                     this.rank = "N/A";
-                }
+                }  
             }
-
+            this.$emit('changechoice', i);
         },
-        movetomyprofile() { // need to fix
+        movetomyprofile() {
             this.$router.push({ name: 'profile', query: { id: this.userID }, params: { differentUserId: this.userID } });
         }
     },

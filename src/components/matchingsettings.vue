@@ -2,7 +2,7 @@
     <div class="container" :class="{ 'fade-in': fadeIn }">
         <h2>Bumping Setup</h2>
         <div class="settingcontainer">
-            <matchingchoosegame />
+            <matchingchoosegame @changechoice="movechoice"/>
             <matchingcontainer ref="matchingcontainer" @partners="handlepartners" />
         </div>
         <button class="btn" @click="handleclick">Find Partner</button>
@@ -33,9 +33,16 @@ export default {
             this.$refs.matchingcontainer.findPartner();
         },
         handlepartners(partners) {
+            if (!partners) {
+                this.isloading = false;
+                return;
+            }
             this.isloading = false;
             console.log(partners);
             this.$emit('match', partners);
+        },
+        movechoice(i) {
+            this.$refs.matchingcontainer.changechoice(i);
         },
     },
     created() {

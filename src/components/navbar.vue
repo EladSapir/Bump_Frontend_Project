@@ -163,6 +163,7 @@ export default {
     },
     movetomatching() {
       this.$router.push({ name: 'matching', query: { id: this.userId } });
+      window.location.reload();
     },
     movetohomepage() {
       this.$router.push({ name: 'homepage', query: { id: this.userId } });
@@ -569,6 +570,10 @@ export default {
   color: var(--grey);
   font-family: var(--mainfont);
   font-weight: 300;
+  max-width: 107.39px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .discordnoti {
@@ -577,8 +582,7 @@ export default {
   color: var(--white);
   font-family: var(--mainfont);
   font-weight: 400;
-  margin-left: 10px;
-  max-width: 100px;
+  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -597,7 +601,8 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 5px;
-  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
 }
 
 .discordnoti:hover {

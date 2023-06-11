@@ -259,6 +259,7 @@ export default {
                 case 1:
                     if (this.region === "N/A" || this.rank === "N/A" || this.mode === "N/A") {
                         alert("Please fill all the fields");
+                        this.$emit('partners', false);
                         return;
                     }
                     game1 = '1';
@@ -272,6 +273,7 @@ export default {
                 case 0:
                     if (this.region === "N/A" || this.role === "N/A" || this.rank === "N/A" || this.mode === "N/A") {
                         alert("Please fill all the fields");
+                        this.$emit('partners', false);
                         return;
                     }
                     game1 = '0';
@@ -285,6 +287,7 @@ export default {
                 case 2:
                     if (this.server === "N/A" || this.role === "N/A" || this.rank === "N/A") {
                         alert("Please fill all the fields");
+                        this.$emit('partners', false);
                         return;
                     }
                     game1 = '2';

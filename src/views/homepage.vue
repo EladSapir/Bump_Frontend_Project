@@ -7,8 +7,8 @@
     <emptymessage v-if="posts.length === 0"
       emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?"
       ishome="true" />
-      <div class="empty" v-if="posts.length === 0"></div>
-    <loading v-if="isloading"  />
+    <div class="empty" v-if="posts.length === 0"></div>
+    <loading v-if="isloading" />
   </div>
 </template>
   
@@ -41,7 +41,8 @@ export default {
     };
   },
   methods: {
-    async getPosts() { // need to implement 
+    async getPosts() {
+      window.location.reload();
       try {
         this.isloading = true;
         var addr = 'https://backend-project-vzn7.onrender.com/homepage/' + this.userId;

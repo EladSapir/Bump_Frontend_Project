@@ -32,26 +32,24 @@
             <div class="triangle1"></div>
             <h3>Notifications</h3>
             <ul>
-              <loading v-if="isloading" />
               <li v-for="notification in notifications" :key="notification">
                 <img class="notipicture" :src="notification.Picture" alt="Profile Picture" />
                 <div class="bumpgamertagnoti">
                   <h2 class="h2noti">New Bump</h2>
                   <p class="gamertagnoti">By {{ notification.GamerTag }}</p>
                 </div>
-                <p class="discordnoti" @mouseenter="notification.enablecopy = true"
-                  @mouseleave="notification.enablecopy = false" @click="copyText(notification.Discord)">
-                  {{ notification.Discord }}
-                  <img v-if="notification.enablecopy" class="copy" src="../assets/content_copy.svg" />
-                </p>
+                <div class="discordandcopydiv" @mouseenter="notification.enablecopy = true"
+                    @mouseleave="notification.enablecopy = false">
+                  <p class="discordnoti">
+                    {{ notification.Discord }}
+                  </p>
+                  <img v-if="notification.enablecopy" @click="copyText(notification.Discord)" class="copy" src="../assets/content_copy.svg" />
+                </div>
                 <p class="timenoti">{{ date(notification.updatedAt) }}</p>
               </li>
-
             </ul>
           </div>
         </div>
-
-
         <img class="logout" src="../assets/logout.svg" alt="Logout" @click="logout">
       </div>
     </nav>
@@ -578,20 +576,27 @@ export default {
   color: var(--white);
   font-family: var(--mainfont);
   font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.5px;
   margin-left: 10px;
-  padding-bottom: 5px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .discordnoti {
   display: flex;
   align-items: center;
-  gap: 5px;
   color: var(--grey);
   transition: 0.3s ease, color 0.3s ease;
   cursor: default;
   padding: 0;
+}
+
+.discordandcopydiv {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: center;
 }
 
 .discordnoti:hover {

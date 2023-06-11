@@ -106,7 +106,7 @@
                 <div class="content" v-if="!iseditmodeon">
                     <div class="myposts" v-if="ispostdialog">
                         <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture"
-                            :GamerTag="GamerTag" @openProfile="choosedialog" />
+                            :GamerTag="GamerTag" @deletepost="choosedialog(1)" @openProfile="choosedialog" />
                         <emptymessage v-if="!posts && mine"
                             emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
                         <emptymessage v-if="!posts && !mine"
@@ -209,6 +209,7 @@ export default {
             this.post(this.userId)
         },
         choosedialog(num) {
+            console.log('choosedialog')
             this.iseditmodeon = false;
             if (num === 1) {
                 this.post(this.differentUserId);
@@ -420,7 +421,7 @@ html {
     background-color: var(--pagebgcolor);
     min-height: 100vh;
     padding-bottom: 30px;
-    width:100%;
+    width: 100%;
 }
 
 
@@ -585,7 +586,7 @@ html {
 }
 
 .allcontent {
-    width:100%;
+    width: 100%;
     flex: 1;
     display: flex;
     flex-direction: row;

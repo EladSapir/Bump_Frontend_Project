@@ -314,8 +314,9 @@ export default {
                 "post": this.post._id
             }
             console.log("pressonshare:", objecttopass);
+            this.isloading = true;
             var res = this.requestfromserver(addr, objecttopass)
-
+            this.isloading = false;
             if (res) {
                 this.$emit('deletepost');
             }
@@ -338,7 +339,7 @@ export default {
             }
         },
         deletecomment() {
-            console.log("deletecomment:" + this.post.comments[this.commenthover]._id);
+            console.log("deletecomment:" + this.post.comments[this.commenthover].userID);
             var objecttopass = {};
             if (this.post.isShared) {
                 var addr = 'https://backend-project-vzn7.onrender.com/removecommentfromshare';
@@ -348,10 +349,11 @@ export default {
                 var addr = 'https://backend-project-vzn7.onrender.com/removecomment';
             }
             objecttopass = {
-                "user": this.userId,
+                "user": this.post.comments[this.commenthover].userID,
                 "post": this.post._id,
                 "comment": this.post.comments[this.commenthover]._id
             }
+            console.log("deletecomment:", objecttopass);
             const res = this.requestfromserver(addr, objecttopass)
             if (res) {
                 this.post.comments.splice(this.post.comments[this.commenthover]._id, 1);
@@ -361,9 +363,10 @@ export default {
                 console.log("delete failed");
             }
         },
-        colosedelete(deleteornot) {
+        async colosedelete(deleteornot) {
             this.showdelete = false;
             this.deleteornot = deleteornot;
+            this.userID = this.$route.query.id;
             console.log("deleteornot:" + this.deleteornot);
             if (this.deleteornot) {
                 var objecttopass = {};
@@ -382,7 +385,8 @@ export default {
                         "post": this.post._id
                     }
                 }
-                var res = this.requestfromserver(addr, objecttopass)
+                var res = await this.requestfromserver(addr, objecttopass)
+                console.log("res:", res);
                 if (res) {
                     this.$emit('deletepost');
                 }
@@ -880,4 +884,5 @@ textarea {
     background-color: var(--main);
     color: var(--white);
     cursor: pointer;
-}</style>
+}
+</style>

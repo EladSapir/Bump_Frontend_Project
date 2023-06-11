@@ -41,8 +41,7 @@ export default {
     };
   },
   methods: {
-    async getPosts() {
-      window.location.reload();
+    async getPosts() { // need to implement 
       try {
         this.isloading = true;
         var addr = 'https://backend-project-vzn7.onrender.com/homepage/' + this.userId;

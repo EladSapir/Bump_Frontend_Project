@@ -124,7 +124,7 @@
                                 <div class="comment-text">
                                     {{ comment.text }}
                                 </div>
-                                <div v-if="comment.userID === userId && commenthover === index" class="deletebuttoncomment"
+                                <div v-if="post.userID === userId && commenthover === index" class="deletebuttoncomment"
                                     @mouseenter="deletehover = true">
                                     <img v-if="!deletehover" src="../assets/delete.svg" alt="Delete Icon" />
                                     <img v-else src="../assets/deleteorange.svg" alt="Delete Icon" />

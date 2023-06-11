@@ -106,7 +106,8 @@
                 <div class="content" v-if="!iseditmodeon">
                     <div class="myposts" v-if="ispostdialog">
                         <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :profilePicture="profilePicture"
-                           :myGamerTag="myGamerTag" :GamerTag="GamerTag" @deletepost="choosedialog(1)" @openProfile="choosedialog" />
+                            :myGamerTag="myGamerTag" :GamerTag="GamerTag" @deletepost="choosedialog(1)"
+                            @openProfile="choosedialog" />
                         <emptymessage v-if="!posts && mine"
                             emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?" />
                         <emptymessage v-if="!posts && !mine"
@@ -115,14 +116,14 @@
                     <div class="myposts" v-if="issaveddialog">
                         <post v-for="(apost, i) in postsforsave" :key="apost.id" :post="postsforsave[i]"
                             :profilePicture="profilePicture" @deletepost="choosedialog(2)" @openProfile="choosedialog"
-                            :myGamerTag="myGamerTag"    :GamerTag="GamerTag" />
+                            :myGamerTag="myGamerTag" :GamerTag="GamerTag" />
                         <emptymessage v-if="!postsforsave"
                             emptymessage="You haven't saved any posts yet. Keep an eye out for interesting content to save for later!" />
                     </div>
                     <div class="myposts" v-if="islikeddialog">
                         <post v-for="(apost, i) in postsforlike" :key="apost.id" :post="postsforlike[i]"
                             :profilePicture="profilePicture" @deletepost="choosedialog(3)" @openProfile="choosedialog"
-                            :myGamerTag="myGamerTag"  :GamerTag="GamerTag" />
+                            :myGamerTag="myGamerTag" :GamerTag="GamerTag" />
                         <emptymessage v-if="!postsforlike"
                             emptymessage="You haven't liked any posts yet. Discover new content and show your appreciation by giving posts a 'like'!" />
                     </div>

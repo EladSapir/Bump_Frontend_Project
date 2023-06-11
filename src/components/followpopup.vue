@@ -12,6 +12,8 @@
                 <li v-for="user in followingUsers" :key="user._id" class="line" @click="movetoprofile(user._id)">
                     <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }" />
                     <p class="user">{{ user.GamerTag }}</p>
+                    <button class="follow" v-if="isfollowing">Follow</button>
+                    <button class="follow" v-else>Unfollow</button>
                 </li>
             </ul>
         </div>
@@ -158,6 +160,18 @@ h2 {
 
 .userlist.more-than-six li:last-child {
     border-radius: 0 0 25px 25px;
+}
+
+.follow {
+    margin-left: auto;
+    margin-right: 10px;
+    background-color: var(--main);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    padding: 5px;
+    font-size: 15px;
+    cursor: pointer;
 }
 </style>
   

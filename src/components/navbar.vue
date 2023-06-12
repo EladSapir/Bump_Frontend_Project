@@ -24,7 +24,8 @@
         <button class="btn" @click="movetomatching">Let's Bump</button>
 
         <div class="notidiv">
-          <img v-if="notifications === false || notifications.length === 0" class="notiimg" src="../assets/noti_off.svg" @click="toggleDropdown">
+          <img v-if="notifications === false || notifications.length === 0" class="notiimg" src="../assets/noti_off.svg"
+            @click="toggleDropdown">
           <img v-else class="notiimg" src="../assets/closed.svg" @blur="isDropNotiActive = !isDropNotiActive"
             @click="toggleDropdown">
           <div class="dropdownnoti" :class="{ active: isDropNotiActive }">
@@ -159,8 +160,12 @@ export default {
       this.$emit('openProfile', this.userId)
     },
     movetomatching() {
-      this.$router.push({ name: 'matching', query: { id: this.userId } });
-      window.location.reload();
+      if (this.$route.name != 'matching') {
+        this.$router.push({ name: 'matching', query: { id: this.userId } });
+      }
+      else {
+        window.location.reload();
+      }
     },
     movetohomepage() {
       this.$router.push({ name: 'homepage', query: { id: this.userId } });

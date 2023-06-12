@@ -7,7 +7,7 @@
     <emptymessage v-if="posts.length === 0"
       emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?"
       ishome="true" />
-    <div class="empty" v-if="posts.length === 0"></div>
+    <div class="empty" ></div>
     <loading v-if="isloading" />
   </div>
 </template>
@@ -81,15 +81,6 @@ export default {
 </script>
   
 <style scoped>
-html {
-  background-image: none !important;
-
-}
-
-.loadingclass {
-  width: calc(100vw - 52.4vw);
-
-}
 
 .homepage {
   display: flex;
@@ -97,15 +88,15 @@ html {
   align-items: center;
   justify-content: flex-start;
   background-color: var(--pagebgcolor);
-  height: 100%;
+  min-height: calc(100vh - 160px);
   width: 100vw;
   margin-top: 80px;
   padding-bottom: 30px;
+  
 }
 
 .empty {
-  content: "";
-  height: calc(100vh - 150px);
+  flex-grow: 1;
 }
 </style>
 

@@ -7,7 +7,7 @@
         </div>
 
         <div class="right">
-            <p class="addunderlinewithoutpointer">Copyright © 2023 BUMP. All rights reserved.</p>
+            <p class="addunderlinewithoutpointer">Copyright © 2023 BUMP. All rights reserved. v- 0.0.1</p>
         </div>
     </div>
     <div v-if="showAbout">

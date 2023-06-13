@@ -201,7 +201,7 @@ export default {
             RL: { Region: 'N/A', Mode: 'N/A', Rank: 'N/A' },
             LOL: { Region: 'N/A', Role: 'N/A', Mode: 'N/A', Rank: 'N/A' },
             difuser: this.$route.query.id,
-
+            myGamerTag: '',
         };
     },
     methods: {

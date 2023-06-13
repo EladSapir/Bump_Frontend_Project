@@ -2,7 +2,7 @@
   <div class="homepage">
     <navbar />
     <createpost v-if="profilePicture" :profilePicture="profilePicture" @createpost="getPosts" />
-    <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag"
+    <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag" :myGamerTag="gamertag"
       :profilePicture="profilePicture" @deletepost="getPosts" />
     <emptymessage v-if="posts.length === 0"
       emptymessage="Looks like you haven't created any posts yet. Why not share your thoughts and ideas with the community?"

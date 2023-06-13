@@ -184,6 +184,7 @@ h2 {
 
 .profilepicture:hover {
     border: 2px solid var(--main);
+    cursor: pointer;
 }
 
 .line {
@@ -194,7 +195,6 @@ h2 {
 
 .line:hover {
     background-color: var(--hover);
-    cursor: pointer;
 }
 
 .me {

@@ -68,7 +68,7 @@ export default {
   components: {
     loading
   },
-  props:['reload'],
+  props: ['reload'],
   data() {
     return {
       searchQuery: "",
@@ -82,23 +82,19 @@ export default {
       closeResultsTimeout: null,
       isSearchFocused: false,
       enablecopy: false,
-inactivityTimeout: null,  
-reload: false,
-  };
+      inactivityTimeout: null,
+      reload: false,
+    };
   },
-    mounted() {
+  mounted() {
     this.resetInactivityTimeout();
-
-   window.addEventListener('mousemove', this.resetInactivityTimeout);
+    window.addEventListener('mousemove', this.resetInactivityTimeout);
     window.addEventListener('keydown', this.resetInactivityTimeout);
-    window.addEventListener('beforeunload', this.logout);
   },
   beforeDestroy() {
     window.removeEventListener('mousemove', this.resetInactivityTimeout);
     window.removeEventListener('keydown', this.resetInactivityTimeout);
-    window.removeEventListener('beforeunload', this.logout);
   },
-  
   created() {
     this.getNotifications();
   },
@@ -148,7 +144,7 @@ reload: false,
     },
     async logout() {
       try {
-        if(this.reload) return;
+        if (this.reload) return;
         this.$router.push('/login_signup')
 
         this.isloading = true;
@@ -164,6 +160,7 @@ reload: false,
         console.log(error);
       }
       this.isloading = false;
+      this.reload = false;
     },
     movetomyprofile() {
       console.log('before push' + this.userId + ' dif ' + this.$route.query.id)
@@ -178,6 +175,7 @@ reload: false,
       else {
         this.reload = true;
         window.location.reload();
+
       }
     },
     movetohomepage() {

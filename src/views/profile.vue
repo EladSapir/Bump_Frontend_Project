@@ -22,13 +22,15 @@
                         <span>Followers</span>
                         <p @click="openfollowers = true">{{ numfollowers }}</p>
                         <followpopup v-if="openfollowers" :followingUsers="followers" @openProfile="choosedialog"
-                            :heading="'Followers users'" @close="openfollowers = false" :myprofile="myprofile" />
+                            :heading="'Followers users'" @close="openfollowers = false" :myprofile="myprofile"
+                            :isfollowing="isfollowing" :followingorfollowers="'followers'" />
                     </div>
                     <div class="following">
                         <span>Following</span>
                         <p @click="openfollowing = true">{{ numfollowing }}</p>
                         <followpopup v-if="openfollowing" :followingUsers="following" @openProfile="choosedialog"
-                            :heading="'Following users'" @close="openfollowing = false" :myprofile="myprofile" />
+                            :heading="'Following users'" @close="openfollowing = false" :myprofile="myprofile"
+                            :isfollowing="isfollowing" :followingorfollowers="'following'"/>
                     </div>
                 </div>
             </div>
@@ -311,6 +313,7 @@ export default {
                 if (res) {
                     this.numfollowers++;
                     this.isfollowing = true;
+                    this.followers.push({ id: this.userId, GamerTag: this.myGamerTag, Picture: this.profilePicture });
                 }
             });
         },
@@ -326,6 +329,7 @@ export default {
                 if (res) {
                     this.numfollowers--;
                     this.isfollowing = false;
+                    this.followers.splice(this.followers.indexOf(this.differentUserId), 1);
                 }
             });
         },

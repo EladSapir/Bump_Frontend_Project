@@ -12,8 +12,10 @@
                 <li v-for="user in followingUsers" :key="user._id" class="line" @click.self="movetoprofile(user._id)">
                     <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }" />
                     <p class="user">{{ user.GamerTag }}</p>
-                    <button class="follow" v-if="isfollowing && myprofile" @click="follow(user)">Follow</button>
-                    <button class="follow" v-if="!isfollowing && myprofile" @click="unfollow(user)">Unfollow</button>
+                    <button class="follow" v-if="followingorfollowers === 'following' && myprofile"
+                        @click="unfollow(user)">Unfollow</button>
+                    <button class="follow" v-if="followingorfollowers === 'followers' && myprofile"
+                        @click="remove(user)">Remove</button>
                 </li>
             </ul>
         </div>
@@ -39,11 +41,17 @@ export default {
             required: false,
             default: false,
         },
+        followingorfollowers: {
+            type: String,
+            required: false,
+            default: "following",
+        },
     },
     data() {
         return {
             closehover: false,
             id: this.$route.query.id,
+
         };
     },
     computed: {
@@ -74,22 +82,6 @@ export default {
             event.preventDefault();
             window.scrollTo(0, 0);
         },
-        follow(user) {
-            console.log("follow:", user);
-
-            var addr = "https://backend-project-vzn7.onrender.com/follows";
-            var objecttopass = {
-                id1: this.id,
-                id2: user,
-            };
-            this.requestfromserverpost(addr, objecttopass).then((res) => {
-                console.log("res:", res);
-                if (res) {
-                    window.location.reload();
-
-                }
-            });
-        },
         unfollow(user) {
             console.log("follow:", user);
             var addr = "https://backend-project-vzn7.onrender.com/unfollow";
@@ -101,6 +93,17 @@ export default {
                 console.log("res:", res);
                 window.location.reload();
 
+            });
+        },
+        remove(user) {
+            var addr = "https://backend-project-vzn7.onrender.com/unfollow";
+            var objecttopass = {
+                id1: user,
+                id2: this.id,
+            };
+            this.requestfromserverpost(addr, objecttopass).then((res) => {
+                console.log("res:", res);
+                window.location.reload();
             });
         },
         async requestfromserverpost(addr, objecttopass) {
@@ -181,7 +184,6 @@ h2 {
 .line {
     display: flex;
     align-items: center;
-    cursor: pointer;
     padding: 5px;
 }
 
@@ -221,6 +223,10 @@ h2 {
     padding: 5px;
     font-size: 15px;
     cursor: pointer;
+}
+
+.follow:hover {
+    background-color: var(--hover);
 }
 </style>
   

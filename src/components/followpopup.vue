@@ -74,7 +74,7 @@ export default {
         movetoprofile(id) {
             this.searchResults = [];
 
-            this.$router.push({ name: 'profile', query: { id: this.userId }, params: { differentUserId: id } });
+            this.$router.push({ name: 'profile', query: { id: this.id }, params: { differentUserId: id } });
 
             this.$emit('openProfile', id)
             this.closePopup();

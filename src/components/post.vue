@@ -29,7 +29,7 @@
                 </div>
 
                 <div v-if="showedit && !post.isShared">
-                    <textarea v-model="inputText" :rows="textareaRows" :cols="textareaCols"
+                    <textarea v-model="inputText" :rows="textareaRows" :cols="textareaCols" maxlength="1024"
                         placeholder="Edit your post here."></textarea>
                     <button class="btn" @click="submitPost">Post</button>
                 </div>

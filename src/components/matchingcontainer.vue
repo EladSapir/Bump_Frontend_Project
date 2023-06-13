@@ -256,24 +256,11 @@ export default {
             else if (this.selectedvalorant === true)
                 i = 2;
             switch (i) {
-                case 1:
-                    if (this.region === "N/A" || this.rank === "N/A" || this.mode === "N/A") {
-                        alert("Please fill all the fields");
-                        this.$emit('partners', false);
-                        return;
-                    }
-                    game1 = '1';
-                    game2 = this.region;
-                    game3 = this.mode;
-                    game4 = this.rank;
-                    game5 = null;
-                    this.selectedrocket = false;
-                    this.RL = { Region: this.region, Mode: this.mode, Rank: this.rank }
-                    break;
                 case 0:
-                    if (this.region === "N/A" || this.role === "N/A" || this.rank === "N/A" || this.mode === "N/A") {
+                    if ((this.region === "N/A" || this.role === "N/A" || this.rank === "N/A" || this.mode === "N/A") || (this.LOL.Mode === 'N/A') ) {
                         alert("Please fill all the fields");
                         this.$emit('partners', false);
+                        this.isloading = false;
                         return;
                     }
                     game1 = '0';
@@ -284,10 +271,26 @@ export default {
                     this.selectedlol = false;
                     this.LOL = { Region: this.region, Role: this.role, Mode: this.mode, Rank: this.rank }
                     break;
-                case 2:
-                    if (this.server === "N/A" || this.role === "N/A" || this.rank === "N/A") {
+                case 1:
+                    if (this.region === "N/A" || this.rank === "N/A" || this.mode === "N/A" || (this.RL.Mode === 'N/A')) {
                         alert("Please fill all the fields");
                         this.$emit('partners', false);
+                        this.isloading = false;
+                        return;
+                    }
+                    game1 = '1';
+                    game2 = this.region;
+                    game3 = this.mode;
+                    game4 = this.rank;
+                    game5 = null;
+                    this.selectedrocket = false;
+                    this.RL = { Region: this.region, Mode: this.mode, Rank: this.rank }
+                    break;   
+                case 2:
+                    if (this.server === "N/A" || this.role === "N/A" || this.rank === "N/A" || (this.VAL.Mode === 'N/A')) {
+                        alert("Please fill all the fields");
+                        this.$emit('partners', false);
+                        this.isloading = false;
                         return;
                     }
                     game1 = '2';

@@ -4,7 +4,7 @@
             <img :src="profilePicture" alt="Profile Picture" />
         </div>
         <div class="post-content">
-            <textarea v-model="postText" :rows="textareaRows" :cols="textareaCols" placeholder="Write your post"></textarea>
+            <textarea v-model="postText" :rows="textareaRows" :cols="textareaCols" placeholder="Write your post" maxlength="1024"></textarea>
             <div class="post-actions">
                 <p class="presentphotoname">{{ photoname }}</p>
                 <div class="add-photo">

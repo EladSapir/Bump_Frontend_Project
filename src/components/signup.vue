@@ -499,6 +499,7 @@ export default {
                 this.submitForm();
 
             } else {
+                this.isLoading = false;
                 this.builderror();
             }
         },

@@ -68,6 +68,7 @@ export default {
   components: {
     loading
   },
+  props:['reload'],
   data() {
     return {
       searchQuery: "",
@@ -81,21 +82,31 @@ export default {
       closeResultsTimeout: null,
       isSearchFocused: false,
       enablecopy: false,
-    };
+inactivityTimeout: null,  
+reload: false,
+  };
   },
-  mounted() {
-    window.addEventListener("beforeunload", this.handleBeforeUnload);
-    this.clickOutsideListener = this.handleClickOutside.bind(this);
-    window.addEventListener("click", this.clickOutsideListener);
+    mounted() {
+    this.resetInactivityTimeout();
+
+   window.addEventListener('mousemove', this.resetInactivityTimeout);
+    window.addEventListener('keydown', this.resetInactivityTimeout);
+    window.addEventListener('beforeunload', this.logout);
   },
   beforeDestroy() {
-    window.removeEventListener("beforeunload", this.handleBeforeUnload);
-    window.removeEventListener("click", this.clickOutsideListener);
+    window.removeEventListener('mousemove', this.resetInactivityTimeout);
+    window.removeEventListener('keydown', this.resetInactivityTimeout);
+    window.removeEventListener('beforeunload', this.logout);
   },
+  
   created() {
     this.getNotifications();
   },
   methods: {
+    resetInactivityTimeout() {
+      clearTimeout(this.inactivityTimeout);
+      this.inactivityTimeout = setTimeout(this.logout, 30 * 60 * 1000);
+    },
     handleSearchBlur() {
       this.isSearchFocused = false;
       this.cancelCloseSearchResults();
@@ -137,6 +148,7 @@ export default {
     },
     async logout() {
       try {
+        if(this.reload) return;
         this.$router.push('/login_signup')
 
         this.isloading = true;
@@ -164,14 +176,12 @@ export default {
         this.$router.push({ name: 'matching', query: { id: this.userId } });
       }
       else {
+        this.reload = true;
         window.location.reload();
       }
     },
     movetohomepage() {
       this.$router.push({ name: 'homepage', query: { id: this.userId } });
-    },
-    handleBeforeUnload() {
-      this.logout();
     },
     movetoprofile(id) {
       this.searchResults = [];

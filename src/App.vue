@@ -1,19 +1,17 @@
 <template>
-
-    <router-view />
-    <Footer />
-
+  <router-view />
+  <Footer />
 </template>
 
 <script>
 import Footer from './components/footer.vue'
-
 export default {
   name: 'App',
   components: {
     Footer,
   },
 }
+
 </script>
 
 <style>
@@ -43,10 +41,10 @@ export default {
   --shadow: rgba(0, 0, 0, 0.25);
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
- 
+
   font-family: 'Poppins';
 }
 

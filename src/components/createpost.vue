@@ -103,15 +103,15 @@ export default {
                 const res = response.data;
                 console.log("createpost:" + res);
                 if (res) {
-                    this.$emit('createpost')
+                  
                     this.postText = ''; // Clear the text box
                     this.photo = null; // Clear the photo
                     this.photoname = '';
+                    this.$emit("reload")
                 }
                 else {
                     console.log("createpost failed");
                 }
-                window.location.reload();
             } catch (error) {
                 console.error(error);
                 // Handle the error (e.g., show an error message)

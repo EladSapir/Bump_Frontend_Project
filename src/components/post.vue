@@ -318,7 +318,7 @@ export default {
             var res = await this.requestfromserver(addr, objecttopass)
             this.isloading = false;
             if (res) {
-                window.location.reload();
+                this.$emit('deletepost');
             }
             else {
                 console.log("share failed");

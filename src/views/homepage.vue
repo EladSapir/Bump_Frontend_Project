@@ -1,7 +1,7 @@
 <template>
   <div class="homepage">
     <navbar />
-    <createpost v-if="profilePicture" :profilePicture="profilePicture" @createpost="getPosts" />
+    <createpost v-if="profilePicture" :profilePicture="profilePicture" @reload="reload" />
     <post v-for="(apost, i) in posts" :key="apost.id" :post="posts[i]" :GamerTag="gamertag" :myGamerTag="gamertag"
       :profilePicture="profilePicture" @deletepost="getPosts" />
     <emptymessage v-if="posts.length === 0"
@@ -37,13 +37,13 @@ export default {
       userId: '',
       isloading: false,
       gamertag: '',
-
     };
   },
   methods: {
     async getPosts() { // need to implement 
       try {
         this.isloading = true;
+        this.posts = [];
         var addr = 'https://backend-project-vzn7.onrender.com/homepage/' + this.userId;
         console.log('homepage:' + addr);
         const response = await axios.get(addr, {
@@ -68,6 +68,9 @@ export default {
       }
       this.isloading = false;
     },
+    reload() {
+      this.getPosts();
+    }
   },
   created() {
     this.userId = this.$route.query.id;

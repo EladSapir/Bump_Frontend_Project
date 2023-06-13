@@ -9,9 +9,10 @@
                     @mouseout="closehover = !closehover" />
             </div>
             <ul class="userlist" :class="{ 'more-than-six': isMoreThanSix }">
-                <li v-for="user in followingUsers" :key="user._id" class="line" @click.self="movetoprofile(user._id)">
-                    <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }" />
-                    <p class="user">{{ user.GamerTag }}</p>
+                <li v-for="user in followingUsers" :key="user._id" class="line">
+                    <img class="profilepicture" :src="user.Picture" :class="{ me: (user._id === id) }"
+                        @click.self="movetoprofile(user._id)" />
+                    <p class="user" @click.self="movetoprofile(user._id)">{{ user.GamerTag }}</p>
                     <button class="follow" v-if="followingorfollowers === 'following' && myprofile"
                         @click="unfollow(user)">Unfollow</button>
                     <button class="follow" v-if="followingorfollowers === 'followers' && myprofile"
@@ -181,6 +182,10 @@ h2 {
     border: 2px solid var(--white);
 }
 
+.profilepicture:hover {
+    border: 2px solid var(--main);
+}
+
 .line {
     display: flex;
     align-items: center;
@@ -200,6 +205,11 @@ h2 {
 .user {
     color: var(--white);
     font-size: 15px;
+}
+
+.user:hover {
+    color: var(--main);
+    cursor: pointer;
 }
 
 .userlist {
